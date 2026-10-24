@@ -267,6 +267,7 @@ footer b{color:var(--acc)}
     <div class="tr-sub hidden" id="trSub"></div>
   </div>
   <div class="srcs-bar" id="srcsBar"></div>
+  <div class="srcs-bar hidden" id="filesBar"></div>
   <div class="tr-bar" id="trBar"></div>
   <div class="pl-ctl">
     <button class="pctl" id="plPlay">▶</button>
@@ -344,33 +345,40 @@ function detectSource(u){
   const low = String(u).trim();
   const L = low.toLowerCase();
   if(/^magnet:\?/i.test(L)) {
-    const ih = (low.match(/xt=urn:btih:([a-f0-9]{40}|[a-z2-7]{32})/i) || [])[1];
-    return ih? { type:"p2p", plat:"p2p", vid:ih, u:low, embed:null } : null;
+    /* v2-магниты (btmh) не бросаем в никуда — честный путь: mountP2P скажет про v1 */
+    if(/xt=urn:btmh:/i.test(L)) return { type:"p2p", plat:"p2p", vid:"", u:low, embed:null, trs:[], dn: dnOf(low) };
+    const ih = ((low.match(/xt=urn:btih:([a-f0-9]{40}|[a-z2-7]{32})/i) || [])[1] || "").toLowerCase();
+    if(!ih) return null;
+    /* трекеры и имя раздачи из магнита — не выбрасывать: без tr стример анонсируется только в DHT
+       (баг «0 пиров на юзерском магните»), dn — честный тайтл до метаданных */
+    const trs = [...low.matchAll(/[&?]tr=([^&]+)/g)].map(mm => { try { return decodeURIComponent(mm[1]); } catch(_) { return mm[1]; } });
+    return { type:"p2p", plat:"p2p", vid:ih, u:low, embed:null, trs, dn: dnOf(low) };
   }
+  if(!/^https?:\/\//i.test(L)) return null; /* ftp/data/file — честно не можем */
   if(/\.(mp4|webm|mkv|mov|m4v|ogv|mp3|wav|ogg|m4a|aac|flac)(\?|$)/i.test(L)) return { type:"native", plat:"direct", vid:"", u:low, embed:null };
   if(/\.(m3u8)(\?|$)/i.test(L)) return { type:"native", plat:"hls", vid:"", u:low, embed:null };
   if(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/i.test(L)){
-    m = L.match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/);
+    m = low.match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/);
     return { type:"iframe", plat:"yt", vid:m[1], u:low, embed:`https://www.youtube-nocookie.com/embed/${m[1]}?autoplay=0&rel=0&playsinline=1` };
   }
-  if(/rutube\.ru/i.test(L) && (m = L.match(/(?:video\/|play\/embed\/)([a-f0-9]{32})/)))
+  if(/rutube\.ru/i.test(L) && (m = low.match(/(?:video\/|play\/embed\/)([a-f0-9]{32})/)))
     return { type:"iframe", plat:"rutube", vid:m[1], u:low, embed:`https://rutube.ru/play/embed/${m[1]}?autoplay=0` };
-  if(/(?:dailymotion\.com\/(?:video\/|embed\/video\/)|dai\.ly\/)/i.test(L) && (m = L.match(/(?:video\/|dai\.ly\/)([a-z0-9]{5,})/)))
+  if(/(?:dailymotion\.com\/(?:video\/|embed\/video\/)|dai\.ly\/)/i.test(L) && (m = low.match(/(?:video\/|dai\.ly\/)([a-z0-9]{5,})/)))
     return { type:"iframe", plat:"dailymotion", vid:m[1], u:low, embed:`https://www.dailymotion.com/embed/video/${m[1]}?autoplay=0` };
   if(/vk(?:video)?\.(?:com|ru)/i.test(L)){
     if(/video_ext\.php/i.test(low)) return { type:"iframe", plat:"vk", vid:"", u:low, embed:low };
-    if((m = L.match(/video(-?\d+)_(\d+)/))) return { type:"iframe", plat:"vk", vid:m[1]+"_"+m[2], u:low, embed:`https://vk.com/video_ext.php?oid=${m[1]}&id=${m[2]}&hd=2&autoplay=0` };
+    if((m = low.match(/video(-?\d+)_(\d+)/))) return { type:"iframe", plat:"vk", vid:m[1]+"_"+m[2], u:low, embed:`https://vk.com/video_ext.php?oid=${m[1]}&id=${m[2]}&hd=2&autoplay=0` };
     return { type:"iframe", plat:"vk", vid:"", u:low, embed:low };
   }
   if(/video\.sibnet\.ru/i.test(L)){
-    if((m = L.match(/videoid=(\d+)/))) return { type:"iframe", plat:"sibnet", vid:m[1], u:low, embed:`https://video.sibnet.ru/shell.php?videoid=${m[1]}` };
-    if((m = L.match(/\/video(\d+)/))) return { type:"iframe", plat:"sibnet", vid:m[1], u:low, embed:`https://video.sibnet.ru/shell.php?videoid=${m[1]}` };
+    if((m = low.match(/videoid=(\d+)/))) return { type:"iframe", plat:"sibnet", vid:m[1], u:low, embed:`https://video.sibnet.ru/shell.php?videoid=${m[1]}` };
+    if((m = low.match(/\/video(\d+)/))) return { type:"iframe", plat:"sibnet", vid:m[1], u:low, embed:`https://video.sibnet.ru/shell.php?videoid=${m[1]}` };
     return { type:"iframe", plat:"sibnet", vid:"", u:low, embed:low };
   }
-  if(/ok\.ru/i.test(L) && (m = L.match(/video\/(\d+)/))) return { type:"iframe", plat:"ok", vid:m[1], u:low, embed:`https://ok.ru/videoembed/${m[1]}` };
-  if(/^https?:\/\//i.test(L)) return { type:"unknown", plat:"embed", vid:"", u:low, embed:low };
-  return null;
+  if(/ok\.ru/i.test(L) && (m = low.match(/video\/(\d+)/))) return { type:"iframe", plat:"ok", vid:m[1], u:low, embed:`https://ok.ru/videoembed/${m[1]}` };
+  return { type:"unknown", plat:"embed", vid:"", u:low, embed:low }; /* любая http-страница — внешняя прокладка на свой страх */
 }
+function dnOf(u){ const m = String(u).match(/[&?]dn=([^&]+)/); if(!m) return ""; try { return decodeURIComponent(m[1]); } catch(_) { return m[1]; } }
 
 /* ---------- состояние плеера ---------- */
 const P = { sid:null, ep:1, idx:0, chain:[], cur:null, hls:null, nnmTimer:null, reasons:[], confirmed:false, seen:[], epN:1 };
@@ -464,11 +472,11 @@ function virtualFromFind(q, it, sources){
 function quickRoute(q){
   const d = detectSource(q);
   if(d){
-    byId[-2] = { id:-2, t:String(q).slice(0, 70), o:"", y:"", ty:"", cot:"", g:[], M:1, virtual:true, eps:[{ n:1, sources:[Object.assign(d, { ru:false, custom:true, t:"Твоя ссылка" })] }] };
+    byId[-2] = { id:-2, t:(d.dn || String(q).replace(/^magnet:\?xt=urn:btih:/i, "магнит ")).slice(0, 70), o:"", y:"", ty:"", cot:"", g:[], M:1, virtual:true, eps:[{ n:1, sources:[Object.assign(d, { ru:false, custom:true, t:"Твоя ссылка" })] }] };
     closeTitle(); openPlayer(-2, 1);
     return true;
   }
-  if(/^https?:\/\//i.test(q.trim())){ toast("Не распознал ссылку — но попробую как внешнюю прокладку"); return false; }
+  if(/^https?:\/\/[^\s]+/i.test(q.trim())){ toast("Не распознал ссылку — но попробую как внешнюю прокладку"); return false; }
   return false;
 }
 
@@ -517,6 +525,7 @@ function unmountAll(){
   const v = video(); if(v){ try{ v.pause(); v.removeAttribute("src"); v.load(); }catch(e){} }
   const st = $("#plStage");
   st.querySelectorAll("iframe,video").forEach(n => n.remove());
+  const fb = $("#filesBar"); if(fb){ fb.classList.add("hidden"); fb.innerHTML = ""; } P.packFiles = null;
 }
 function setStatus(html, kind){
   const st = $("#plStatus"); if(!st) return;
@@ -575,17 +584,33 @@ function mountP2P(src){
   const ih = src.vid || (src.u||"").match(/btih:([a-f0-9]{40})/i)?.[1];
   if(!ih){ setStatus("В magnet нет info-hash — плеер не может достать раздачу"); return; }
   const trq = (src.trs || []).slice(0, 8).map(t => "&tr=" + encodeURIComponent(t)).join("") + "&ep=" + P.ep;
-  fetch(API("/api/torrent/stream?ih=" + encodeURIComponent(ih) + trq), { cache:"no-store" })
+  /* «fetching metadata» — это НЕ провал транспорта, а «ещё не готово»: холодная сессия стримера
+     тянет bencode-метаданные у пиров. Ретраим с честным статусом; кап 14×3.5с ≈ 50с. */
+  const RETRIES = 14, RETRY_MS = 3500;
+  const tryStream = (attempt) => {
+    if(!v.isConnected) return; /* плеер закрыли — ретраи отменены */
+    fetch(API("/api/torrent/stream?ih=" + encodeURIComponent(ih) + trq), { cache:"no-store" })
     .then(r => r.json())
     .then(j => {
-      if(!j.ok) throw new Error(j.err || "стример не смог");
+      if(!j.ok){
+        if(/fetching metadata|повтори/i.test(j.err || "") && attempt < RETRIES){
+          setStatus(`P2P: тяну метаданные раздачи (${attempt + 1}/${RETRIES})…`, "spin");
+          setTimeout(() => tryStream(attempt + 1), RETRY_MS);
+          return;
+        }
+        throw new Error(j.err || "стример не смог");
+      }
       const su = (API_BASE && String(j.stream).startsWith("/")) ? API_BASE + j.stream : j.stream;
       v.dataset.src = su;
       v.src = su;
       if(j.name){
+        /* честное имя релиза — из самого торрента, а не из сырого магнита */
+        if(byId[P.sid] && byId[P.sid].virtual) byId[P.sid].t = j.name;
+        const tt = $("#plTitle"); if(tt) tt.textContent = (j.name + (j.file? " · " + j.file : "")).slice(0, 110);
         setStatus(`P2P: ${esc(j.name).slice(0,70)}`, "spin");
         PIPE.set("ИСТОЧНИК", "ok", "имя из раздачи: " + String(j.name).slice(0, 50));
       }
+      if(j.files && j.files.length) renderFilesBar(ih, j);
       if(window.LKTR) LKTR.onMount();
       P.nnmTimer = setInterval(() => {
         fetch(API("/api/torrent/stat?ih=" + encodeURIComponent(ih)), { cache:"no-store" }).then(r=>r.json()).then(st=>{
@@ -596,10 +621,84 @@ function mountP2P(src){
       renderSrcsBar();
     })
     .catch(e => {
+      if(!v.isConnected) return;
       P.reasons.push("P2P: " + e.message);
       setStatus("P2P-транспорт не доехал: " + esc(e.message), "none");
       advance();
     });
+  };
+  tryStream(0);
+}
+/* ---------- файлы раздачи: УНИВЕРСАЛЬНОСТЬ ПАКА — видео/сабы/аудио любым файлом ---------- */
+function fmtMB(b){ return b >= 1073741824 ? (b/1073741824).toFixed(2)+" ГБ" : (b/1048576).toFixed(1)+" МБ"; }
+function renderFilesBar(ih, j){
+  const bar = $("#filesBar"); if(!bar) return;
+  P.packFiles = j.files;
+  bar.classList.remove("hidden");
+  const vid = j.files.filter(f => f.kind === "video");
+  const rest = j.files.filter(f => f.kind !== "video");
+  const pill = (f, icon, act, fn) => {
+    const nm = f.n.length > 46 ? f.n.slice(0, 46) + "…" : f.n;
+    return `<button class="src-pill ${act? "on":""}" onclick="${fn}('${ih}',${f.i},this)" title="${esc(f.n)}">${act? "▶" : "○"} ${icon} ${esc(nm)} <span style="color:var(--mut2)">${fmtMB(f.len)}</span></button>`;
+  };
+  bar.innerHTML = `<span class="lbl">📦 Раздача «${esc(String(j.name||"").slice(0,40))}»:</span>`
+    + vid.map(f => pill(f, "🎬", f.n === j.file, "switchPackFile")).join("")
+    + rest.map(f => pill(f, f.kind === "sub" ? "≡саб" : "♪", false, f.kind === "sub" ? "packSub" : "switchPackFile")).join("");
+}
+function switchPackFile(ih, idx, el){
+  const v = video(); if(!v) return;
+  P.confirmed = false; P.fileSwitch = true;
+  v.addEventListener("loadedmetadata", () => { P.fileSwitch = false; }, { once:true });
+  setStatus("P2P: переключаю файл раздачи…", "spin");
+  fetch(API("/api/torrent/stream?ih=" + encodeURIComponent(ih) + "&file=" + idx), { cache:"no-store" })
+    .then(r => r.json()).then(j => {
+      if(!j.ok) throw new Error(j.err || "стример не смог");
+      const su = (API_BASE && String(j.stream).startsWith("/")) ? API_BASE + j.stream : j.stream;
+      v.dataset.src = su; v.src = su; v.play().catch(()=>{});
+      const tt = $("#plTitle"); if(tt) tt.textContent = (j.name + (j.file? " · " + j.file : "")).slice(0, 110);
+      if(j.files && j.files.length) renderFilesBar(ih, j);
+      setStatus("");
+    })
+    .catch(e => { P.fileSwitch = false; setStatus("Переключение не доехало: " + esc(e.message), "none"); });
+}
+function packSub(ih, idx, el){
+  const v = video(); if(!v) return;
+  const f = (P.packFiles || []).find(x => x.i === idx);
+  const nm = f ? f.n : ("сабы #" + idx);
+  setStatus("P2P: конвертирую сабы из раздачи…", "spin");
+  fetch(API("/api/torrent/file/" + ih + "/" + idx), { cache:"no-store" })
+    .then(r => r.text()).then(txt => {
+      const vtt = subToVtt(txt);
+      if(!vtt || vtt.length < 12) throw new Error("в файле не нашлось реплик");
+      let tr = v.querySelector("track[data-pack='1']");
+      if(!tr){ tr = document.createElement("track"); tr.setAttribute("data-pack","1"); tr.kind = "subtitles"; tr.srclang = "ru"; v.appendChild(tr); }
+      tr.label = nm.replace(/\.[a-z]{2,4}$/i, "").slice(0, 40);
+      tr.src = URL.createObjectURL(new Blob([vtt], { type:"text/vtt" }));
+      setTimeout(() => { try { v.textTracks[v.textTracks.length-1].mode = "showing"; } catch(_){} }, 300);
+      setStatus("Сабы из раздачи включены: " + esc(nm.slice(0,44)));
+    })
+    .catch(e => setStatus("Сабы не доехали: " + esc(e.message), "none"));
+}
+function subToVtt(txt){
+  txt = String(txt || "").replace(/^\uFEFF/, "");
+  if(/^WEBVTT/m.test(txt)) return txt;
+  if(/\[Script Info\]/i.test(txt)){ /* ass/ssa → VTT: Dialogue-строки, теги {} сносим */
+    const out = ["WEBVTT", ""];
+    txt.split(/\r?\n/).forEach(l => {
+      const p = l.split(",");
+      if(p.length >= 10 && /^Dialogue:/i.test(p[0])){
+        const clean = p.slice(9).join(",").replace(/\{[^}]*\}/g, "").replace(/\\N/gi, "\n").trim();
+        if(clean) out.push(assTime(p[1]) + " --> " + assTime(p[2]), clean, "");
+      }
+    });
+    return out.join("\n");
+  }
+  return "WEBVTT\n\n" + txt.replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2"); /* srt → vtt */
+}
+function assTime(t){ /* 0:00:01.50 (ass) → 00:00:01.500 (vtt) */
+  const p = String(t).trim().split(":").map(x => parseFloat(x) || 0);
+  while(p.length < 3) p.unshift(0);
+  return p.map((x, i) => i < 2 ? String(Math.floor(x)).padStart(2,"0") : x.toFixed(3).padStart(6,"0")).join(":");
 }
 /* ---------- язык: честная заявка, не факт ---------- */
 function pipeLanguage(){
@@ -630,6 +729,7 @@ function wireVideo(v){
   v.addEventListener("ended", () => { if(P.ep < byId[P.sid].M) openPlayer(P.sid, P.ep + 1); });
   v.addEventListener("error", () => {
     if(!P.cur) return;
+    if(P.fileSwitch){ P.fileSwitch = false; setStatus("Этот файл браузер не декодирует (кодек недоступен) — выбери другой в «📦 Раздача»", "none"); return; }
     P.reasons.push(`${PLAT_RU[P.cur.plat]||P.cur.plat}: браузер не смог воспроизвести поток`);
     advance();
   });
