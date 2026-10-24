@@ -668,8 +668,10 @@ function trySource(i){
 }
 function failCard(silent){
   const st = $("#plStage");
-  if(!silent) PIPE.set("РЕЗУЛЬТАТ", "fail", "транспорты кончились — контент не доставлен");
-  setStatus("Транспорт не доставил контент", "none");
+  if(!silent){
+    PIPE.set("РЕЗУЛЬТАТ", "fail", "транспорты кончились — контент не доставлен");
+    setStatus("Транспорт не доставил контент", "none");  /* при silent статус уже выставил вызвавший (не перетираем честную причину) */
+  }
   const ep = P.chain.ep;
   st.querySelectorAll(".failcard").forEach(f=>f.remove());
   const div = document.createElement("div");
