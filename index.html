@@ -173,6 +173,19 @@ header{position:sticky;top:0;z-index:50;display:flex;gap:14px;align-items:center
 .src-pill .dead{color:var(--red)}
 .ep-strip{display:flex;gap:6px;padding:9px 16px;background:var(--bg2);border-top:1px solid var(--line);overflow-x:auto}
 .ep-strip .ep-b{flex:none}
+/* 🧲 магнитная полка (такт M5 «МАГНЕТИЗМ») */
+.torr-wrap{margin-top:22px}
+.torr-head{font-size:14.5px;font-weight:800;letter-spacing:.05em;margin-bottom:3px}
+.torr-hint{display:block;color:var(--mut);font-size:12px;font-weight:400;letter-spacing:0;margin:2px 0 10px;max-width:760px}
+.torr-lib{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.torr-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:8px 10px;max-width:100%}
+.torr-chip .t-name{font-size:13px;color:var(--txt);cursor:pointer;line-height:1.35}
+.torr-chip .t-name:hover{color:var(--acc)}
+.torr-chip .t-meta{color:var(--mut);font-size:11.5px}
+.torr-chip .t-act{background:none;border:0;color:var(--mut);cursor:pointer;font-size:13px;padding:2px 5px;border-radius:6px}
+.torr-chip .t-act:hover{color:var(--txt);background:rgba(255,255,255,.08)}
+.ep-b.tf{min-width:0}
+.ep-b.tf-on{border-color:var(--acc);color:var(--acc)}
 
 /* линк-редактор */
 .le-sheet{width:min(720px,100%)}
@@ -296,6 +309,11 @@ footer b{color:var(--acc)}
       <label class="btn btn-ghost" style="padding:12px 18px;cursor:pointer">📁 Файл<input type="file" id="megaFile" accept="video/*,audio/*,.mkv,.avi,.mov,.mp4,.webm,.m4v,.ogv,.mp3,.flac,.m3u8" style="display:none"></label>
     </div>
     <div class="drop" id="megaDrop">Перетащи сюда файл или ссылку — сцена поймёт</div>
+    <div class="torr-wrap" id="torrWrap">
+      <div class="torr-head">🧲 ТОРРЕНТЫ</div>
+      <span class="torr-hint">магнитная полка: твои раздачи — один клик и играет. В браузере пиры ищутся через wss-трекеры и webseed — если раздаётся только классическим клиентом, браузер может не достучаться; mkv H.265 (2160p) не каждым браузером декодируется — на этот случай рядом WEBDLRip Rus.Eng. Сыграл магнит из строки выше — он сам лёг на полку.</span>
+      <div class="torr-lib" id="torrLib"></div>
+    </div>
     <div class="mq" id="mqWrap">
       <div class="row-head"><h3>🎯 Очередь</h3><div class="ln"></div>
         <button class="more-btn" id="mqPlay">▶ Играть очередь</button>
@@ -375,8 +393,9 @@ footer b{color:var(--acc)}
   Скорость кнопкой 1× — до 2× и назад, громкость и скорость плеер запоминает. Серия видна в медиа-клавишах системы: играть/пауза/следующая — прямо из наушников и трея.<br>
   В ♥ Избранном — «⇄ Мои данные»: прогресс, избранное и очередь переезжают с тобой на любое устройство файлом или кодом.<br>
   СТУДИИ: регионы — кликабельные чипы со счётчиками: один клик — и остались только платформы нужной страны.<br>
+  🧲 ТОРРЕНТЫ на сцене: магнитная полка со своими раздачами — клик по магниту и играет, у мультираздач своя полоса эпизодов (S02E01…), сыгранные магниты оседают на полке сами.<br>
   Сайт живёт офлайн после первого визита: сервис-воркер держит сборку у тебя — «Соединение сброшено» больше не отшибает дверь.<br>
-  <span style="color:var(--mut2)">МЕГАМЕТАПЛЕЕР · такт M4 «СВОЁ ПРИ СОБОЙ» · сборка 2026-10-25 · дверь дома: ·56</span>
+  <span style="color:var(--mut2)">МЕГАМЕТАПЛЕЕР · такт M5 «МАГНЕТИЗМ» · сборка 2026-10-25 · дверь дома: ·56</span>
 </footer>
 <div id="toast" aria-live="polite"></div>
 <script>
@@ -546,6 +565,7 @@ function megaHistAdd(u){
 function megaOpen(u, opts = {}){
   const d = detectSource(u);
   if(!d){ toast("Не похоже на ссылку с видео — вот честно"); return false; }
+  if(d.type === "p2p") TORR.add(u);   /* сыграл магнит — он осел на полке */
   P.open = true; P.sid = null; P.ep = 1; P.idx = 0; P.reasons = []; P.confirmed = false;
   P.chain = [{ ...d, ru: !!(opts.ru || /озвучк|дубляж|русск/i.test(u)), verified:false, custom:false, t: opts.t || "Открытая ссылка" }];
   msMeta(shortUrl(u), "◈ СЦЕНА · любая ссылка");
@@ -567,6 +587,88 @@ function megaPlayAt(i){
 }
 function megaNext(){ megaPlayAt(MEGA.pos + 1); }
 function megaPrev(){ megaPlayAt(Math.max(0, MEGA.pos - 1)); }
+
+/* ---------- 🧲 ТОРРЕНТЫ (такт M5 «МАГНЕТИЗМ») ----------
+   Магнитная полка зрителя: прописанные раздачи всегда под рукой — один клик и играет.
+   Полка живёт в localStorage (lk_magnets) и растёт сама, когда играешь что-то новое по magnet:. */
+const TORR_SEED = [
+  { ih: "eb5b5e4b97755946a178a00d25dc725cf4fa332b", name: "Başkalarının Hayatı · сезон 1 (турецкий сериал)", meta: "5 эп · 1080p · 9,6 ГБ" },
+  { ih: "9f4a35301c9cce63f5137438bfa44526c632fa26", name: "MobLand · сезон 2 (2160p WEB-DL)", meta: "6 эп · H.265 · 45,6 ГБ" },
+  { ih: "2c967eecc5aef2012d8dee99c3c0a0285aa35c4a", name: "MobLand · сезон 2 (WEBDLRip Rus.Eng)", meta: "6 эп · рус. дорожка · 2,9 ГБ" },
+  { ih: "440f1af098b084fec15cfd6b246d488f8f6f1b99", name: "Остров сокровищ (2025, WEB-DLRip)", meta: "1 файл · 4,5 ГБ" }
+];
+const TORR = {
+  list: null,
+  load(){
+    if(this.list) return this.list;
+    try{ this.list = JSON.parse(localStorage.getItem("lk_magnets") || "null"); }catch(e){ this.list = null; }
+    if(!Array.isArray(this.list)){ this.list = TORR_SEED.map(x => ({ ...x })); this.save(); }
+    return this.list;
+  },
+  save(){ try{ localStorage.setItem("lk_magnets", JSON.stringify(this.load().slice(0,60))); }catch(e){} },
+  magnet(ih){ return "magnet:?xt=urn:btih:" + ih; },
+  add(u){
+    const m = String(u||"").match(/^magnet:\?xt=urn:btih:([a-f0-9]{40}|[a-z2-7]{32})/i);
+    if(!m) return false;
+    const ih = m[1].toLowerCase();
+    const list = this.load();
+    if(list.some(x => x.ih === ih)) return false;
+    list.unshift({ ih, name: "", meta: "", at: Date.now() });
+    this.save(); if(window.renderTorr) renderTorr(); torrAutoName(ih);
+    return true;
+  },
+  del(ih){ this.list = this.load().filter(x => x.ih !== ih); this.save(); if(window.renderTorr) renderTorr(); }
+};
+/* Имя раздачи для магнита без имени: тянем метаданные из кэша itorrents (7 с, тихо сдаёмся) */
+function torrAutoName(ih){
+  const item = TORR.load().find(x => x.ih === ih);
+  if(!item || item.name) return;
+  const ctrl = new AbortController();
+  const tm = setTimeout(() => ctrl.abort(), 7000);
+  fetch("https://itorrents.org/torrent/" + ih.toUpperCase() + ".torrent", { signal: ctrl.signal })
+    .then(r => { if(!r.ok) throw new Error("нет кэша"); return r.arrayBuffer(); })
+    .then(buf => {
+      clearTimeout(tm);
+      const name = torrMetaName(new Uint8Array(buf));
+      const it = TORR.load().find(x => x.ih === ih);
+      if(it && name && !it.name){ it.name = name; it.meta = "из твоего магнита"; TORR.save(); if(window.renderTorr) renderTorr(); }
+    })
+    .catch(() => {});
+}
+/* мини-bencode без библиотек: 4:info → 4:name. Каждая ветка с границами —
+   битый/усечённый ответ кэша не должен вешать вкладку (проверено на баге: «i» без «e» сбрасывал pos в 0). */
+function torrMetaName(u8){
+  try{
+    const td = new TextDecoder();
+    let pos = 0;
+    const rdStr = () => {
+      if(pos >= u8.length) throw new Error("bencode");
+      const c = u8.indexOf(58, pos); if(c < 0 || c > pos + 20) throw new Error("bencode");
+      const n = parseInt(td.decode(u8.subarray(pos, c)), 10);
+      if(!Number.isFinite(n) || n < 0 || c + 1 + n > u8.length) throw new Error("bencode");
+      pos = c + 1; const out = u8.subarray(pos, pos + n); pos += n; return out;
+    };
+    const rdVal = () => {
+      if(pos >= u8.length) throw new Error("bencode");
+      const ch = u8[pos];
+      if(ch === 100){ pos++; const d = {}; while(pos < u8.length && u8[pos] !== 101){ const k = td.decode(rdStr()); d[k] = rdVal(); } if(pos >= u8.length) throw new Error("bencode"); pos++; return d; }
+      if(ch === 108){ pos++; const l = []; while(pos < u8.length && u8[pos] !== 101){ l.push(rdVal()); } if(pos >= u8.length) throw new Error("bencode"); pos++; return l; }
+      if(ch === 105){ const e = u8.indexOf(101, pos); if(e < 0) throw new Error("bencode"); const v = parseInt(td.decode(u8.subarray(pos + 1, e)), 10); if(!Number.isFinite(v)) throw new Error("bencode"); pos = e + 1; return v; }
+      return td.decode(rdStr());
+    };
+    const t = rdVal();
+    const info = (t && typeof t === "object") ? (t.info || t["info.utf-8"] || {}) : {};
+    const raw = info.name || info["name.utf-8"] || "";
+    return String(raw).replace(/\.(mp4|mkv|avi|webm|m4v|mov)$/i, "").slice(0, 64);
+  }catch(e){ return ""; }
+}
+/* S02E01 / .e03. из имени файла — короткая метка для полосы эпизодов торрента */
+function torrEpLabel(fn){
+  const s = String(fn);
+  const m = s.match(/[Ss](\d{1,2})\s?[Ee](\d{1,3})/) || s.match(/[.\s_\-][Ee](\d{1,3})[.\s_\-]/);
+  if(m) return "эп " + (m[2] || m[1]);
+  return s.replace(/\.(mp4|mkv|avi|webm|mov|m4v)$/i, "").slice(0, 22) || "файл";
+}
 
 /* ---------- состояние плеера ---------- */
 const P = { sid:null, ep:1, idx:0, chain:[], cur:null, hls:null, nnmTimer:null, reasons:[], confirmed:false, seen:[], epN:1, open:false, wt:null, resumed:false };
@@ -621,22 +723,23 @@ function probeNNM(){
 
 /* WebTorrent прямо в браузере (МЕГАМЕТАПЛЕЕР, M1): статика GitHub Pages, без бэкенда.
    Честность: браузеру доступны только wss-трекеры и webseed — полный P2P даёт локальный стример. */
-function loadScriptOnce(src){
-  return new Promise((res, rej) => {
-    if(window.WebTorrent) return res();
-    const s = document.createElement("script");
-    s.src = src; s.onload = () => res(); s.onerror = () => rej(new Error("CDN не доехал"));
-    document.head.appendChild(s);
-  });
+/* WebTorrent v2 идёт ESM-сборкой: классический тег глобаль не ставит — только import().
+   Порядок честный: сперва своя статика (кэшируется сервис-воркером, живёт офлайн), затем CDN. */
+function loadWebTorrent(){
+  if(window.WebTorrent) return Promise.resolve();
+  const from = src => import(src).then(m => { if(!m || !m.default) throw new Error("пустой модуль"); window.WebTorrent = m.default; });
+  return from("./vendor/webtorrent.min.js")
+    .catch(() => from("https://cdn.jsdelivr.net/npm/webtorrent@2.5.1/dist/webtorrent.min.js"))
+    .then(() => { if(!window.WebTorrent) throw new Error("клиент не поднялся"); });
 }
 const WSS_TRACKERS = ["wss://tracker.openwebtorrent.com", "wss://tracker.webtorrent.dev", "wss://tracker.files.fm:7073/announce"];
 function mountP2PBrowser(src){
   unmountAll();
+  P.wtFile = 0;
   setStatus("P2P в браузере: поднимаю WebTorrent-клиент…", "spin");
   const ih = src.vid || (src.u||"").match(/btih:([a-f0-9]{40}|[a-z2-7]{32})/i)?.[1];
   if(!ih){ P.reasons.push("P2P: в magnet нет info-hash"); return advance(); }
-  loadScriptOnce("https://cdn.jsdelivr.net/npm/webtorrent@2.2.4/dist/webtorrent.min.js").then(() => {
-    if(!window.WebTorrent) throw new Error("клиент не поднялся");
+  loadWebTorrent().then(() => {
     const stage = $("#plStage");
     const v = document.createElement("video");
     v.id = "plVideo"; v.playsInline = true; v.preload = "auto"; v.controls = false;
@@ -656,23 +759,50 @@ function mountP2PBrowser(src){
         advance();
       }
     }, 25000);
-    client.add({ infoHash: ih, announce: WSS_TRACKERS }, t => {
+    /* магнитные трекеры не теряем: свои tr= из магнита + wss-набор; webseed-и (ws=) доезжают только с полным магнитом */
+    const MU = String(src.u || "");
+    const trs = [...new Set([
+      ...[...MU.matchAll(/[?&]tr=([^&]+)/g)].map(m => { try{ return decodeURIComponent(m[1]); }catch(e){ return m[1]; } }),
+      ...WSS_TRACKERS
+    ])];
+    const addArg = (/^magnet:\?/i.test(MU) && /[?&]ws=/.test(MU)) ? MU : { infoHash: ih, announce: trs };
+    client.add(addArg, t => {
       const up = () => {
         if(P.confirmed || P.cur !== src) return;
         setStatus(`P2P: пиры ${t.numPeers} · ${(t.downloaded/1048576).toFixed(1)} МБ · ${esc((t.name||"").slice(0,44))}`, "spin");
       };
       const iv = setInterval(up, 2000);
-      const done = f => {
+      const done = () => {
         clearInterval(iv); clearTimeout(seedTimer);
         if(P.cur !== src) return;
-        t.files.some(x => /\.(mp4|webm|m4v|mkv|mov|mp3|m4a)$/i.test(x.name) ? (f = x, true) : false);
-        if(!f){ P.reasons.push("WebTorrent: в раздаче нет играемого файла"); return advance(); }
-        f.streamTo(v);
-        setStatus(`◆ P2P в браузере · ${esc(f.name).slice(0,60)}`, "none");
-        renderSrcsBar();
+        const playable = t.files.filter(x => /\.(mp4|webm|m4v|mkv|mov|mp3|m4a|ogg|ogv)$/i.test(x.name));
+        if(!playable.length){ P.reasons.push("WebTorrent: в раздаче нет играемого файла"); return advance(); }
+        /* мультираздача (S02E01…): полоса эпизодов прямо из торрента — клик и играет,
+           видео пересаживается на свежий элемент, клиент и скачанные куски живут дальше */
+        const strip = $("#epStrip");
+        if(playable.length > 1 && strip){
+          strip.innerHTML = playable.map((ff, i) => `<button class="ep-b tf${i === P.wtFile ? " tf-on" : ""}" data-wtf="${i}">${esc(torrEpLabel(ff.name))} · ${(ff.length/1073741824).toFixed(1).replace(".", ",")} ГБ</button>`).join("");
+          strip.querySelectorAll("[data-wtf]").forEach(el => el.onclick = () => pick(+el.dataset.wtf));
+        } else if(strip) strip.innerHTML = "";
+        const pick = i => {
+          const ff = playable[i];
+          if(!ff || P.cur !== src) return;
+          P.wtFile = i;
+          const oldV = video();
+          const nv = document.createElement("video");
+          nv.id = "plVideo"; nv.playsInline = true; nv.preload = "auto"; nv.controls = false;
+          stage.appendChild(nv);
+          if(oldV) oldV.remove();
+          wireVideo(nv); applyAV(nv); ctlNative(true);
+          Promise.resolve(ff.streamTo(nv)).catch(e => { if(P.cur === src){ P.reasons.push("WebTorrent: файл не смонтировался — " + ((e && e.message) || "?")); advance(); } });
+          setStatus(`◆ P2P в браузере · ${esc(ff.name).slice(0,60)}`, "none");
+          if(strip) strip.querySelectorAll("[data-wtf]").forEach(el => el.classList.toggle("tf-on", +el.dataset.wtf === i));
+          renderSrcsBar();
+        };
+        pick(P.wtFile < playable.length ? P.wtFile : 0);
       };
-      if(t.files.length) done(null);
-      else t.on("ready", () => done(null));
+      if(t.files.length) done();
+      else t.on("ready", () => done());
     });
   }).catch(e => { P.reasons.push("P2P в браузере: " + e.message); advance(); });
 }
@@ -1859,6 +1989,22 @@ function openMegaEditor(){
     routeGo("#/s/" + encodeURIComponent(u));
   };
 }
+/* ---------- 🧲 МАГНИТНАЯ ПОЛКА (такт M5 «МАГНЕТИЗМ») ---------- */
+function renderTorr(){
+  const box = $("#torrLib"); if(!box) return;
+  const list = TORR.load();
+  box.innerHTML = list.length ? list.map(it => {
+    const label = it.name ? it.name : "magnet: " + it.ih.slice(0, 10) + "…";
+    const meta = it.meta ? ` <span class="t-meta">· ${esc(it.meta)}</span>` : "";
+    return `<span class="torr-chip"><span class="t-name" data-tih="${it.ih}" title="Играть через P2P-транспорт">🧲 ${esc(label)}${meta}</span><button class="t-act" data-tcopy="${it.ih}" title="Скопировать магнит">⧉</button><button class="t-act" data-tdel="${it.ih}" title="Убрать с полки">✕</button></span>`;
+  }).join("") : `<span class="t-meta">Полка пуста — вставь magnet: сверху, и он осядет здесь сам.</span>`;
+  box.querySelectorAll(".t-name").forEach(el => el.onclick = () => megaOpen(TORR.magnet(el.dataset.tih)));
+  box.querySelectorAll("[data-tcopy]").forEach(el => el.onclick = async () => {
+    try{ await navigator.clipboard.writeText(TORR.magnet(el.dataset.tcopy)); toast("Магнет скопирован — неси в клиент"); }
+    catch(e){ toast("Браузер не дал буфер обмена"); }
+  });
+  box.querySelectorAll("[data-tdel]").forEach(el => el.onclick = () => { TORR.del(el.dataset.tdel); toast("Убрал магнит с полки"); });
+}
 function renderMegaUI(){
   const ql = $("#mqList"); if(!ql) return;
   ql.innerHTML = MEGA.queue.map((it, i) => `
@@ -1874,6 +2020,7 @@ function renderMegaUI(){
   hl.innerHTML = MEGA.hist.slice(0, 14).map(h => `<button class="hist-chip" data-scene="${esc(h.u)}" title="${esc(h.u)}">🕘 ${esc(shortUrl(h.u))}</button>`).join("");
   hl.querySelectorAll("[data-scene]").forEach(c => c.onclick = () => routeScene(c.dataset.scene));
   $("#mhEmpty").classList.toggle("hidden", MEGA.hist.length > 0);
+  renderTorr();
 }
 function mqDel(i){
   MEGA.queue.splice(i, 1);
@@ -2102,7 +2249,7 @@ function wireNet(){
 /* ---------- старт ---------- */
 function boot(){
   initData(); migrateV3();
-  renderHero(); renderRows(); renderFilters(); renderGrid(); renderFav(); renderCont(); renderMegaUI(); probeNNM();
+  renderHero(); renderRows(); renderFilters(); renderGrid(); renderFav(); renderCont(); renderMegaUI(); renderTorr(); probeNNM();
   const u = new URLSearchParams(location.search).get("play");
   if(u && detectSource(u)) history.replaceState({ r:0 }, "", location.pathname + "#/s/" + encodeURIComponent(u));
   $("#sortBy").onchange = e => { F.sort = e.target.value; F.page = 1; renderGrid(); };

@@ -1,8 +1,8 @@
-/* ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР — сервис-воркер такта M4 «СВОЁ ПРИ СОБОЙ».
+/* ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР — сервис-воркер такта M5 «МАГНЕТИЗМ».
    Задача: «Соединение сброшено» больше не отшибает дверь —
    сборка живёт в кэше; при живой сети тихо обновляется фоном. */
-const VER = "lakornia-m4-2026-10-25";
-const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
+const VER = "lakornia-m5-2026-10-25";
+const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./vendor/webtorrent.min.js"];
 
 self.addEventListener("install", e => {
   e.waitUntil(
