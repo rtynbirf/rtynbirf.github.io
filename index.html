@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0713">
 <meta name="description" content="ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР — каталог лакорнов BL/GL, открытая сцена для любой ссылки и индекс студий мира. Всё в одном окне, работает офлайн после первого визита.">
+<meta property="og:title" content="ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР">
+<meta property="og:description" content="Каталог лакорнов BL/GL с живым RU-слоем, открытая сцена для любой ссылки и индекс 912 студий мира — в одном окне, офлайн после первого визита. У каждой серии — своя ссылка.">
+<meta property="og:image" content="icon-512.png">
+<meta property="og:type" content="website">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР</title>
@@ -74,6 +78,8 @@ header{position:sticky;top:0;z-index:50;display:flex;gap:14px;align-items:center
 .eps-pill.full{color:var(--green);border-color:rgba(52,211,153,.55)}
 .eps-pill.zero{color:var(--red);border-color:rgba(248,113,113,.55)}
 .card-in{padding:11px 12px 13px}
+.pw{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.14);z-index:3}
+.pw i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2))}
 .card-t{font-weight:800;font-size:13.5px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:35px}
 .card-o{color:var(--mut2);font-size:10.8px;font-style:italic;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card-g{color:var(--mut);font-size:10.5px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -86,11 +92,14 @@ header{position:sticky;top:0;z-index:50;display:flex;gap:14px;align-items:center
 .filters{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:26px 0 16px}
 .f-chip{background:var(--card);border:1px solid var(--line);color:var(--mut);font:700 12px/1 sans-serif;padding:9px 15px;border-radius:20px;transition:.15s}
 .f-chip.on{color:#fff;border-color:var(--acc);background:rgba(232,121,249,.16)}
+.sort-sel{background:var(--card);border:1px solid var(--line);color:var(--mut);font:700 12px/1 sans-serif;padding:9px 12px;border-radius:20px;outline:0;margin-left:auto}
+.sort-sel:focus{border-color:var(--acc);color:var(--txt)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,178px);gap:13px;padding-bottom:8px}
 .empty-blk{padding:70px 20px;text-align:center;color:var(--mut2);font-size:15px}
 
 /* модалка тайтла */
 .ov{position:fixed;inset:0;z-index:100;background:rgba(5,2,10,.78);backdrop-filter:blur(7px);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:4vh 16px}
+#ov2{z-index:130}   /* редактор ссылок живёт НАД плеером (иначе «✎ Своя ссылка» открывается под ним) */
 .sheet{position:relative;width:min(860px,100%);background:var(--bg2);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin:auto}
 .x-close{position:absolute;top:13px;right:13px;z-index:5;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.5);color:#fff;font-size:15px}
 .x-close:hover{border-color:var(--acc)}
@@ -151,6 +160,9 @@ header{position:sticky;top:0;z-index:50;display:flex;gap:14px;align-items:center
 .tr-st{font:600 11.5px/1.4 sans-serif;color:var(--mut);flex:1;min-width:140px}
 .tr-st.err{color:#f87171}
 .pl-time{font:700 12px/1 sans-serif;color:var(--mut);font-variant-numeric:tabular-nums}
+#plSeek{flex:1;min-width:120px;height:6px;-webkit-appearance:none;appearance:none;border-radius:4px;background:rgba(255,255,255,.14);outline:0;cursor:pointer}
+#plSeek::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px rgba(232,121,249,.7);cursor:pointer}
+#plSeek::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--acc);cursor:pointer}
 .srcs-bar{display:flex;gap:8px;align-items:center;padding:9px 16px;background:var(--bg2);border-top:1px solid var(--line);overflow-x:auto}
 .srcs-bar .lbl{font:700 11px/1 sans-serif;color:var(--mut2);white-space:nowrap}
 .src-chip .tp,.src-pill .tp{color:var(--mut2);font-weight:600;font-size:10.5px}
@@ -230,11 +242,13 @@ footer b{color:var(--acc)}
   <button class="hbtn" id="tabMega">◈ СЦЕНА</button>
   <button class="hbtn" id="tabStu">СТУДИИ</button>
   <button class="hbtn" id="tabFav">♥ Избранное</button>
+  <button class="hbtn hidden" id="btnInstall" title="Установить как приложение — работает без браузера и без сети">⤓ Установить</button>
   <a class="hbtn" id="doorSingular" href="https://rtynbirf.github.io/singulyar/" target="_blank" rel="noopener" title="Отдельная дверь: дом СИНГУЛЯР — караоке-дом на 200 языков, поёт без сети" style="text-decoration:none;display:inline-flex;align-items:center;border-color:rgba(212,175,55,.55);color:#FFD97A">◈ СИНГУЛЯР</a>
 </header>
 
 <div class="hero" id="hero"></div>
 <main id="home">
+  <div class="row-wrap hidden" id="contSec"><div class="row-head"><h3>▶ Продолжить просмотр</h3><div class="ln"></div></div><div class="row" id="rowCont"></div></div>
   <div class="row-wrap"><div class="row-head"><h3>🔥 Новинки с RU-озвучкой</h3><div class="ln"></div><button class="more-btn" data-more="ru">Показать ещё</button></div><div class="row" id="rowNew"></div></div>
   <div class="row-wrap"><div class="row-head"><h3>💗 GL</h3><div class="ln"></div><button class="more-btn" data-more="GL">Показать ещё</button></div><div class="row" id="rowGL"></div></div>
   <div class="row-wrap"><div class="row-head"><h3>💙 BL</h3><div class="ln"></div><button class="more-btn" data-more="BL">Показать ещё</button></div><div class="row" id="rowBL"></div></div>
@@ -245,6 +259,12 @@ footer b{color:var(--acc)}
       <button class="f-chip" data-ty="BL">BL</button>
       <button class="f-chip" data-ty="GL">GL</button>
       <button class="f-chip" data-ru="1">С RU-озвучкой</button>
+      <select id="sortBy" class="sort-sel" aria-label="Сортировка каталога">
+        <option value="base">Как в базе</option>
+        <option value="year">Свежие сверху</option>
+        <option value="eps">Больше серий с транспортом</option>
+        <option value="az">По алфавиту</option>
+      </select>
     </div>
     <div class="grid" id="grid"></div>
     <div style="text-align:center;padding:18px"><button class="btn btn-ghost" id="moreGrid">Показать ещё</button></div>
@@ -300,9 +320,10 @@ footer b{color:var(--acc)}
 <div class="ov hidden" id="titleOv"></div>
 <div class="pl-ov hidden" id="plOv">
   <div class="pl-top">
-    <button class="pctl" id="plBack">✕</button>
+    <button class="pctl" id="plBack" aria-label="Закрыть плеер">✕</button>
     <div class="pl-title" id="plTitle"></div>
     <div style="flex:1"></div>
+    <button class="pctl" id="plShare" aria-label="Поделиться ссылкой на серию" title="Ссылка на эту серию — живая, ведёт сюда же">↗</button>
     <div id="plSrcChip"></div>
   </div>
   <div class="pl-stage" id="plStage">
@@ -313,16 +334,17 @@ footer b{color:var(--acc)}
   <div class="srcs-bar" id="srcsBar"></div>
   <div class="tr-bar" id="trBar"></div>
   <div class="pl-ctl">
-    <button class="pctl" id="plPlay">▶</button>
-    <button class="pctl" id="plPrev">⇤ серия</button>
-    <button class="pctl" id="plNext">серия ⇥</button>
+    <button class="pctl" id="plPlay" aria-label="Играть или пауза">▶</button>
+    <input type="range" id="plSeek" class="hidden" min="0" max="0" step="0.1" value="0" aria-label="Позиция серии — тяни, чтобы перемотать">
+    <button class="pctl" id="plPrev" aria-label="Предыдущая серия">⇤ серия</button>
+    <button class="pctl" id="plNext" aria-label="Следующая серия">серия ⇥</button>
     <span class="pl-time" id="plTime">0:00 / 0:00</span>
     <div style="flex:1"></div>
-    <select id="plQ" class="hidden"></select>
-    <select id="plAudio" class="hidden"></select>
-    <select id="plSubs" class="hidden"></select>
-    <button class="pctl" id="plMute">🔊</button>
-    <button class="pctl" id="plFs">⛶</button>
+    <select id="plQ" class="hidden" aria-label="Качество потока"></select>
+    <select id="plAudio" class="hidden" aria-label="Аудиодорожка"></select>
+    <button class="pctl hidden" id="plPip" aria-label="Картинка в картинке" title="Картинка в картинке — видео плавает поверх окон">⧉</button>
+    <button class="pctl" id="plMute" aria-label="Звук">🔊</button>
+    <button class="pctl" id="plFs" aria-label="На весь экран">⛶</button>
   </div>
   <div class="ep-strip" id="epStrip"></div>
 </div>
@@ -330,13 +352,15 @@ footer b{color:var(--acc)}
 <footer>
   <b>ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР</b> — мета-плеер в одном окне: каталог лакорнов BL/GL, открытая сцена для любой ссылки или файла и индекс студий мира.<br>
   Плеер сам подбирает транспорт: кликнул — и смотришь. Названия серий сверяются с источником, мимо — не покажем.<br>
-  Сквозная навигация: кнопки «Назад/Вперёд» браузера работают — каталог ↔ карточка ↔ серия, а ссылку на серию можно скопировать из адресной строки.<br>
+  Сквозная навигация: кнопки «Назад/Вперёд» браузера работают — каталог ↔ карточка ↔ серия, а ссылку на серию можно скопировать из адресной строки или кнопкой ↗ — у каждой серии теперь своя читаемая дверь вида #/w/kinnporsche-2022/2.<br>
   Свою ссылку (mp4 / m3u8 / magnet / страница видео / аудио) можно добавить в любой серии или кинуть прямо на сцену — она станет основной.<br>
   Нет русской озвучки? Плеер сам сделает русские субтитры и голос прямо в браузере — живой перевод на лету.<br>
+  «Продолжить просмотр» помнит, где ты остановился: вернулся — плеер сам продолжит с той же секунды.<br>
+  Клавиши плеера: пробел — пауза, ←/→ — ±10 с, ↑/↓ — громкость, N/P — серия назад/вперёд, F — весь экран, M — звук (работают и в русской раскладке: Т/З/А/Ь).<br>
   Сайт живёт офлайн после первого визита: сервис-воркер держит сборку у тебя — «Соединение сброшено» больше не отшибает дверь.<br>
-  <span style="color:var(--mut2)">МЕГАМЕТАПЛЕЕР · такт M2 «ТУДА-СЮДА» · сборка 2026-10-25 · дверь дома: ·56</span>
+  <span style="color:var(--mut2)">МЕГАМЕТАПЛЕЕР · такт M3 «ИДЕАЛ» · сборка 2026-10-25 · дверь дома: ·56</span>
 </footer>
-<div id="toast"></div>
+<div id="toast" aria-live="polite"></div>
 <script>
 if("serviceWorker" in navigator){ addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(()=>{}); }); }
 </script>
@@ -357,8 +381,35 @@ function toast(msg, ms){ const t = $("#toast"); t.textContent = msg; t.classList
 /* ---------- данные (инжектятся сборщиком до этого скрипта) ---------- */
 let byId = {};
 const DATA = window.DATA;
-function initData(){ DATA.s.forEach(s => { s.id = byIdMaxId + 1; byIdMaxId = s.id; byId[s.id] = s; }); }
-let byIdMaxId = 0;
+/* Такт M3 «ИДЕАЛ»: стабильные slug-двери — ссылки вида #/w/kinnporsche-2022/2
+   живут вечно, не зависят от порядка каталога и читаются человеком. */
+const TR_LAT = {"а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e","ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"h","ц":"c","ч":"ch","ш":"sh","щ":"sch","ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya"};
+function slugify(s){
+  const base = String(s.o || s.t || "").toLowerCase()
+    .replace(/[а-яё]/g, ch => TR_LAT[ch] || "")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "t";
+  return (/^[0-9]/.test(base)? "t-" : "") + base;
+}
+function initData(){
+  const used = {};
+  DATA.s.forEach(s => {
+    let sl = slugify(s);
+    if(used[sl]) sl = sl + "-" + s.y;          // коллизия — добавляем год
+    while(used[sl]) sl = sl + "x";
+    used[sl] = 1; s.slug = sl;
+  });
+  DATA.s.forEach((s, i) => { s.id = i + 1; byId[s.id] = s; });   // цифра = легаси-дверь, остаётся работать
+  DATA.s.forEach(s => { byId[s.slug] = s; });
+}
+/* Одноразовая миграция старых цифровых ключей (prog/fav/custom) на slug-ключи:
+   избранное и прогресс переживают любые перестановки каталога. */
+function migrateV3(){
+  if(localStorage.getItem("lk_kv") === "3") return;
+  const map = {}; DATA.s.forEach(s => { map[s.id] = s.slug; });
+  const conv = o => { const r = {}; Object.keys(o).forEach(k => { r[map[+k] || k] = o[k]; }); return r; };
+  try{ store.prog = conv(store.prog); store.fav = conv(store.fav); store.custom = conv(store.custom); store.save(); }catch(e){}
+  localStorage.setItem("lk_kv", "3");
+}
 
 /* ---------- store (localStorage) ---------- */
 const store = {
@@ -455,7 +506,46 @@ function megaNext(){ megaPlayAt(MEGA.pos + 1); }
 function megaPrev(){ megaPlayAt(Math.max(0, MEGA.pos - 1)); }
 
 /* ---------- состояние плеера ---------- */
-const P = { sid:null, ep:1, idx:0, chain:[], cur:null, hls:null, nnmTimer:null, reasons:[], confirmed:false, seen:[], epN:1, open:false, wt:null };
+const P = { sid:null, ep:1, idx:0, chain:[], cur:null, hls:null, nnmTimer:null, reasons:[], confirmed:false, seen:[], epN:1, open:false, wt:null, resumed:false };
+
+/* ---------- М3: seek-бар и нативные контролы ---------- */
+let seekDrag = false;
+function ctlNative(on){ ["#plSeek", "#plPip"].forEach(sel => { const el = $(sel); if(el) el.classList.toggle("hidden", !on); }); }
+function updSeekFill(v){
+  const sk = $("#plSeek"); if(!sk || !v || !v.duration) return;
+  const pct = Math.min(100, (v.currentTime / v.duration) * 100);
+  sk.style.background = "linear-gradient(90deg,var(--acc) " + pct + "%,rgba(255,255,255,.14) " + pct + "%)";
+}
+function wireSeek(){
+  const sk = $("#plSeek"); if(!sk || sk._w) return; sk._w = true;
+  sk.addEventListener("input", () => { seekDrag = true; updSeekFill({ currentTime:+sk.value, duration:+sk.max }); });
+  sk.addEventListener("change", () => { const v = video(); if(v && v.duration) v.currentTime = +sk.value; seekDrag = false; });
+}
+/* Позиция серии помнится — при возврате честно продолжаем с места остановки */
+function tryResume(v){
+  if(P.resumed || !P.sid || P.open) return;
+  const rec = (store.prog[P.sid] || {})[P.ep];
+  if(rec && !rec.w && rec.t > 15 && v.duration && rec.t < v.duration - 10){
+    v.currentTime = rec.t; P.resumed = true;
+    toast("Продолжаю с " + fmtT(rec.t) + " — перемотать можно seek-баром");
+  }
+}
+function fillAudioMenu(hls){
+  const a = $("#plAudio"); if(!a) return;
+  const n = hls.audioTracks ? hls.audioTracks.length : 0;
+  if(n < 2){ a.classList.add("hidden"); return; }
+  a.classList.remove("hidden");
+  a.innerHTML = hls.audioTracks.map((t, i) => `<option value="${i}">${esc(t.name || t.lang || "дорожка " + (i+1))}</option>`).join("");
+  a.value = hls.audioTrack;
+  a.onchange = () => { hls.audioTrack = +a.value; toast("Дорожка: " + a.selectedOptions[0].textContent); };
+}
+/* Поделиться глубинной ссылкой: системный шоут-меню, иначе — буфер обмена */
+async function shareLink(title){
+  const url = location.href;
+  try{ if(navigator.share){ await navigator.share({ title: title || "ЛАКОРНИЯ", url }); return; } }catch(e){ return; }
+  try{ await navigator.clipboard.writeText(url); toast("Ссылка скопирована — неси дальше"); }
+  catch(e){ toast("Скопируй из адресной строки — она уже ведёт сюда"); }
+}
 
 /* NNM-бэкенд (для magnet-ссылок): жив ли стример */
 const NNM_STATE = { ok:false, titles:0 };
@@ -489,6 +579,7 @@ function mountP2PBrowser(src){
     v.id = "plVideo"; v.playsInline = true; v.preload = "auto"; v.controls = false;
     stage.appendChild(v);
     wireVideo(v);
+    ctlNative(true);
     P.cur = src;
     const client = new WebTorrent();
     P.wt = client;
@@ -546,6 +637,8 @@ function buildChain(sid, epN){
   });
   out.forEach(c => c.sc = (c.ru? 100:0) + (c.custom? 50:0) + (c.verified? 10:0) + (isDead(c)? -1e9:0));
   out.sort((a,b) => b.sc - a.sc);
+  const ci = out.findIndex(c => c.custom);
+  if(ci > 0){ const [c] = out.splice(ci, 1); out.unshift(c); }   // обещание редактора честно: своя ссылка — ВСЕГДА primary
   return { chain: out, ep };
 }
 
@@ -568,6 +661,7 @@ function setStatus(html, kind){
 }
 function mountIframe(src){
   unmountAll();
+  ctlNative(false);
   const stage = $("#plStage");
   const f = document.createElement("iframe");
   f.src = src.embed || src.u;
@@ -590,6 +684,7 @@ function markDeadAdvance(){
 }
 function mountNative(src){
   unmountAll();
+  ctlNative(true);
   const stage = $("#plStage");
   const v = document.createElement("video");
   v.id = "plVideo"; v.playsInline = true; v.preload = "auto"; v.controls = false;
@@ -602,7 +697,11 @@ function mountNative(src){
     P.hls.loadSource(src.u);
     P.hls.attachMedia(v);
     fillQualityMenu(P.hls);
+    fillAudioMenu(P.hls);
+    P.hls.on(Hls.Events.MANIFEST_PARSED, () => { fillQualityMenu(P.hls); fillAudioMenu(P.hls); });
+    P.hls.on(Hls.Events.AUDIO_TRACKS_UPDATED, () => fillAudioMenu(P.hls));
   } else {
+    $("#plAudio").classList.add("hidden");
     if(src.plat === "hls" && v.canPlayType("application/vnd.apple.mpegurl")) v.src = src.u;
     else v.src = src.u;
   }
@@ -612,6 +711,7 @@ function mountNative(src){
 }
 function mountP2P(src){
   unmountAll();
+  ctlNative(true);
   setStatus("P2P: достаю раздачу и сижу…", "spin");
   const stage = $("#plStage");
   const v = document.createElement("video");
@@ -656,11 +756,14 @@ function wireVideo(v){
     if(t) t.textContent = fmtT(v.currentTime) + " / " + fmtT(v.duration||0);
     if(P.sid && v.duration && v.currentTime > 5){
       const rec = store.prog[P.sid] = store.prog[P.sid] || {};
-      rec[P.ep] = { w: v.currentTime / v.duration > .9, t: v.currentTime };
+      rec[P.ep] = { w: v.currentTime / v.duration > .9, t: v.currentTime, d: v.duration, at: Date.now() };
       store.save();
     }
+    const sk = $("#plSeek");
+    if(sk && !seekDrag && v.duration){ sk.max = v.duration; sk.value = v.currentTime; updSeekFill(v); }
   };
   v.addEventListener("timeupdate", up);
+  v.addEventListener("loadedmetadata", () => tryResume(v));
   v.addEventListener("ended", () => {
     if(P.open){ megaNext(); return; }
     const s = byId[P.sid]; if(!s) return;
@@ -675,8 +778,22 @@ function wireVideo(v){
     P.reasons.push(`${PLAT_RU[P.cur.plat]||P.cur.plat}: браузер не смог воспроизвести поток`);
     advance();
   });
-  v.addEventListener("playing", () => { P.confirmed = true; if(P.nnmTimer){ clearInterval(P.nnmTimer); P.nnmTimer = null; } setStatus(""); if(window.LKTR) LKTR.onPlay(); });
+  v.addEventListener("playing", () => {
+    P.confirmed = true; if(P.nnmTimer){ clearInterval(P.nnmTimer); P.nnmTimer = null; } setStatus("");
+    tryResume(v); if(window.LKTR) LKTR.onPlay();
+  });
 }
+/* Клик по сцене = пауза/плей (как у больших), двойной клик = весь экран */
+function wireStage(){
+  const st = $("#plStage"); if(!st || st._w) return; st._w = true;
+  st.addEventListener("click", e => {
+    if(e.target.closest(".failcard, .st-act, #plStatus, #plSpin")) return;
+    const v = video(); if(!v) return;
+    v.paused? v.play().catch(()=>{}) : v.pause();
+  });
+  st.addEventListener("dblclick", () => { if(video()) $("#plFs").onclick(); });
+}
+wireSeek(); wireStage();
 function advance(){
   const next = P.idx + 1;
   if(next < P.chain.length){ P.idx = next; trySource(next); }
@@ -686,7 +803,7 @@ function trySource(i){
   P.idx = i;
   const c = P.chain[i];
   if(!c) return failCard();
-  P.confirmed = false;
+  P.confirmed = false; P.resumed = false;
   if(isDead(c)){ P.reasons.push((PLAT_RU[c.plat]||c.plat) + ": помечен мёртвым"); return advance(); }
   if(c.type === "iframe") return mountIframe(c);
   if(c.type === "p2p") return NNM_STATE.ok? mountP2P(c) : mountP2PBrowser(c);
@@ -696,6 +813,7 @@ function trySource(i){
 }
 function failCard(){
   const st = $("#plStage");
+  ctlNative(false);
   setStatus("Транспорт не доставил контент", "none");
   st.querySelectorAll(".failcard").forEach(f=>f.remove());
   const div = document.createElement("div");
@@ -733,17 +851,26 @@ function renderSrcsBar(){
   }
 }
 
-/* ---------- клавиши ---------- */
+/* ---------- клавиши (М3: YouTube-набор + русская раскладка + защита ввода) ---------- */
 document.addEventListener("keydown", e => {
   const plOpen = !$("#plOv").classList.contains("hidden");
   const tiOpen = !$("#titleOv").classList.contains("hidden");
   const edOpen = !$("#ov2").classList.contains("hidden");
   if(e.key === "Escape"){ if(edOpen) closeLe(); else if(plOpen || tiOpen) routeBack(); return; }
+  const tag = (e.target && e.target.tagName) || "";
+  if(/INPUT|TEXTAREA|SELECT/.test(tag)) return;   // печатаешь — плеер не перехватывает
   if(!plOpen) return;
   const v = video();
   if(e.key === " " && v){ e.preventDefault(); v.paused? v.play() : v.pause(); }
   if(e.key === "ArrowRight" && v) v.currentTime += 10;
   if(e.key === "ArrowLeft" && v) v.currentTime -= 10;
+  if(e.key === "ArrowUp" && v){ e.preventDefault(); v.volume = Math.min(1, v.volume + .1); }
+  if(e.key === "ArrowDown" && v){ e.preventDefault(); v.volume = Math.max(0, v.volume - .1); }
+  const k = e.key.toLowerCase();
+  if(k === "n" || k === "т"){ P.open? megaNext() : stepEp(1); }   // йцукен: физическая N — это «т»
+  if(k === "p" || k === "з"){ P.open? megaPrev() : stepEp(-1); }
+  if(k === "f" || k === "а"){ $("#plFs").onclick(); }
+  if(k === "m" || k === "ь"){ $("#plMute").onclick(); }
 });
 
 /* ============================================================
@@ -756,10 +883,10 @@ const R = { scroll: 0, hadOverlay: false };
 function routeParse(){
   const h = location.hash || "#/";
   let m;
-  if((m = h.match(/^#\/t\/(\d+)/))) return byId[+m[1]] ? { ov:"title", sid:+m[1] } : { tab:"home" };
-  if((m = h.match(/^#\/w\/(\d+)\/(\d+)/))){
-    const sid = +m[1], ep = Math.max(1, +m[2]);
-    return byId[sid] ? { ov:"player", sid, ep } : { tab:"home" };
+  if((m = h.match(/^#\/t\/([\w-]+)/))) return byId[m[1]] ? { ov:"title", sid:byId[m[1]].slug } : { tab:"home" };   // легаси-номер нормализуем в slug — данные не раздваиваются
+  if((m = h.match(/^#\/w\/([\w-]+)\/(\d+)/))){
+    const sid = m[1], ep = Math.max(1, +m[2]);
+    return byId[sid] ? { ov:"player", sid:byId[sid].slug, ep } : { tab:"home" };
   }
   if((m = h.match(/^#\/s\/(.+)$/))) return { ov:"player", scene:m[1] };
   if(h.indexOf("#/mega") === 0) return { tab:"mega" };
@@ -768,7 +895,7 @@ function routeParse(){
   return { tab:"home" };
 }
 function routeGo(h){
-  if(routeParse().ov) R.scroll = window.scrollY;
+  if(document.body.style.overflow !== "hidden") R.scroll = window.scrollY;   // запоминаем скролл каталога, пока он виден
   history.pushState({ r:1 }, "", h);
   routeApply();
 }
@@ -788,6 +915,10 @@ function routeApply(){
   const r = routeParse();
   const plVisible = !$("#plOv").classList.contains("hidden");
   const tiVisible = !$("#titleOv").classList.contains("hidden");
+  if(r.ov === "player" && r.sid){
+    const s = byId[r.sid];
+    if(s && !s.eps.find(e => e.n === r.ep)) r.ep = (s.eps.find(e => e.sources.length) || s.eps[0]).n;   // clamp: #/w/…/999 честно падает на ближайшую
+  }
   if(r.ov === "player"){
     if(r.scene){
       const u = decodeURIComponent(r.scene);
@@ -799,7 +930,7 @@ function routeApply(){
     }
   } else if(plVisible) closePlayerNow();
   if(r.ov === "title"){
-    const cur = +($("#titleOv").dataset.sid || -1);
+    const cur = $("#titleOv").dataset.sid || "";
     if(!tiVisible || cur !== r.sid) openTitle(r.sid);
   } else if(r.ov !== "player" && tiVisible) closeTitleNow();
   if(r.tab) switchTab(r.tab);
@@ -1157,15 +1288,18 @@ function epPill(st){
 }
 function cardHTML(s, opts = {}){
   const st = epStats(s);
-  const rec = (store.prog[s.id] || {});
+  const rec = (store.prog[s.slug] || {});
   const watched = Object.values(rec).filter(r => r.w).length;
+  const lastRec = Object.values(rec).filter(r => r && r.d && !r.w).sort((a,b) => (b.at||0) - (a.at||0))[0];
+  const pct = lastRec ? Math.min(99, Math.round(lastRec.t / lastRec.d * 100)) : 0;
   return `
-  <div class="card" data-open="${s.id}">
+  <div class="card" data-open="${s.slug}">
     <div class="poster">
       <img loading="lazy" src="${esc(s.p)}" alt="${esc(s.t)}" onerror="this.style.opacity=.2">
       <div class="p-tl"><span class="b-rt">${st.ru? "RU-озвучка" : s.y}</span></div>
       <div class="p-tr"><span class="b-free">${st.linked? "Транспорт есть" : "Ищем"}</span><span class="b-typ ${s.ty==="GL"?"b-gl":"b-bl"}">${s.ty}</span></div>
       <div class="p-bl">${epPill(st)}${watched? `<span class="eps-pill">👁 ${watched}</span>`:``}</div>
+      ${pct? `<div class="pw"><i style="width:${pct}%"></i></div>` : ``}
     </div>
     <div class="card-in">
       <div class="card-t">${esc(s.t)}</div>
@@ -1183,11 +1317,54 @@ function topCardHTML(s, n){
   return `<div class="top-item"><div class="num">${n}</div>${cardHTML(s)}</div>`;
 }
 
+/* ---------- М3: «Продолжить просмотр» — как у больших, с честной позицией ---------- */
+function contPick(){
+  const out = [];
+  Object.keys(store.prog).forEach(sid => {
+    const s = byId[sid]; if(!s) return;
+    const rec = store.prog[sid];
+    let best = null;
+    Object.keys(rec).forEach(n => {
+      const r = rec[n]; if(!r || r.w || !(r.t > 15)) return;
+      if(!best || (r.at||0) > (best.r.at||0)) best = { n:+n, r };
+    });
+    if(best) out.push({ s, n: best.n, r: best.r });
+  });
+  out.sort((a,b) => (b.r.at||0) - (a.r.at||0));
+  return out.slice(0, 14);
+}
+function contCardHTML(s, epN, rec){
+  const pct = rec.d ? Math.min(99, Math.round(rec.t / rec.d * 100)) : 12;
+  return `
+  <div class="card" data-open="${s.slug}/${epN}">
+    <div class="poster">
+      <img loading="lazy" src="${esc(s.p)}" alt="${esc(s.t)}" onerror="this.style.opacity=.2">
+      <div class="p-tl"><span class="b-rt">серия ${epN} · ${fmtT(rec.t)}</span></div>
+      <div class="p-tr"><span class="b-free">${pct}%</span></div>
+      <div class="pw"><i style="width:${pct}%"></i></div>
+    </div>
+    <div class="card-in">
+      <div class="card-t">${esc(s.t)}</div>
+      <div class="card-o">▶ Продолжить с ${fmtT(rec.t)}</div>
+    </div>
+  </div>`;
+}
+function renderCont(){
+  const sec = $("#contSec"), el = $("#rowCont"); if(!el) return;
+  const list = contPick();
+  sec.classList.toggle("hidden", !list.length);
+  el.innerHTML = list.map(x => contCardHTML(x.s, x.n, x.r)).join("");
+  el.querySelectorAll("[data-open]").forEach(c => c.onclick = () => routeGo("#/w/" + c.dataset.open));
+}
+
 /* ---------- герой ---------- */
 function renderHero(){
   const pool = DATA.s.filter(s => s.ru);
   const s = pool[Math.floor(Math.random()*pool.length)] || DATA.s[0];
   const st = epStats(s);
+  const rec = store.prog[s.slug] || {};
+  const contEp = [...s.eps].reverse().find(e => rec[e.n] && !rec[e.n].w && rec[e.n].t)?.n || s.eps.find(e => e.sources.length)?.n || 1;
+  const isCont = !!(rec[contEp] && !rec[contEp].w && rec[contEp].t > 15);
   $("#hero").innerHTML = `
     <div class="hero-bg" style="background-image:url('${esc(s.p)}')"></div>
     <div class="hero-glow"></div>
@@ -1202,16 +1379,14 @@ function renderHero(){
         ${st.ru? `<span style="color:#e879f9">RU-озвучка найдена</span>`:``}
       </div>
       <div class="hero-act">
-        <button class="btn btn-play" data-hero-play="${s.id}">▶ Смотреть</button>
-        <button class="btn btn-ghost" data-hero-open="${s.id}">ℹ Подробнее</button>
+        <button class="btn btn-play" data-hero-play="${s.slug}">${isCont? "▶ Продолжить · серия " + contEp : "▶ Смотреть"}</button>
+        <button class="btn btn-ghost" data-hero-open="${s.slug}">ℹ Подробнее</button>
       </div>
     </div>`;
   $(`[data-hero-play]`).onclick = () => {
-    const rec = store.prog[s.id] || {};
-    const nextEp = [...s.eps].reverse().find(e => rec[e.n] && !rec[e.n].w && rec[e.n].t)?.n || s.eps.find(e => e.sources.length)?.n || 1;
-    routeGo("#/w/" + s.id + "/" + nextEp);
+    routeGo("#/w/" + s.slug + "/" + contEp);
   };
-  $(`[data-hero-open]`).onclick = () => routeGo("#/t/" + s.id);
+  $(`[data-hero-open]`).onclick = () => routeGo("#/t/" + s.slug);
 }
 
 /* ---------- ряды и каталог ---------- */
@@ -1226,13 +1401,13 @@ function rowFill(el, list, topMode){
 }
 function renderRows(){
   const withLinks = DATA.s.filter(s => epStats(s).linked > 0);
-  const ruFirst = [...withLinks].sort((a,b) => (b.ru?1:0)-(a.ru?1:0));
-  rowFill($("#rowNew"), ruFirst.slice(0, ROW_SIZE));
+  const ruList = withLinks.filter(s => epStats(s).ru).sort((a,b) => b.y - a.y);   // честно: только RU-тайтлы, свежие сверху
+  rowFill($("#rowNew"), ruList.slice(0, ROW_SIZE));
   rowFill($("#rowGL"), DATA.s.filter(s => s.ty === "GL").slice(0, ROW_SIZE));
   rowFill($("#rowBL"), DATA.s.filter(s => s.ty === "BL").slice(0, ROW_SIZE));
   rowFill($("#rowTop"), [...withLinks].sort((a,b) => epStats(b).linked - epStats(a).linked).slice(0, 10), true);
 }
-const F = { ty:"", ru:false, q:"", page:1, per:28 };
+const F = { ty:"", ru:false, q:"", page:1, per:28, sort:"base" };
 function renderGrid(){
   const g = $("#grid");
   let list = DATA.s.slice();
@@ -1242,6 +1417,9 @@ function renderGrid(){
     const q = F.q.toLowerCase();
     list = list.filter(s => (s.t+" "+s.o+" "+(s.g||[]).join(" ")+" "+s.y).toLowerCase().includes(q));
   }
+  if(F.sort === "year") list.sort((a,b) => b.y - a.y);
+  else if(F.sort === "eps") list.sort((a,b) => epStats(b).linked - epStats(a).linked);
+  else if(F.sort === "az") list.sort((a,b) => a.t.localeCompare(b.t, "ru"));
   const show = list.slice(0, F.page * F.per);
   g.innerHTML = show.map(s => cardHTML(s)).join("");
   g.querySelectorAll("[data-open]").forEach(c => c.onclick = () => routeGo("#/t/" + c.dataset.open));
@@ -1249,7 +1427,7 @@ function renderGrid(){
 }
 function renderFav(){
   const g = $("#favGrid"); if(!g) return;
-  const list = DATA.s.filter(s => store.fav[s.id]);
+  const list = DATA.s.filter(s => store.fav[s.slug]);
   g.innerHTML = list.map(s => cardHTML(s)).join("");
   g.querySelectorAll("[data-open]").forEach(c => c.onclick = () => routeGo("#/t/" + c.dataset.open));
   $("#favEmpty").classList.toggle("hidden", list.length > 0);
@@ -1267,13 +1445,16 @@ function renderFilters(){
 function openTitle(sid){
   const s = byId[sid];
   const st = epStats(s);
+  const rec = store.prog[s.slug] || {};
+  const contEp = [...s.eps].reverse().find(e => rec[e.n] && !rec[e.n].w && rec[e.n].t)?.n || s.eps.find(e => e.sources.length)?.n || 1;
+  const isCont = !!(rec[contEp] && !rec[contEp].w && rec[contEp].t > 15);
   const ov = $("#titleOv");
   ov.dataset.sid = sid;
   ov.classList.remove("hidden");
   ov.onclick = e => { if(e.target === ov) routeBack(); };
   ov.innerHTML = `
   <div class="sheet" onclick="event.stopPropagation()">
-    <button class="x-close" onclick="routeBack()">✕</button>
+    <button class="x-close" onclick="routeBack()" aria-label="Закрыть">✕</button>
     <div class="m-head" style="background-image:url('${esc(s.p)}')">
       <div class="m-head-in">
         <div class="m-poster"><img src="${esc(s.p)}" alt="${esc(s.t)}"></div>
@@ -1289,9 +1470,10 @@ function openTitle(sid){
           </div>
           <p class="m-desc">${esc(s.d||"")}</p>
           <div class="m-act">
-            <button class="btn btn-play" id="mPlay">▶ Смотреть</button>
+            <button class="btn btn-play" id="mPlay">${isCont? "▶ Продолжить · серия " + contEp : "▶ Смотреть"}</button>
             <button class="btn btn-ghost" id="mFav">${store.fav[sid]? "♥ В избранном":"♡ В избранное"}</button>
             <button class="btn btn-ghost" id="mDice">🎲 Случайная серия</button>
+            <button class="btn btn-ghost" id="mShare">↗ Поделиться</button>
             <button class="btn btn-ghost" id="mMass">📋 Вставить ссылки списком</button>
           </div>
         </div>
@@ -1303,21 +1485,20 @@ function openTitle(sid){
     </div>
   </div>`;
   $("#mPlay").onclick = () => {
-    const rec = store.prog[s.id] || {};
-    const nextEp = [...s.eps].reverse().find(e => rec[e.n] && !rec[e.n].w && rec[e.n].t)?.n || s.eps.find(e => e.sources.length)?.n || 1;
-    routeGo("#/w/" + s.id + "/" + nextEp);   // тайтл остаётся за плеером — Back вернёт к карточке
+    routeGo("#/w/" + s.slug + "/" + contEp);   // тайтл остаётся за плеером — Back вернёт к карточке
   };
   $("#mFav").onclick = e => {
     if(store.fav[sid]) delete store.fav[sid]; else store.fav[sid] = 1;
     store.save(); e.target.textContent = store.fav[sid]? "♥ В избранном":"♡ В избранное";
     renderRows(); renderGrid(); renderFav();
   };
-  $("#mDice").onclick = () => { const eps = s.eps.filter(e => e.sources.length); if(!eps.length) return toast("Серий с транспортом пока нет"); const e = eps[Math.floor(Math.random()*eps.length)]; routeGo("#/w/" + s.id + "/" + e.n); };
-  $("#mMass").onclick = () => renderMassEditor(s.id);
-  ov.querySelectorAll(".ep-b.has").forEach(b => b.onclick = () => routeGo("#/w/" + s.id + "/" + b.dataset.ep));
+  $("#mDice").onclick = () => { const eps = s.eps.filter(e => e.sources.length); if(!eps.length) return toast("Серий с транспортом пока нет"); const e = eps[Math.floor(Math.random()*eps.length)]; routeGo("#/w/" + s.slug + "/" + e.n); };
+  $("#mShare").onclick = () => shareLink(s.t + " · серия " + contEp);
+  $("#mMass").onclick = () => renderMassEditor(s.slug);
+  ov.querySelectorAll(".ep-b.has").forEach(b => b.onclick = () => routeGo("#/w/" + s.slug + "/" + b.dataset.ep));
 }
 function renderEpStrip(s){
-  const rec = store.prog[s.id] || {};
+  const rec = store.prog[s.slug] || {};
   let out = "";
   for(let n = 1; n <= s.M; n++){
     const ep = s.eps.find(e => e.n === n);
@@ -1355,12 +1536,18 @@ function closePlayerNow(){
   P.open = false; P.cur = null; P.confirmed = false;
   $("#plOv").classList.add("hidden");
   document.body.style.overflow = "";
-  renderRows(); renderGrid(); renderFav();
+  renderRows(); renderGrid(); renderFav(); renderCont();
 }
 $("#plBack").onclick = closePlayer;
 $("#plPlay").onclick = () => { const v = video(); if(v) v.paused? v.play() : v.pause(); };
 $("#plMute").onclick = () => { const v = video(); if(v){ v.muted = !v.muted; $("#plMute").textContent = v.muted? "🔇":"🔊"; } };
 $("#plFs").onclick = () => { const st = $("#plStage"); document.fullscreenElement? document.exitFullscreen() : st.requestFullscreen?.(); };
+$("#plShare").onclick = () => { const t = $("#plTitle").textContent || "ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР"; shareLink(t.slice(0, 80)); };
+$("#plPip").onclick = () => {
+  const v = video();
+  if(!v || !document.pictureInPictureEnabled) return toast("PiP тут не выйдет — транспорт не отдаёт своё видео");
+  document.pictureInPictureElement? document.exitPictureInPicture().catch(()=>{}) : v.requestPictureInPicture().catch(() => toast("PiP не поднялся — честно"));
+};
 function stepEp(dir){
   const s = byId[P.sid]; if(!s) return;
   for(let n = P.ep + dir; n >= 1 && n <= s.M; n += dir){
@@ -1550,10 +1737,14 @@ function megaFilePlay(f){
 
 /* ---------- МЕГАМЕТАПЛЕЕР · СТУДИИ (реестр платформ) ---------- */
 const STU = {
-  rows: null, at: 0, q: "", reg: "", st: "active", page: 1, per: 60, loading: false,
+  rows: null, at: 0, page: 1, per: 60, loading: false,
+  q: localStorage.getItem("lk_stuq") || "",
+  reg: localStorage.getItem("lk_stureg") || "",
+  st: localStorage.getItem("lk_stust") === "all" ? "all" : "active",
   URL: "https://raw.githubusercontent.com/rtynbirf/global-video-platforms-registry/main/download/mega_index.json",
   TTL: 7 * 24 * 3600 * 1000
 };
+function stuSave(){ localStorage.setItem("lk_stuq", STU.q); localStorage.setItem("lk_stureg", STU.reg); localStorage.setItem("lk_stust", STU.st); }
 async function stuLoad(force){
   if(STU.loading) return;
   if(!force){
@@ -1678,20 +1869,57 @@ $("#mqShuf").onclick = () => {
 };
 $("#mqClear").onclick = () => { MEGA.queue = []; MEGA.pos = -1; MEGA.save(); renderMegaUI(); };
 $("#mhClear").onclick = () => { MEGA.hist = []; MEGA.save(); renderMegaUI(); };
-$("#stuQ").oninput = e => { STU.q = e.target.value.trim(); STU.page = 1; stuRender(); };
-$("#stuReg").onchange = e => { STU.reg = e.target.value; STU.page = 1; stuRender(); };
+$("#stuQ").oninput = e => { STU.q = e.target.value.trim(); STU.page = 1; stuSave(); stuRender(); };
+$("#stuReg").onchange = e => { STU.reg = e.target.value; STU.page = 1; stuSave(); stuRender(); };
 $$("#stuPage .f-chip").forEach(b => b.onclick = () => {
-  STU.st = b.dataset.st; STU.page = 1;
+  STU.st = b.dataset.st; STU.page = 1; stuSave();
   $$("#stuPage .f-chip").forEach(x => x.classList.toggle("on", x === b));
   stuRender();
 });
 $("#stuMore").onclick = () => { STU.page++; stuRender(); };
 
+/* ---------- М3: установка PWA, обновление SW, честные тосты сети ---------- */
+let InstallP = null;
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); InstallP = e; const b = $("#btnInstall"); if(b) b.classList.remove("hidden"); });
+function wirePWA(){
+  const b = $("#btnInstall"); if(!b || b._w) return; b._w = true;
+  b.onclick = async () => {
+    if(!InstallP) return toast("Браузер пока не даёт установить — честно");
+    try{
+      InstallP.prompt();
+      const ch = await InstallP.userChoice;
+      toast(ch && ch.outcome === "accepted" ? "ЛАКОРНИЯ стоит в системе — как приложение" : "Отложено — кнопка ждёт");
+    }catch(e){ toast("Браузер передумал давать установку — честно"); }
+    InstallP = null; b.classList.add("hidden");
+  };
+  addEventListener("appinstalled", () => { b.classList.add("hidden"); toast("ЛАКОРНИЯ стоит в системе — как приложение"); });
+}
+function wireSW(){
+  if(!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.ready.then(reg => {
+    reg.addEventListener("updatefound", () => {
+      const nw = reg.installing; if(!nw) return;
+      nw.addEventListener("statechange", () => {
+        if(nw.state === "installed" && navigator.serviceWorker.controller) toast("Новая сборка доехала — перезагрузи страницу (Ctrl+R), чтобы включить");
+      });
+    });
+  }).catch(()=>{});
+}
+function wireNet(){
+  addEventListener("offline", () => toast("Сеть пропала — сборка играет из кэша, смотри дальше"));
+  addEventListener("online", () => toast("Сеть вернулась — всё живо"));
+}
+
 /* ---------- старт ---------- */
 function boot(){
-  initData(); renderHero(); renderRows(); renderFilters(); renderGrid(); renderFav(); renderMegaUI(); probeNNM();
+  initData(); migrateV3();
+  renderHero(); renderRows(); renderFilters(); renderGrid(); renderFav(); renderCont(); renderMegaUI(); probeNNM();
   const u = new URLSearchParams(location.search).get("play");
   if(u && detectSource(u)) history.replaceState({ r:0 }, "", location.pathname + "#/s/" + encodeURIComponent(u));
+  $("#sortBy").onchange = e => { F.sort = e.target.value; F.page = 1; renderGrid(); };
+  $("#stuQ").value = STU.q;
+  $$("#stuPage .f-chip").forEach(x => x.classList.toggle("on", x.dataset.st === STU.st));
+  wirePWA(); wireSW(); wireNet();
   routeApply();
 }
 boot();
