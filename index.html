@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>МЕГА-ПЛЕЕР · автопилот просмотра</title>
+<title>ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР</title>
 <style>
 :root{--bg:#0b0713;--bg2:#120b1f;--card:#171029;--card2:#1e1436;--line:rgba(255,255,255,.09);--acc:#e879f9;--acc2:#c084fc;--gold:#fbbf24;--green:#34d399;--red:#f87171;--mut:#9b8fb8;--mut2:#6f6390;--txt:#f3eefc}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -85,18 +85,6 @@ header{position:sticky;top:0;z-index:50;display:flex;gap:14px;align-items:center
 .grid{display:grid;grid-template-columns:repeat(auto-fill,178px);gap:13px;padding-bottom:8px}
 .empty-blk{padding:70px 20px;text-align:center;color:var(--mut2);font-size:15px}
 
-/* герой: один ввод, любой контент */
-.ap-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-#qAuto{flex:1;min-width:260px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--txt);padding:14px 18px;border-radius:13px;font-size:15px;outline:0}
-#qAuto:focus{border-color:var(--acc)}
-.ap-chips{display:flex;gap:8px;align-items:center;margin-top:13px;flex-wrap:wrap}
-.ap-lbl{color:var(--mut2);font-size:12px;font-weight:700}
-.bench{margin:16px 0 10px}
-.bench summary{font:900 14.5px/1.3 serif;color:var(--acc);padding:12px 14px;cursor:pointer;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:13px}
-.bench summary::-webkit-details-marker{display:none}
-.bench[open] summary{border-bottom-left-radius:0;border-bottom-right-radius:0;border-color:rgba(232,121,249,.4)}
-.bench-in{padding:14px;border:1px solid var(--line);border-top:0;border-radius:0 0 13px 13px;background:rgba(23,16,41,.5)}
-
 /* модалка тайтла */
 .ov{position:fixed;inset:0;z-index:100;background:rgba(5,2,10,.78);backdrop-filter:blur(7px);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:4vh 16px}
 .sheet{position:relative;width:min(860px,100%);background:var(--bg2);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin:auto}
@@ -128,19 +116,6 @@ header{position:sticky;top:0;z-index:50;display:flex;gap:14px;align-items:center
 
 /* плеер */
 .pl-ov{position:fixed;inset:0;z-index:120;background:#050208;display:flex;flex-direction:column}
-/* конвейер автопилота */
-.pl-pipe{display:flex;gap:6px;align-items:center;padding:8px 14px;background:var(--bg2);border-bottom:1px solid var(--line);overflow-x:auto}
-.p-chip{flex:none;font:800 10.5px/1.2 sans-serif;padding:7px 10px;border-radius:9px;background:var(--card);border:1px solid var(--line);color:var(--mut2);display:inline-flex;gap:6px;align-items:baseline;letter-spacing:.04em}
-.p-chip small{color:var(--mut2);font-weight:600;font-size:10px;max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0}
-.p-chip.ok{color:var(--green);border-color:rgba(52,211,153,.45)}
-.p-chip.ok small{color:rgba(52,211,153,.8)}
-.p-chip.busy{color:var(--acc);border-color:rgba(232,121,249,.5);animation:pulse 1.4s infinite}
-.p-chip.busy small{color:var(--acc)}
-.p-chip.warn{color:var(--gold);border-color:rgba(251,191,36,.45)}
-.p-chip.warn small{color:var(--gold)}
-.p-chip.fail{color:var(--red);border-color:rgba(248,113,113,.5)}
-.p-chip.fail small{color:var(--red)}
-.p-arr{color:var(--mut2);font-size:10px;flex:none}
 .pl-top{display:flex;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--bg2)}
 .pl-title{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pl-title small{color:var(--mut2);font-weight:600}
@@ -202,56 +177,119 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding:26px 22px 34px;t
 footer b{color:var(--acc)}
 #toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);z-index:200;background:var(--card2);border:1px solid var(--acc);color:#fff;padding:12px 20px;border-radius:12px;font:700 13px/1 sans-serif;opacity:0;transition:.25s;pointer-events:none;max-width:80vw}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:640px){.hero h1{font-size:26px}.m-head-in{flex-direction:column;align-items:flex-start}.row .card{flex-basis:150px}.grid{grid-template-columns:repeat(auto-fill,150px)}.card{width:150px}}
+/* мета-сцена и студии */
+.mega-wrap{max-width:940px;margin:0 auto;padding:34px 22px 60px}
+.mega-h{font:900 26px/1.15 serif;margin-bottom:6px}
+.mega-sub{color:var(--mut);font-size:13px;margin-bottom:18px;max-width:760px}
+.mega-sub b{color:var(--txt)}
+.mega-input{display:flex;gap:10px;flex-wrap:wrap}
+.mega-input input{flex:1;min-width:260px;background:var(--card);border:1px solid var(--line);color:var(--txt);padding:14px 16px;border-radius:12px;font-size:14px;outline:0}
+.mega-input input:focus{border-color:var(--acc)}
+.drop{margin-top:14px;border:1.5px dashed rgba(232,121,249,.35);border-radius:14px;padding:22px;text-align:center;color:var(--mut);font-size:13px;transition:.2s}
+.drop.over{border-color:var(--acc);background:rgba(232,121,249,.08);color:var(--txt)}
+.mq{margin-top:22px}
+.mq-item{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;font-size:13px}
+.mq-item .nn{font:900 12px/1 sans-serif;color:var(--gold);width:24px;flex:none}
+.mq-item .uu{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mq-item.cur{border-color:var(--acc)}
+.mq-item.cur .uu{color:#fff}
+.mq-item button{background:0;border:0;color:var(--mut);font-size:14px;padding:2px 6px}
+.mq-item button:hover{color:var(--red)}
+.mq-item .play{color:var(--acc)}
+.hist-chip{max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--card);border:1px solid var(--line);color:var(--mut);font-size:12px;padding:8px 12px;border-radius:10px;cursor:pointer}
+.hist-chip:hover{border-color:var(--acc);color:var(--txt)}
+.stu-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.stu-bar input{flex:1;min-width:220px;background:var(--card);border:1px solid var(--line);color:var(--txt);padding:11px 15px;border-radius:11px;font-size:13px;outline:0}
+.stu-bar input:focus{border-color:var(--acc)}
+.stu-bar select{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:11px 12px;border-radius:11px;font-size:13px;outline:0}
+.stu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:11px;margin-top:14px}
+.stu-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:5px;transition:.15s}
+.stu-card:hover{border-color:rgba(232,121,249,.45)}
+.stu-card .nm{font-weight:800;font-size:13.5px;display:flex;gap:8px;align-items:flex-start;justify-content:space-between;word-break:break-word}
+.stu-card .mt{color:var(--mut);font-size:11.5px}
+.badge{font:800 9.5px/1 sans-serif;padding:4px 8px;border-radius:7px;letter-spacing:.4px;white-space:nowrap;flex:none;margin-top:1px}
+.b-active{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.4)}
+.b-unver{background:rgba(251,191,36,.12);color:var(--gold);border:1px solid rgba(251,191,36,.35)}
+.b-dead{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.35)}
+.b-move{background:rgba(192,132,252,.14);color:var(--acc2);border:1px solid rgba(192,132,252,.4)}
+
+@media(max-width:640px){header{flex-wrap:wrap;gap:8px;padding:10px 12px}#q{max-width:none;order:10;flex-basis:100%}.hero h1{font-size:26px}.m-head-in{flex-direction:column;align-items:flex-start}.row .card{flex-basis:150px}.grid{grid-template-columns:repeat(auto-fill,150px)}.card{width:150px}.mega-wrap{padding:24px 14px 44px}.stu-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">МЕГА-ПЛЕЕР<small>СИНГУЛЯР · ЛЮБОЙ КОНТЕНТ</small></div>
-  <input id="q" type="search" placeholder="Что смотреть — или вставь ссылку/magnet и жми Enter…" autocomplete="off">
-  <button class="hbtn on" id="tabHome">Стенд</button>
+  <div class="logo">ЛАКОРНИЯ<small>◈ МЕГАМЕТАПЛЕЕР</small></div>
+  <input id="q" type="search" placeholder="Поиск: название, жанр, год…" autocomplete="off">
+  <button class="hbtn on" id="tabHome">Каталог</button>
+  <button class="hbtn" id="tabMega">◈ СЦЕНА</button>
+  <button class="hbtn" id="tabStu">СТУДИИ</button>
   <button class="hbtn" id="tabFav">♥ Избранное</button>
   <a class="hbtn" id="doorSingular" href="https://rtynbirf.github.io/singulyar/" target="_blank" rel="noopener" title="Отдельная дверь: дом СИНГУЛЯР — караоке-дом на 200 языков, поёт без сети" style="text-decoration:none;display:inline-flex;align-items:center;border-color:rgba(212,175,55,.55);color:#FFD97A">◈ СИНГУЛЯР</a>
 </header>
 
-<div class="hero" id="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-in">
-    <div class="hero-tag"><span class="dot"></span>АВТОПИЛОТ ПРОСМОТРА · ЦЕЛЬ → МАТЧ → ИСТОЧНИК → ЯЗЫК → ЗАПУСК → РЕЗУЛЬТАТ</div>
-    <h1>Напиши, что смотреть — включу сам</h1>
-    <p>Фильм, сериал, мульт, документалка — что угодно. Автопилот найдёт источники, сверит названия с заявленным, включит рабочий транспорт, а если русской озвучки нет — сам сделает русские субтитры и голос прямо в браузере. Пустышку не покажет: каждый шаг конвейера — с доказательством.</p>
-    <div class="ap-row">
-      <input id="qAuto" type="search" placeholder="Например: Интерстеллар · Во все тяжкие S01E03 · Ход королевы серия 2" autocomplete="off">
-      <button class="btn btn-play" id="goAuto">▶ ВКЛЮЧИТЬ</button>
-    </div>
-    <div class="ap-chips">
-      <span class="ap-lbl">попробуй:</span>
-      <button class="f-chip" data-ap="Интерстеллар">Интерстеллар</button>
-      <button class="f-chip" data-ap="Во все тяжкие S01E03">Во все тяжкие S01E03</button>
-      <button class="f-chip" data-ap="Ход королевы серия 2">Ход королевы серия 2</button>
-      <button class="f-chip" data-ap="Шерлок серия 1">Шерлок серия 1</button>
-    </div>
-  </div>
-</div>
+<div class="hero" id="hero"></div>
 <main id="home">
-  <div class="row-wrap">
-    <details class="bench" id="catalogSec">
-      <summary>ТЕСТОВЫЙ СТЕНД · 26 тайтлов со сверенными ссылками — регресс движка, не витрина</summary>
-      <div class="bench-in">
-        <p class="le-note" style="margin-top:0">Это не каталог «для просмотра», а стенд: 26 тайтлов / 179 серий, каждая ссылка проверена на живость и совпадение названия. Движок автопилота один и тот же для любого контента — стенд нужен, чтобы старые ошибки не возвращались.</p>
-        <div class="filters" id="filters">
-          <button class="f-chip on" data-ty="">Все</button>
-          <button class="f-chip" data-ty="BL">BL</button>
-          <button class="f-chip" data-ty="GL">GL</button>
-          <button class="f-chip" data-ru="1">С RU-озвучкой</button>
-        </div>
-        <div class="grid" id="grid"></div>
-        <div style="text-align:center;padding:18px"><button class="btn btn-ghost" id="moreGrid">Показать ещё</button></div>
-      </div>
-    </details>
+  <div class="row-wrap"><div class="row-head"><h3>🔥 Новинки с RU-озвучкой</h3><div class="ln"></div><button class="more-btn" data-more="ru">Показать ещё</button></div><div class="row" id="rowNew"></div></div>
+  <div class="row-wrap"><div class="row-head"><h3>💗 GL</h3><div class="ln"></div><button class="more-btn" data-more="GL">Показать ещё</button></div><div class="row" id="rowGL"></div></div>
+  <div class="row-wrap"><div class="row-head"><h3>💙 BL</h3><div class="ln"></div><button class="more-btn" data-more="BL">Показать ещё</button></div><div class="row" id="rowBL"></div></div>
+  <div class="row-wrap"><div class="row-head"><h3>👑 Топ-10</h3><div class="ln"></div></div><div class="row" id="rowTop"></div></div>
+  <div class="row-wrap" id="catalogSec">
+    <div class="filters" id="filters">
+      <button class="f-chip on" data-ty="">Все</button>
+      <button class="f-chip" data-ty="BL">BL</button>
+      <button class="f-chip" data-ty="GL">GL</button>
+      <button class="f-chip" data-ru="1">С RU-озвучкой</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div style="text-align:center;padding:18px"><button class="btn btn-ghost" id="moreGrid">Показать ещё</button></div>
   </div>
 </main>
 <main id="favPage" class="hidden"><div class="row-wrap"><div class="row-head"><h3>♥ Избранное</h3></div><div class="grid" id="favGrid"></div><div class="empty-blk hidden" id="favEmpty">Пока пусто — жми ♡ В избранное в карточке тайтла.</div></div></main>
+
+<main id="megaPage" class="hidden">
+  <div class="mega-wrap">
+    <div class="mega-h">◈ СЦЕНА</div>
+    <div class="mega-sub">Мета-уровень плеера: смотри <b>что угодно</b> — без каталога. Вставь любую ссылку (mp4 / .m3u8 / magnet: / YouTube / VK / Rutube / Dailymotion / Sibnet / OK / любая страница видео), брось локальный файл — сцена сама подберёт транспорт. Ссылки складываются в очередь и играют друг за другом.</div>
+    <div class="mega-input">
+      <input type="url" id="megaUrl" placeholder="Ссылка: mp4 / .m3u8 / magnet: / страница видео…" autocomplete="off" spellcheck="false">
+      <button class="btn btn-play" id="megaGo" style="padding:12px 20px">▶ Смотреть</button>
+      <button class="btn btn-ghost" id="megaQueue" style="padding:12px 18px">＋ В очередь</button>
+      <label class="btn btn-ghost" style="padding:12px 18px;cursor:pointer">📁 Файл<input type="file" id="megaFile" accept="video/*,audio/*,.mkv,.avi,.mov,.mp4,.webm,.m4v,.ogv,.mp3,.flac,.m3u8" style="display:none"></label>
+    </div>
+    <div class="drop" id="megaDrop">Перетащи сюда файл или ссылку — сцена поймёт</div>
+    <div class="mq" id="mqWrap">
+      <div class="row-head"><h3>🎯 Очередь</h3><div class="ln"></div>
+        <button class="more-btn" id="mqPlay">▶ Играть очередь</button>
+        <button class="more-btn" id="mqShuf">🔀 Вперемешку</button>
+        <button class="more-btn" id="mqClear">✕ Очистить</button>
+      </div>
+      <div id="mqList"></div>
+      <div class="le-note hidden" id="mqEmpty" style="margin-top:8px">Очередь пуста — добавь ссылки кнопкой «＋ В очередь» или перетаскиванием.</div>
+    </div>
+    <div class="mq" id="mhWrap">
+      <div class="row-head"><h3>🕘 Уже смотрел</h3><div class="ln"></div><button class="more-btn" id="mhClear">✕ Очистить</button></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px" id="mhList"></div>
+      <div class="le-note hidden" id="mhEmpty" style="margin-top:8px">История пуста.</div>
+    </div>
+    <div class="le-note" style="margin-top:22px">Честность сцены: mp4 / m3u8 и твои файлы играют напрямую в нашем плеере (с живым RU-слоем); ссылки видео-хостингов едут через их собственные прокладки — они просто транспорт; magnet в браузере достаёт WebTorrent (доступны wss-трекеры и webseed-раздачи), полный P2P — через локальный стример. Контент важнее, транспорт подберётся сам.</div>
+  </div>
+</main>
+
+<main id="stuPage" class="hidden">
+  <div class="mega-wrap">
+    <div class="mega-h">СТУДИИ</div>
+    <div class="mega-sub">Мета-слой над платформами: <b id="stuCount">—</b> Видео-платформ мира из верифицированного реестра — все в одном индексе. Каждая запись — со статусом и датой проверки. Мёртвых не прячем: честность важнее красивой цифры.</div>
+    <div class="stu-bar">
+      <input type="search" id="stuQ" placeholder="Поиск платформы: имя, адрес…" autocomplete="off">
+      <select id="stuReg"><option value="">Все регионы</option></select>
+      <button class="f-chip on" data-st="active">Активные</button>
+      <button class="f-chip" data-st="all">Все статусы</button>
+    </div>
+    <div class="le-note hidden" id="stuNote"></div>
+    <div class="stu-grid" id="stuGrid"></div>
+    <div style="text-align:center;padding:18px"><button class="btn btn-ghost hidden" id="stuMore">Показать ещё</button></div>
+  </div>
+</main>
 
 <div class="ov hidden" id="titleOv"></div>
 <div class="pl-ov hidden" id="plOv">
@@ -261,14 +299,12 @@ footer b{color:var(--acc)}
     <div style="flex:1"></div>
     <div id="plSrcChip"></div>
   </div>
-  <div class="pl-pipe" id="plPipe"></div>
   <div class="pl-stage" id="plStage">
     <div class="pl-status" id="plStatus"></div>
     <div class="pl-spin hidden" id="plSpin"><div class="pl-spin-lbl" id="plSpinLbl"></div></div>
     <div class="tr-sub hidden" id="trSub"></div>
   </div>
   <div class="srcs-bar" id="srcsBar"></div>
-  <div class="srcs-bar hidden" id="filesBar"></div>
   <div class="tr-bar" id="trBar"></div>
   <div class="pl-ctl">
     <button class="pctl" id="plPlay">▶</button>
@@ -286,20 +322,19 @@ footer b{color:var(--acc)}
 </div>
 <div class="ov hidden" id="ov2"></div>
 <footer>
-  <b>МЕГА-ПЛЕЕР</b> — автопилот просмотра: один ввод, любой контент, проверенный результат.<br>
-  Источники сверяются по названию, транспорт подбирается сам, а русский перевод (субтитры и голос) плеер делает себе сам — на лету, прямо в браузере.<br>
-  Свою ссылку (mp4 / m3u8 / magnet / страница видео) можно вставить прямо в строку ввода — она станет primary.<br>
-  Никаких кумиров: прокладки — просто транспорт. Контент важнее.
+  <b>ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР</b> — мета-плеер в одном окне: каталог лакорнов BL/GL, открытая сцена для любой ссылки или файла и индекс студий мира.<br>
+  Плеер сам подбирает транспорт: кликнул — и смотришь. Названия серий сверяются с источником, мимо — не покажем.<br>
+  Свою ссылку (mp4 / m3u8 / magnet / страница видео / аудио) можно добавить в любой серии или кинуть прямо на сцену — она станет основной.<br>
+  Нет русской озвучки? Плеер сам сделает русские субтитры и голос прямо в браузере — живой перевод на лету.<br>
+  <span style="color:var(--mut2)">МЕГАМЕТАПЛЕЕР · такт M1 «СЦЕНА И СТУДИИ» · сборка 2026-10-25 · дверь дома: ·56</span>
 </footer>
 <div id="toast"></div>
 <script>window.DATA = { s: [{"t":"Мы","o":"We Are","y":2024,"ty":"BL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/SZr0i1frloPAlLiiN/x360","M":16,"st":"completed","d":"Банда первокурсников инженерного факультета: спойлеры, хвосты и шесть параллельных историй любви.","g":["Романтика","Комедия","Университет"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x7x9xrg","ru":0,"t":"We Are Who We Are 1x08 -  Inside The Episode - Season 1 Episode 8"},{"u":"https://www.dailymotion.com/video/x7wt5zj","ru":0,"t":"We Are Who We Are 1x05 - Inside The Episode - Season 1 Episode 5"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x7wo8ef","ru":0,"t":"We Are Who We Are 1x04 - Inside The Episode - Episode 4"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x9caitu","ru":0,"t":"We Are Together Tomorrow -Undercover Episode 5"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x7wy7ko","ru":0,"t":"We Are Who We Are 1x06 - Inside The Episode (Episode 6)"}]},{"n":14,"sources":[{"u":"https://www.dailymotion.com/video/x9nk318","ru":0,"t":"We Are Disgraced-Undercover Episode 14"},{"u":"https://www.dailymotion.com/video/x9noyj2","ru":0,"t":"We Are Rich-Undercover Episode 14"}]},{"n":16,"sources":[{"u":"https://www.dailymotion.com/video/x9rlg0o","ru":0,"t":"We are resting!-Undercover Episode 16"}]}]},{"t":"КиннПорше","o":"KinnPorsche","y":2022,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/TpYin1g4IghRtLzYG/x360","M":14,"st":"completed","d":"Наследник мафиозного клана берёт к себе телохранителем парня, который ненавидит мафию всей душой.","g":["Криминал","Романтика","Драма"],"eps":[{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x89ptm9","ru":0,"t":"KinnPorsche Talk EP2 I อนุบาลมาเฟียมาป่วนแล้ว (ENG SUB)"}]},{"n":7,"sources":[{"u":"https://rutube.ru/video/564b7fc5ca87d912613022259d137469/","ru":0,"t":"[BL] Kinn × Porsche - EP 7 || KinnPorsche The Series Episode 7"}]},{"n":12,"sources":[{"u":"https://rutube.ru/video/2288bfe9a243d9c512b5a1bd8ef12476/","ru":0,"t":"Kinnporsche episode 12 | full description in English"}]},{"n":13,"sources":[{"u":"https://rutube.ru/video/129ed15e0e75092a1ba6c55a3761f91a/","ru":0,"t":"Kinnporsche VOSTFR EP 13"},{"u":"https://rutube.ru/video/91029b17c0a03ab14e04298d306269ab/","ru":0,"t":"Kim love Porchay episode 13|| #kinnporsche  || JeffBarcode"}]},{"n":14,"sources":[{"u":"https://rutube.ru/video/58b6ea63d1ba695144435aa477e0c7da/","ru":0,"t":"KINNPORSCHE ON CRACK - Episode 14"},{"u":"https://rutube.ru/video/bc97ddeefe2b910d03041fc228a72327/","ru":0,"t":"KinnPorsche The Series Ep 14"}]}]},{"t":"Любовь по стечению обстоятельств","o":"Love by Chance","y":2018,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/YKWC41efrc32pRZpL/x360","M":14,"st":"completed","d":"Осторожный Ае и ветреный Пит сходятся на почве опеки над упрямым крохотным иномарком-автомобилем.","g":["Романтика","Комедия"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x9ite6c","ru":0,"t":"Love By Chance episode 1 eng sub"},{"u":"https://www.dailymotion.com/video/x8anbv3","ru":0,"t":"Love By Chance - Ep 1 - BL"},{"u":"https://www.dailymotion.com/video/xbisway","ru":0,"t":"Love By Chance - Ep 1 - BL"},{"u":"https://www.dailymotion.com/video/xbkigq2","ru":0,"t":"Love by chance 2 - A chance to love ep 1 Eng Sub"},{"u":"https://www.dailymotion.com/video/xbjqszi","ru":0,"t":"Love By Chance - Ep 1 - BL"},{"u":"https://www.dailymotion.com/video/x9l7l76","ru":0,"t":"Love by chance 2 - A chance to love ep 1 Eng Sub"},{"u":"https://www.dailymotion.com/video/xbjbls2","ru":0,"t":"Love By Chance - Ep 1 - BL"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x9kdz68","ru":0,"t":"Love by chance episode 2 eng sub"},{"u":"https://www.dailymotion.com/video/xbmcwyi","ru":0,"t":"Love by chance 2 - A chance to love ep 2 Eng Sub"},{"u":"https://www.dailymotion.com/video/xblqvx2","ru":0,"t":"Love by chance 2 - A chance to love ep 2 Eng Sub"},{"u":"https://www.dailymotion.com/video/x9l9s30","ru":0,"t":"Love by chance 2 - A chance to love ep 2 Eng Sub"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x9kdz66","ru":0,"t":"Love by chance episode 3 eng sub"},{"u":"https://www.dailymotion.com/video/x8aoxdi","ru":0,"t":"Love By Chance - Ep 3 - BL"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x9k4pfq","ru":0,"t":"Love by chance episode 4 eng sub"},{"u":"https://www.dailymotion.com/video/xbmcyle","ru":0,"t":"Love by chance 2 - A chance to love ep 4 Eng Sub"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/xbpf9m6","ru":0,"t":"Love by chance 2 - Episode 5"},{"u":"https://www.dailymotion.com/video/xbpigrm","ru":0,"t":"Love by chance episode 5 eng sub"},{"u":"https://www.dailymotion.com/video/x9l0nos","ru":0,"t":"Love by chance episode 5 eng sub"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x9kdz64","ru":0,"t":"Love by chance episode 6 eng sub"},{"u":"https://www.dailymotion.com/video/xbl5jn2","ru":0,"t":"Love by chance 2 - A chance to love ep 6 Eng Sub"},{"u":"https://www.dailymotion.com/video/xbjbjie","ru":0,"t":"Love By Chance - Ep 6 - BL"},{"u":"https://www.dailymotion.com/video/xbkfn7q","ru":0,"t":"Love By Chance - Ep 6 - BL"},{"u":"https://www.dailymotion.com/video/x8aqdtg","ru":0,"t":"Love By Chance - Ep 6 - BL"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x9kdz62","ru":0,"t":"Love by chance episode 7 eng sub"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x9kugq2","ru":0,"t":"Love by chance episode 8 eng sub"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/xbpsxi2","ru":0,"t":"Love by chance episode 9 eng sub"},{"u":"https://www.dailymotion.com/video/x9k4pfg","ru":0,"t":"Love by chance episode 9 eng sub"},{"u":"https://www.dailymotion.com/video/x8arjpe","ru":0,"t":"Love By Chance - Ep 9 - BL"},{"u":"https://www.dailymotion.com/video/xbisycq","ru":0,"t":"Love By Chance - Ep 9 - BL"},{"u":"https://www.dailymotion.com/video/xbm1xa2","ru":0,"t":"Love By Chance - Ep 9 - BL"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x9k4pfi","ru":0,"t":"Love by chance episode 10 eng sub"},{"u":"https://www.dailymotion.com/video/xbpt56i","ru":0,"t":"Love by chance episode 10 eng sub"},{"u":"https://www.dailymotion.com/video/x9l7l74","ru":0,"t":"Love by chance 2 - A chance to love ep 10 Eng Sub"}]},{"n":11,"sources":[{"u":"https://www.dailymotion.com/video/x9kugq0","ru":0,"t":"Love by chance episode 11 eng sub"},{"u":"https://www.dailymotion.com/video/xbpjnri","ru":0,"t":"Love by chance episode 11 eng sub"},{"u":"https://www.dailymotion.com/video/x9l7l6y","ru":0,"t":"Love by chance 2 - A chance to love ep 11 Eng Sub"}]},{"n":12,"sources":[{"u":"https://www.dailymotion.com/video/x9kugpy","ru":0,"t":"Love by chance episode 12 eng sub"},{"u":"https://www.dailymotion.com/video/xbkdg3q","ru":0,"t":"Love by chance 2 - A chance to love ep 12 Eng Sub"},{"u":"https://www.dailymotion.com/video/x9l7l70","ru":0,"t":"Love by chance 2 - A chance to love ep 12 Eng Sub"}]},{"n":13,"sources":[{"u":"https://www.dailymotion.com/video/xbpszyu","ru":0,"t":"Love by chance episode 13 eng sub"},{"u":"https://www.dailymotion.com/video/x9jzm4o","ru":0,"t":"Love by chance episode 13 eng sub"},{"u":"https://www.dailymotion.com/video/xbm34q6","ru":0,"t":"Love by chance 2 - A chance to love ep 13 Eng Sub"}]},{"n":14,"sources":[{"u":"https://www.dailymotion.com/video/xbq9zgi","ru":0,"t":"Love by chance - Episode 14"},{"u":"https://www.dailymotion.com/video/x9jzm4q","ru":0,"t":"Love by chance episode 14 eng sub"}]}]},{"t":"ТарнТип","o":"TharnType","y":2019,"ty":"BL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/RUCHP1gsYo2Glxgz_/x360","M":12,"st":"completed","d":"Гомофоб Тарн поселяется с геем Тайпом — и придирки быстро перестают быть придирками.","g":["Романтика","Драма","Университет"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x7meo9l","ru":0,"t":"TharnType: The Series Episode 1 English SUB"},{"u":"https://www.dailymotion.com/video/x8cykys","ru":0,"t":"TharnType 2 7 Years Of Love Episode 1 - (English)"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x8cykyt","ru":0,"t":"TharnType 2 7 Years Of Love Episode 2 - (English)"},{"u":"https://www.dailymotion.com/video/x81cxnl","ru":0,"t":"[Eng] TharnType S1 | Ep2"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x8iro6m","ru":0,"t":"TharnType - Season1 - Ep3"},{"u":"https://www.dailymotion.com/video/x8cykyv","ru":0,"t":"TharnType 2 7 Years Of Love Episode 3 - (English)"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x8cykyw","ru":0,"t":"TharnType 2 7 Years Of Love Episode 4 - (English)"},{"u":"https://www.dailymotion.com/video/x81dtiw","ru":0,"t":"[Eng] TharnType S1 | Ep4"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x8czjbu","ru":0,"t":"TharnType 2 7 Years Of Love Episode 5 - (English)"},{"u":"https://www.dailymotion.com/video/x81dtsf","ru":0,"t":"[Eng] TharnType S1 | Ep5"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x7p9p9z","ru":0,"t":"TharnType- The Series Episode 6 English sub"},{"u":"https://www.dailymotion.com/video/x8czjbv","ru":0,"t":"TharnType 2 7 Years Of Love Episode 6 - (English)"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x7p9pin","ru":0,"t":"TharnType- The Series Episode 7 English sub"},{"u":"https://www.dailymotion.com/video/x8czjbw","ru":0,"t":"TharnType 2 7 Years Of Love Episode 7 - (English)"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x7p2wkb","ru":0,"t":"TharnType- The Series Episode 8 English sub"},{"u":"https://www.dailymotion.com/video/x8iro69","ru":0,"t":"TharnType - Season1 - Ep 8"},{"u":"https://www.dailymotion.com/video/x8czjbx","ru":0,"t":"TharnType 2 7 Years Of Love Episode 8 - (English)"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x8d0b9l","ru":0,"t":"TharnType 2 7 Years Of Love Episode 9 - (English)"},{"u":"https://www.dailymotion.com/video/x81zid6","ru":0,"t":"THARNTYPE THE SERIES  Ep 9 Full EngSub"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x7p9pa0","ru":0,"t":"TharnType- The Series Episode 10 English sub"},{"u":"https://www.dailymotion.com/video/x7p2wkc","ru":0,"t":"TharnType- The Series Episode 10 English sub"},{"u":"https://www.dailymotion.com/video/x8d0b9m","ru":0,"t":"TharnType 2 7 Years Of Love Episode 10 - (English)"}]},{"n":11,"sources":[{"u":"https://www.dailymotion.com/video/x8d0b9n","ru":0,"t":"TharnType 2 7 Years Of Love Episode 11 - (English)"},{"u":"https://www.dailymotion.com/video/x81zid7","ru":0,"t":"THARNTYPE THE SERIES Ep 11 Full (Engsub)"}]},{"n":12,"sources":[{"u":"https://www.dailymotion.com/video/x8d0b9o","ru":0,"t":"TharnType 2 7 Years Of Love Episode 12 - (English)"}]}]},{"t":"СОТУС","o":"SOTUS","y":2016,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/YcMn-1eMjz-KulWhX/x360","M":12,"st":"completed","d":"Староста-действует-по-уставу и новенький-нарушает-устав: дресс-код, посвящение и медленно тающее сердце.","g":["Романтика","Университет","Драма"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x4rtezj","ru":1,"t":"Сотус / Sotus 1 эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9llpby","ru":0,"t":"Sotus Episode 1 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6ebwdh","ru":0,"t":"SOTUS  S EPI 1 SUB ESP"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x4ryn3t","ru":1,"t":"Сотус / Sotus the series 2 эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9lp968","ru":0,"t":"Sotus Episode 2 Eng Sub"},{"u":"https://www.dailymotion.com/video/x58iyat","ru":0,"t":"SOTUS: The Series Special Episode 2/4 (UnSub)"},{"u":"https://www.dailymotion.com/video/x6bwlgb","ru":0,"t":"[INDO SUB] Sotus S The Series - Episode 02"},{"u":"https://www.dailymotion.com/video/x6ejm72","ru":0,"t":"SOTUS  S EPI 2 SUB ESPAÑOL"},{"u":"https://www.dailymotion.com/video/x4rl0qm","ru":0,"t":"[Eng-Sub] [Full EP2] Sotus The Series"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x4swyym","ru":1,"t":"Сотус / Sotus 3 эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9llpcc","ru":0,"t":"Sotus Episode 3 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6cumxx","ru":0,"t":"Sotus S The Series Episode 3 [ENGSUB]"},{"u":"https://www.dailymotion.com/video/x58jsf4","ru":0,"t":"SOTUS: The Series Special Episode 3/4 (UnSub)"},{"u":"https://www.dailymotion.com/video/x4swu19","ru":0,"t":"[Engsub] SOTUS The Series EP3"},{"u":"https://www.dailymotion.com/video/x59esvr","ru":0,"t":"【SUB INDO】SOTUS THE SERIES【EP13】"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x4to0di","ru":1,"t":"Сотус / Sotus 4 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9lp962","ru":0,"t":"Sotus Episode 4 Eng Sub"},{"u":"https://www.dailymotion.com/video/x58jv96","ru":0,"t":"SOTUS: The Series Special Episode 4/4 (UnSub)"},{"u":"https://www.dailymotion.com/video/x56q6x8","ru":0,"t":"SOTUS The Series -Ep14-{Esp}"},{"u":"https://www.dailymotion.com/video/x6csgyg","ru":0,"t":"[Sub Esp] Sotus S - Ep 4"},{"u":"https://www.dailymotion.com/video/x5904x1","ru":0,"t":"【SUB INDO】SOTUS THE SERIES【EP14】"},{"u":"https://www.dailymotion.com/video/x6eafoo","ru":0,"t":"SOTUS  S  EPI 4 SUB ESP"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x4ufvet","ru":1,"t":"Сотус / Sotus  5 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9llpc0","ru":0,"t":"Sotus Episode 5 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6d5csm","ru":0,"t":"Sotus S The Series Episode 5 [ENGSUB]"},{"u":"https://www.dailymotion.com/video/x58dy91","ru":0,"t":"SOTUS The Series -Ep15-{Esp}"},{"u":"https://www.dailymotion.com/video/x6era2b","ru":0,"t":"SOTUS S - EPI 5 SUB ESP"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x4varva","ru":1,"t":"Сотус / Sotus 6 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9llpc6","ru":0,"t":"Sotus Episode 6 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6dgcuc","ru":0,"t":"Sotus S The Series Episode 6 [ENGSUB]"},{"u":"https://www.dailymotion.com/video/x6dhvxf","ru":0,"t":"[Sub Esp] Sotus S - Ep 6"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x4wj0ky","ru":1,"t":"Сотус / Sotus 7 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9lp96a","ru":0,"t":"Sotus Episode 7 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6dvjpt","ru":0,"t":"Sotus S The Series Episode 7 [ENGSUB]"},{"u":"https://www.dailymotion.com/video/x6ffd4q","ru":0,"t":"SOTUS S EPI 7 SUB ESP"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x4xbbgi","ru":1,"t":"Сотус / Sotus 8 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9lp96c","ru":0,"t":"Sotus Episode 8 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6e9vuk","ru":0,"t":"Sotus S The Series Episode 8 [ENGSUB]"},{"u":"https://www.dailymotion.com/video/x6eb0g9","ru":0,"t":"[Sub Esp] Sotus S - Ep 8"},{"u":"https://www.dailymotion.com/video/x6fgzfi","ru":0,"t":"SOTUS S  EPI 8 SUB ESP"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x537lip","ru":1,"t":"Сотус / Sotus 9 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9ly3u4","ru":0,"t":"Sotus Episode 9 Eng Sub"},{"u":"https://www.dailymotion.com/video/x9m1kgy","ru":0,"t":"Sotus Episode 9 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6eyi6v","ru":0,"t":"Sotus S The Series Episode 9 [ENGSUB]"},{"u":"https://www.dailymotion.com/video/x6exoxc","ru":0,"t":"Sotus S The Series Episode 9 [ENGSUB]"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x542cpr","ru":1,"t":"Сотус/Sotus - 10 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9lp960","ru":0,"t":"Sotus Episode 10 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6f2fkr","ru":0,"t":"Sotus S The Series Episode 10 [ENGSUB]"}]},{"n":11,"sources":[{"u":"https://www.dailymotion.com/video/x54mnu3","ru":1,"t":"Сотус / Sotus 11 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9lp95y","ru":0,"t":"Sotus Episode 11 Eng Sub"}]},{"n":12,"sources":[{"u":"https://www.dailymotion.com/video/x558xx3","ru":1,"t":"Сотус / Sotus 12 Эпизод (русские субтитры)"},{"u":"https://www.dailymotion.com/video/x9lp966","ru":0,"t":"Sotus Episode 12 Eng Sub"},{"u":"https://www.dailymotion.com/video/x6fokig","ru":0,"t":"[Sub Esp] Sotus S- Ep 12"}]}]},{"t":"Плохой сосед","o":"Bad Buddy","y":2021,"ty":"BL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/aMp5-1foEB_4FL_hf/x360","M":12,"st":"completed","d":"Соседи по общежитиям-соперники выясняют отношения через баскетбол — и проигрывают друг другу окончательно.","g":["Романтика","Комедия","Университет"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x93te5i","ru":0,"t":"Bad Buddy ep 1 eng sub"},{"u":"https://www.dailymotion.com/video/x9dm1nu","ru":0,"t":"Bad Buddy ep 1 eng sub"},{"u":"https://www.dailymotion.com/video/x9jojz0","ru":0,"t":"Bad buddy epi1 engsub #BL #thaigl"},{"u":"https://www.dailymotion.com/video/x862l74","ru":0,"t":"Bad Buddy (2021) Ep 1 Eng Sub"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x9k0hgo","ru":0,"t":"Bad Buddy Episode 2 Eng Sub #BL #thaigl"},{"u":"https://www.dailymotion.com/video/x93te4k","ru":0,"t":"Bad Buddy ep 2 eng sub"},{"u":"https://www.dailymotion.com/video/x9dm1o2","ru":0,"t":"Bad Buddy ep 2 eng sub"},{"u":"https://www.dailymotion.com/video/x862jq5","ru":0,"t":"Bad Buddy (2021) Ep 2 Eng Sub"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x9ke9kw","ru":0,"t":"Bad Buddy Episode 3 Eng Sub #BL #thaigl"},{"u":"https://www.dailymotion.com/video/x93tem2","ru":0,"t":"Bad Buddy ep 3 eng sub"},{"u":"https://www.dailymotion.com/video/x862hin","ru":0,"t":"Bad Buddy (2021) Ep 3 Eng Sub"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x93temg","ru":0,"t":"Bad Buddy ep 4 eng sub"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x9ldz4u","ru":0,"t":"Bad Buddy Episode 7 Engsub #BL #thaigl"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x9m3imm","ru":0,"t":"Bad Buddy Episode 8 Engsub #BL #thaigl"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x9mx158","ru":0,"t":"Bad Buddy Episode 10 Engsub #BL #thaigl"}]}]},{"t":"Между нами","o":"Between Us","y":2022,"ty":"BL","cot":"Таиланд","p":"https://pic.rtbcdn.ru/video/2026-09-04/e5/45/e5459c0031fddc721826a64bb012876b.jpg","M":12,"st":"completed","d":"История Винча и Тима из «Together with Me»: боль прошлого и бандаж на чужом запястье.","g":["Романтика","Драма"],"eps":[{"n":1,"sources":[{"u":"https://rutube.ru/video/dc43f04608b061ed4ebcc5ba96a268af/","ru":1,"t":"Между нами запрет - серия 1-10"},{"u":"https://rutube.ru/video/a512ec8bab1c555ef0975e13d3cd70f9/","ru":1,"t":"Сериал \"Между нами девочками\"| Серия 1"},{"u":"https://rutube.ru/video/53b7ea77fb6fe47bf5916c86f8198e77/","ru":1,"t":"Между нами - Серия 1"},{"u":"https://rutube.ru/video/d7eb5c0e564fe3d195f93183a07ae541/","ru":1,"t":"Между нами девочками сезон1 серия 1"},{"u":"https://www.dailymotion.com/video/x8frng1","ru":1,"t":"Между нами выпал снег - 1 серия"},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":2,"sources":[{"u":"https://rutube.ru/video/4ab0aeacf60b61de92f59a4403552a08/","ru":1,"t":"Сериал \"Между нами девочками\"| Серия 2"},{"u":"https://rutube.ru/video/b4060156f11f71ffb173a16273a17ade/","ru":1,"t":"Между нами - серия 2"},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":3,"sources":[{"u":"https://rutube.ru/video/50e8f8419d40c14c2092cb4b23571ea8/","ru":1,"t":"Сериал \"Между нами девочками\"| Серия 3"},{"u":"https://rutube.ru/video/f5a50f413cb5e3d65f53770e0b282ee0/","ru":1,"t":"Между нами - серия 3"},{"u":"https://www.dailymotion.com/video/x8frqw4","ru":1,"t":"Между нами выпал снег - 3 серия"},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":4,"sources":[{"u":"https://rutube.ru/video/ad1d1c3059d0ba185f31e70606b6b0d7/","ru":1,"t":"Сериал \"Между нами, девочками\", 4 серия | От создателей сериала \"Сваты\" и студии \"Квартал "},{"u":"https://rutube.ru/video/944a6d108d6340be509cdefc96093e6b/","ru":1,"t":"Сериал \"Между нами девочками\"| Серия 4"},{"u":"https://rutube.ru/video/89c396381f2bfc5d3e9f808538c23329/","ru":1,"t":"Между нами  девочками 4 Серия,Анонс"},{"u":"https://www.dailymotion.com/video/x8frrau","ru":1,"t":"Между нами выпал снег - 4 серия"},{"u":"https://www.dailymotion.com/video/x310rjv","ru":1,"t":"Сериал \"Между нами, девочками\", 4 серия | От создателей сериала \"Сваты\" и студии \"Квартал "},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":5,"sources":[{"u":"https://rutube.ru/video/a38152ba4aee1d0613069bda3cf536d8/","ru":1,"t":"Сериал \"Между нами\" 5 серия"},{"u":"https://www.dailymotion.com/video/x30qma0","ru":1,"t":"Сериал \"Между нами, девочками\", 5 серия | От создателей сериала \"Сваты\" и студии \"Квартал "},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":6,"sources":[{"u":"https://rutube.ru/video/9e91e61a12fc592a6956963bcc3736a8/","ru":1,"t":"Между нами - серия 6"},{"u":"https://www.dailymotion.com/video/x30qmzh","ru":1,"t":"Сериал \"Между нами, девочками\", 6 серия | От создателей сериала \"Сваты\" и студии \"Квартал "},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x30qnqr","ru":1,"t":"Сериал \"Между нами, девочками\", 7 серия | От создателей сериала \"Сваты\" и студии \"Квартал "},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":8,"sources":[{"u":"https://rutube.ru/video/8883b3a682897ee52456c2d66a2ee9c0/","ru":1,"t":"между нами   8 серия заключительная)"},{"u":"https://www.dailymotion.com/video/x30qlsz","ru":1,"t":"Сериал \"Между нами, девочками\", 8 серия | От создателей сериала \"Сваты\" и студии \"Квартал "},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":9,"sources":[{"u":"https://rutube.ru/video/44cf1edd493fe9a578075e51e6aea4aa/","ru":1,"t":"Между нами девочками 2. Продолжение.  9 серия"},{"u":"https://www.dailymotion.com/video/x8njvsh","ru":1,"t":"Между нами не осталось преград - Любовь заставляет плакать 9 Серия"},{"u":"https://www.dailymotion.com/video/x30qmww","ru":1,"t":"Сериал \"Между нами, девочками\", 9 серия | От создателей сериала \"Сваты\" и студии \"Квартал "},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":10,"sources":[{"u":"https://rutube.ru/video/02ee74954d1ea46dab8b0e4f93197a7b/","ru":1,"t":"Между нами лёд - 10 серий"},{"u":"https://www.dailymotion.com/video/x30qma3","ru":1,"t":"Сериал \"Между нами, девочками\", 10 серия | От создателей сериала \"Сваты\" и студии \"Квартал"},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":11,"sources":[{"u":"https://rutube.ru/video/feef9b4f002957b44672c688b82a6a38/","ru":1,"t":"Между нами, девочками 1 сезон  11 серия   мелодрама"},{"u":"https://rutube.ru/video/9523e0b6c2cc76d884138c050aa4cb08/","ru":1,"t":"Между нами  девочками 11 Серия,Анонс"},{"u":"https://www.dailymotion.com/video/x30qmx4","ru":1,"t":"Сериал \"Между нами, девочками\", 11 серия | От создателей сериала \"Сваты\" и студии \"Квартал"},{"u":"https://www.dailymotion.com/video/x8kbgwt","ru":1,"t":"Между нами нет преград | Горькая любовь - Эпизод 11"},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]},{"n":12,"sources":[{"u":"https://rutube.ru/video/c600886afa308cb8586be78d0cae94fb/","ru":1,"t":"Между нами, девочками 1 сезон 12 серия мелодрама"},{"u":"https://rutube.ru/video/3d8043a16053d0550e63381573b89871/","ru":1,"t":"Между нами - Серия 12 практика"},{"u":"https://www.dailymotion.com/video/x30qlt1","ru":1,"t":"Сериал \"Между нами, девочками\", 12 серия | От создателей сериала \"Сваты\" и студии \"Квартал"},{"u":"https://rutube.ru/video/80293152134771ba227ff03a1eafb7ea/","ru":1,"t":"Gacha Life \"Между нами - Любовная Ненависть\" // Все серии"}]}]},{"t":"Последние сумерки","o":"Last Twilight","y":2023,"ty":"BL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/VQ3-R1g3G4EPAcuKl/x360","M":12,"st":"completed","d":"Погибший в аварии гонщик и его сиделка-волонтёр учатся видеть мир заново — в прямом смысле.","g":["Драма","Романтика"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x8pyakv","ru":0,"t":"Last Twilight Ep 1 Eng Sub"},{"u":"https://www.dailymotion.com/video/x8pyanu","ru":0,"t":"Last Twilight Ep 1 Eng Sub"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x8pye9j","ru":0,"t":"Last Twilight Ep 2 Eng Sub"},{"u":"https://www.dailymotion.com/video/x8pye48","ru":0,"t":"Last Twilight Ep 2 Eng Sub"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x8pz4b0","ru":0,"t":"Last Twilight Ep 3 Eng Sub"},{"u":"https://www.dailymotion.com/video/x8pz4ho","ru":0,"t":"Last Twilight Ep 3 Eng Sub"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x8qx2qk","ru":0,"t":"Last Twilight Ep 4 Eng sub"},{"u":"https://www.dailymotion.com/video/x8q6rkf","ru":0,"t":"Last Twilight Ep 4 Eng Sub"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x8qobld","ru":0,"t":"Last Twilight Ep 5 Eng Sub"},{"u":"https://www.dailymotion.com/video/x8qx0xb","ru":0,"t":"Last Twilight Ep 5 Eng sub"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x8qtwnj","ru":0,"t":"Last Twilight  Ep 6 Eng Sub"},{"u":"https://www.dailymotion.com/video/x8qtvrt","ru":0,"t":"Last Twilight  Ep 6 Eng Sub"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x8qx0xa","ru":0,"t":"Last Twilight Ep 7 Eng sub"},{"u":"https://www.dailymotion.com/video/x8qtw22","ru":0,"t":"Last Twilight Ep 7 Eng Sub"},{"u":"https://www.dailymotion.com/video/x8qtxgg","ru":0,"t":"Last Twilight Ep 7 Eng Sub"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x8r0n01","ru":0,"t":"Last Twilight Ep 8 Engsub"},{"u":"https://www.dailymotion.com/video/x8r2swg","ru":0,"t":"Last Twilight Ep 8 Eng sub"},{"u":"https://www.dailymotion.com/video/x8rc0v6","ru":0,"t":"Last Twilight Ep 8 Eng Sub"},{"u":"https://www.dailymotion.com/video/x8rc0x5","ru":0,"t":"Last Twilight Ep 8 Eng Sub"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x8r82qs","ru":0,"t":"Last Twilight Ep 9 Engsub"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x8rf4hy","ru":0,"t":"Last Twilight  Ep 10 Eng Sub"},{"u":"https://www.dailymotion.com/video/x8rf4je","ru":0,"t":"Last Twilight  Ep 10 Eng Sub"}]},{"n":11,"sources":[{"u":"https://www.dailymotion.com/video/x8rvsez","ru":0,"t":"Last Twilight  Ep 11 Eng Sub"}]}]},{"t":"Только друзья","o":"Only Friends","y":2023,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/XqMUO1g4LWbOP-muS/x360","M":12,"st":"completed","d":"Шесть друзей, один чат и правила: не влюбляться в своих — правило, которое сломают первым.","g":["Романтика","Драма","Дружба"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/xaw1qkm","ru":0,"t":"Only Friends ep 1 eng sub"},{"u":"https://www.dailymotion.com/video/x937ldk","ru":0,"t":"Only Friends ep 1 eng sub"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x9e6xyu","ru":0,"t":"Only Friends ep 2 eng sub"},{"u":"https://www.dailymotion.com/video/x95ugms","ru":0,"t":"Only Friends ep 2 eng sub"},{"u":"https://www.dailymotion.com/video/x9dsq90","ru":0,"t":"Only Friends ep 2 eng sub"},{"u":"https://www.dailymotion.com/video/x938n22","ru":0,"t":"Only Friends ep 2 eng sub"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/xaw1s02","ru":0,"t":"Only Friends ep 3 eng sub"},{"u":"https://www.dailymotion.com/video/x9dsqea","ru":0,"t":"Only Friends ep 3 eng sub"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x9e6lq8","ru":0,"t":"Only Friends ep 4 eng sub"},{"u":"https://www.dailymotion.com/video/x9dxjju","ru":0,"t":"Only Friends ep 4 eng sub"},{"u":"https://www.dailymotion.com/video/x938n64","ru":0,"t":"Only Friends ep 4 eng sub"},{"u":"https://www.dailymotion.com/video/xaw1rzu","ru":0,"t":"Only Friends ep 4 eng sub"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x95ukv0","ru":0,"t":"Only Friends ep 5 eng sub"},{"u":"https://www.dailymotion.com/video/x9e6xz0","ru":0,"t":"Only Friends ep 5 eng sub"},{"u":"https://www.dailymotion.com/video/x938n7a","ru":0,"t":"Only Friends ep 5 eng sub"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x938ndi","ru":0,"t":"Only Friends ep 6 eng sub"},{"u":"https://www.dailymotion.com/video/x9dsqjw","ru":0,"t":"Only Friends ep 6 eng sub"},{"u":"https://www.dailymotion.com/video/x9e6lqe","ru":0,"t":"Only Friends ep 6 eng sub"},{"u":"https://www.dailymotion.com/video/xaw1sgq","ru":0,"t":"Only Friends ep 6 eng sub"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x9e6y1y","ru":0,"t":"Only Friends ep 7 eng sub"},{"u":"https://www.dailymotion.com/video/xaw1sim","ru":0,"t":"Only Friends ep 7 eng sub"},{"u":"https://www.dailymotion.com/video/x95uqqw","ru":0,"t":"Only Friends ep 7 eng sub"},{"u":"https://www.dailymotion.com/video/x92vzm8","ru":0,"t":"Only Friends ep 7 eng sub"},{"u":"https://www.dailymotion.com/video/x938nfu","ru":0,"t":"Only Friends ep 7 eng sub"},{"u":"https://www.dailymotion.com/video/x9dsqku","ru":0,"t":"Only Friends ep 7 eng sub"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x95uv14","ru":0,"t":"Only Friends ep 8 eng sub"},{"u":"https://www.dailymotion.com/video/x92vzrw","ru":0,"t":"Only Friends ep 8 eng sub"},{"u":"https://www.dailymotion.com/video/xaw1slq","ru":0,"t":"Only Friends ep 8 eng sub"},{"u":"https://www.dailymotion.com/video/x9duhoe","ru":0,"t":"Only Friends ep 8 eng sub"},{"u":"https://www.dailymotion.com/video/x9e6y2c","ru":0,"t":"Only Friends ep 8 eng sub"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x938njm","ru":0,"t":"Only Friends ep 9 eng sub"},{"u":"https://www.dailymotion.com/video/x9e6lqg","ru":0,"t":"Only Friends ep 9 eng sub"},{"u":"https://www.dailymotion.com/video/xaw1sny","ru":0,"t":"Only Friends ep 9 eng sub"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/xaw1sn6","ru":0,"t":"Only Friends ep 10 eng sub"},{"u":"https://www.dailymotion.com/video/x9duhoq","ru":0,"t":"Only Friends ep 10 eng sub"}]},{"n":11,"sources":[{"u":"https://www.dailymotion.com/video/x938nqa","ru":0,"t":"Only Friends ep 11 eng sub"},{"u":"https://www.dailymotion.com/video/x95wmbm","ru":0,"t":"Only Friends ep 11 eng sub"},{"u":"https://www.dailymotion.com/video/x9duszu","ru":0,"t":"Only Friends ep 11 eng sub"},{"u":"https://www.dailymotion.com/video/xaw1sqi","ru":0,"t":"Only Friends ep 11 eng sub"}]},{"n":12,"sources":[{"u":"https://www.dailymotion.com/video/x938oe0","ru":0,"t":"Only Friends ep 12 eng sub"},{"u":"https://www.dailymotion.com/video/x92yaeo","ru":0,"t":"Only Friends ep 12 eng sub"}]}]},{"t":"Знак","o":"The Sign","y":2023,"ty":"BL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/VRx9J1g43w3Yt8bTO/x360","M":12,"st":"completed","d":"Реинкарнация, полицейский участок и знаки судьбы, которые невозможно игнорировать.","g":["Романтика","Фэнтези","Криминал"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/xco0w3","ru":0,"t":"The Signs - Episode 1 (Les Miracles du Coran)"},{"u":"https://www.dailymotion.com/video/x9p7ur","ru":0,"t":"the signs episode 1  (Les miracles du Coran)"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x8vbpzw","ru":0,"t":"The Sign Episode 3 English Subtitles"},{"u":"https://www.dailymotion.com/video/xalfln","ru":0,"t":"The Signs - Episode 3 (Le Miracle de l'univers)"},{"u":"https://www.dailymotion.com/video/x9pb9d","ru":0,"t":"the signs episode 3 (MIRACLE DE L UNIVERS)"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x8vbpzy","ru":0,"t":"The Sign Episode 4 English Subtitles"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x9qf1m","ru":0,"t":"the signs episode 6"},{"u":"https://www.dailymotion.com/video/xalg5p","ru":0,"t":"The Signs - Episode 6 (Le satanisme dirige le monde)"},{"u":"https://www.dailymotion.com/video/xcnlh4","ru":0,"t":"The Signs - Episode 6 (Le satanisme dirige le monde)"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x8vdxvm","ru":0,"t":"The sign episode 7 English subtitles"},{"u":"https://www.dailymotion.com/video/xalgfn","ru":0,"t":"The Signs - Episode 7 (Les vrais leaders du monde)"},{"u":"https://www.dailymotion.com/video/xcnlfb","ru":0,"t":"The Signs - Episode 7 (Les vrais leaders du monde)"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x9qhsu","ru":0,"t":"the signs episode 8 ( NEW WORLD ORDER Plan1)"},{"u":"https://www.dailymotion.com/video/xalgk8","ru":0,"t":"The Signs - Episode 8 (Le Nouvel Ordre Mondial Plan 1)"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x8usnja","ru":0,"t":"The sign episode 10 english subtitles"},{"u":"https://www.dailymotion.com/video/xalkpe","ru":0,"t":"The Signs - Episode 10 (Le Nouvel Ordre Mondial Plan 2)"}]},{"n":12,"sources":[{"u":"https://www.dailymotion.com/video/xalrnx","ru":0,"t":"The Signs - Episode 12 (Symboles Esoteriques)"},{"u":"https://www.dailymotion.com/video/xcnkwy","ru":0,"t":"The Signs - Episode 12 (Symboles Esoteriques)"},{"u":"https://www.dailymotion.com/video/x8vdxvk","ru":0,"t":"The sign Episode 12 English Subtitles The End"}]}]},{"t":"Вместе со мной","o":"Together with Me","y":2017,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/TA40Z1emxZck5J7OV/x360","M":11,"st":"completed","d":"Ко́нгфай и Но́ помогают друг другу скрывать влюблённости — пока не становится нечего скрывать.","g":["Романтика","Комедия","Университет"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x838rhf","ru":0,"t":"Together With Me อกหกมารกกบผม  Ep11 [Eng]"},{"u":"https://www.dailymotion.com/video/x835ylv","ru":0,"t":"Together With Me อกหกมารกกบผม  Ep1 [Eng]"},{"u":"https://www.dailymotion.com/video/x5ycgj0","ru":0,"t":"[Sub Esp] Together With Me - Ep 1"},{"u":"https://www.dailymotion.com/video/x9epgoq","ru":0,"t":"Together with me thai BL ep1 eng sub"},{"u":"https://www.dailymotion.com/video/x74c9md","ru":0,"t":"together with me the next chapter Epi 1 Español"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x619nc6","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 02"},{"u":"https://www.dailymotion.com/video/x839mhl","ru":0,"t":"Together With Me อกหกมารกกบผม  Ep12 [Eng]"},{"u":"https://www.dailymotion.com/video/x835z24","ru":0,"t":"Together With Me อกหกมารกกบผม  Ep2 [Eng]"},{"u":"https://www.dailymotion.com/video/x8irx9o","ru":0,"t":"together with me the series - Ep 2"},{"u":"https://www.dailymotion.com/video/x5z5gm0","ru":0,"t":"[Sub Esp] Together With Me - Ep 2"},{"u":"https://www.dailymotion.com/video/x9epgom","ru":0,"t":"Together with me thai BL ep2 eng sub"},{"u":"https://www.dailymotion.com/video/x74dawf","ru":0,"t":"Together with me the next chapter Epi 2 Español"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x619lrh","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 03"},{"u":"https://www.dailymotion.com/video/x836s6r","ru":0,"t":"Together With Me อกหกมารกกบผม  Ep3 [Eng]"},{"u":"https://www.dailymotion.com/video/x6vjroc","ru":0,"t":"[Sub Españ] - Together With Me The Next Chapter EP 3"},{"u":"https://www.dailymotion.com/video/x5zbwut","ru":0,"t":"[Sub Esp] Together With Me - Ep 3"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x655vys","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 4"},{"u":"https://www.dailymotion.com/video/x619lri","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 04"},{"u":"https://www.dailymotion.com/video/x5zwiir","ru":0,"t":"[Sub Esp] Together With Me - Ep 4"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x619nc7","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 05"},{"u":"https://www.dailymotion.com/video/x60dk8d","ru":0,"t":"[Sub Esp] Together With Me - Ep 5"}]},{"n":6,"sources":[{"u":"https://rutube.ru/video/59eb9c62e572fb9d18ffb8a6021ae867/","ru":0,"t":"Together with me the series ep 6"},{"u":"https://www.dailymotion.com/video/x619pfo","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 06"},{"u":"https://www.dailymotion.com/video/x8382jw","ru":0,"t":"Together With Me อกหกมารกกบผม  Ep6 [Eng]"},{"u":"https://www.dailymotion.com/video/x60rzpn","ru":0,"t":"[Sub Esp] Together With Me - Ep 6"},{"u":"https://www.dailymotion.com/video/x8irxa1","ru":0,"t":"together with me the series - Ep 6"}]},{"n":7,"sources":[{"u":"https://rutube.ru/video/2a81ec5cfe00902336583d8ed826391d/","ru":0,"t":"Together with me the series ep 7"},{"u":"https://www.dailymotion.com/video/x619pfp","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 07"},{"u":"https://www.dailymotion.com/video/x65bxi6","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 7"},{"u":"https://www.dailymotion.com/video/x612pjr","ru":0,"t":"[Sub Esp] Together With Me - Ep 7"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x621z74","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 08"},{"u":"https://www.dailymotion.com/video/x8382mn","ru":0,"t":"Together With Me อกหกมารกกบผม  Ep8 [Eng]"},{"u":"https://www.dailymotion.com/video/x61jayq","ru":0,"t":"[Sub Esp] Together With Me - Ep 8"},{"u":"https://www.dailymotion.com/video/x6xnvs4","ru":0,"t":"[Sub Españ] - Together With Me The Next Chapter EP 8"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x621z75","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 09"},{"u":"https://www.dailymotion.com/video/x8irxaa","ru":0,"t":"together with me the series - Ep 9"},{"u":"https://www.dailymotion.com/video/x61opfu","ru":0,"t":"[Sub Esp] Together With Me - Ep 9"},{"u":"https://www.dailymotion.com/video/x6xoaaf","ru":0,"t":"[Sub Españ] - Together With Me The Next Chapter  EP 9"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x63qh40","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 10"},{"u":"https://www.dailymotion.com/video/x6y1o5l","ru":0,"t":"[Sub Españ] - Together With Me The Next Chapter  EP 10"},{"u":"https://www.dailymotion.com/video/x62ig77","ru":0,"t":"[Sub Esp] Together With Me - Ep 10"}]},{"n":11,"sources":[{"u":"https://www.dailymotion.com/video/x63qh41","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 11"},{"u":"https://www.dailymotion.com/video/x655v6i","ru":0,"t":"[INDO SUB] Together With Me The Series - Episode 11"},{"u":"https://www.dailymotion.com/video/x62n9zr","ru":0,"t":"[Sub Esp] Together With Me - Ep 11"}]}]},{"t":"Не отпускай меня","o":"Never Let Me Go","y":2022,"ty":"BL","cot":"Таиланд","p":"https://pic.rtbcdn.ru/video/2024-10-05/08/87/0887fc0135a07b497c6a80d23f552abd.jpg","M":11,"st":"completed","d":"Два вора влюбляются при ограблении, а их босс решает, кому жить.","g":["Криминал","Романтика","Драма"],"eps":[{"n":3,"sources":[{"u":"https://rutube.ru/video/96e520f690bfe64fe499aadc8734d532/","ru":0,"t":"Never Let Me Go - Episode 3. Russian TV series. Сriminal Drama. English Subtitles. StarMed"}]},{"n":11,"sources":[{"u":"https://www.dailymotion.com/video/xbm83gm","ru":0,"t":"Never Let Me Go - Ep 11"},{"u":"https://www.dailymotion.com/video/xawoo6m","ru":0,"t":"Never Let Me Go - Ep 11"},{"u":"https://www.dailymotion.com/video/xbmpb92","ru":0,"t":"Never Let Me Go - Ep 11"},{"u":"https://www.dailymotion.com/video/xa356au","ru":0,"t":"Never Let Me Go - Ep 11"},{"u":"https://www.dailymotion.com/video/xbnbse2","ru":0,"t":"Never Let Me Go - Ep 11"}]}]},{"t":"Теория любви","o":"Theory of Love","y":2019,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/QFl-f1epFoejFQXVT/x360","M":10,"st":"completed","d":"Киноман-гей ждёт, что друг-казанова когда-нибудь полюбит его как в кино.","g":["Романтика","Комедия","Кино"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x7a5xnt","ru":0,"t":"[INDO SUB] ทฤษฎีจีบเธอ Theory of Love episode 1 part 1/4"},{"u":"https://www.dailymotion.com/video/x7adgto","ru":0,"t":"[INDO SUB] Theory of Love - Eps 1 Best Friend"},{"u":"https://www.dailymotion.com/video/x9juiwq","ru":0,"t":"Theory Of Love, Episodio 1 [Sub Español] SAP Play"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x7as4ym","ru":0,"t":"[INDO SUB] Theory of Love - Eps 2 Love Actually"},{"u":"https://www.dailymotion.com/video/x9jukwy","ru":0,"t":"Theory Of Love, Episodio 2 [Sub Español] SAP Play"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x7bhz1c","ru":0,"t":"theory of love ep 3 indosub"},{"u":"https://www.dailymotion.com/video/x9juleq","ru":0,"t":"Theory Of Love, Episodio 3 [Sub Español] SAP Play"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x9juofw","ru":0,"t":"Theory Of Love, Episodio 4 [Sub Español] SAP Play"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x9jxq56","ru":0,"t":"Theory Of Love, Episodio 5 [Sub Español] SAP Play"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x9jxq5a","ru":0,"t":"Theory Of Love, Episodio 6 [Sub Español] SAP Play"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x9jxq58","ru":0,"t":"Theory Of Love, Episodio 7 [Sub Español] SAP Play"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x9jxq5c","ru":0,"t":"Theory Of Love, Episodio 8 [Sub Español] SAP Play"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x9k1n2i","ru":0,"t":"Theory Of Love, Episodio 9 [Sub Español] SAP Play"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x9jzs8e","ru":0,"t":"Theory Of Love, Episodio 10 [Sub Español] SAP Play"}]}]},{"t":"Тёмно-синий поцелуй","o":"Dark Blue Kiss","y":2019,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/gAgsk1gt7eAZIKXK5/x360","M":10,"st":"completed","d":"Продолжение истории Пита и Као: от поцелуев в темноте до жизни вслух.","g":["Романтика","Драма"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/xbp6w8e","ru":0,"t":"Dark Blue Kiss EP11"},{"u":"https://www.dailymotion.com/video/x8id7mg","ru":0,"t":"Dark Blue Kiss - Ep11 - Eng sub"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x8h76cg","ru":0,"t":"Dark Blue Kiss - Ep2- Eng sub BL"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x8id7ly","ru":0,"t":"Dark Blue Kiss - Ep6- Eng sub"},{"u":"https://www.dailymotion.com/video/x8h85fx","ru":0,"t":"Dark Blue Kiss - Ep6- Eng sub BL"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x8id7m3","ru":0,"t":"Dark Blue Kiss - Ep7 - Eng sub"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/xbpf9dy","ru":0,"t":"Dark Blue Kiss - Episode 8"},{"u":"https://www.dailymotion.com/video/x8id7m6","ru":0,"t":"Dark Blue Kiss - Ep8 - Eng sub"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x8id7m9","ru":0,"t":"Dark Blue Kiss - Ep9 - Eng sub"}]}]},{"t":"Мой школьный президент","o":"My School President","y":2022,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/Z-78k1g3VfIethSQp/x360","M":10,"st":"completed","d":"Школьный президент раскручивает музыкальную группу — и её гитариста влюбляется в него сам.","g":["Романтика","Комедия","Школа"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x8g38pa","ru":0,"t":"My School President (2022) Episode 1 Engsub"},{"u":"https://www.dailymotion.com/video/x92sjk8","ru":0,"t":"My School President ep 1 eng sub"},{"u":"https://www.dailymotion.com/video/x8gcv2e","ru":0,"t":"My School President - Ep1 - Eng sub BL"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x9e5q8w","ru":0,"t":"My School President ep 2 eng sub"},{"u":"https://www.dailymotion.com/video/x8gcy7g","ru":0,"t":"My School President - Ep2 - Eng sub BL"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x92sjmw","ru":0,"t":"My School President ep 3 eng sub"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x92smbo","ru":0,"t":"My School President ep 4 eng sub"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x9e5oms","ru":0,"t":"My School President ep 5 eng sub"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x92smi8","ru":0,"t":"My School President ep 6 eng sub"},{"u":"https://www.dailymotion.com/video/x9e5on4","ru":0,"t":"My School President ep 6 eng sub"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x930ed6","ru":0,"t":"My School President ep 7 eng sub"},{"u":"https://www.dailymotion.com/video/x92smjo","ru":0,"t":"My School President ep 7 eng sub"},{"u":"https://www.dailymotion.com/video/x9e5q94","ru":0,"t":"My School President ep 7 eng sub"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x9e5mw6","ru":0,"t":"My School President ep 8 eng sub"},{"u":"https://www.dailymotion.com/video/x92smpk","ru":0,"t":"My School President ep 8 eng sub"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x9e5ook","ru":0,"t":"My School President ep 9 eng sub"},{"u":"https://www.dailymotion.com/video/x9e5ong","ru":0,"t":"My School President ep 9 eng sub"},{"u":"https://www.dailymotion.com/video/x92so08","ru":0,"t":"My School President ep 9 eng sub"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x930eie","ru":0,"t":"My School President ep 10 eng sub"},{"u":"https://www.dailymotion.com/video/x9e5mw8","ru":0,"t":"My School President ep 10 eng sub"}]}]},{"t":"Похищение","o":"Kidnap","y":2024,"ty":"BL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/b3ZXW1g7d6EOQ5-JT/x360","M":10,"st":"completed","d":"Похититель похищает не того — и возвращает потерпевшего с процентами к собственному сердцу.","g":["Криминал","Романтика","Комедия"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x9neczm","ru":0,"t":"Kidnapped by the Devil Episode 1-4"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x9jq8dq","ru":0,"t":"Kidnap episode 2 eng sub"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x9jq8dm","ru":0,"t":"Kidnap episode 3 eng sub"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x9jq8do","ru":0,"t":"Kidnap episode 4 eng sub"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x9jq8di","ru":0,"t":"Kidnap episode 5 eng sub"},{"u":"https://www.dailymotion.com/video/x9ngeu0","ru":0,"t":"Kidnapped by the Devil Episode 5-9"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x9joepg","ru":0,"t":"Kidnap episode 6 eng sub"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x9jmd2w","ru":0,"t":"Kidnap episode 8 eng sub"}]},{"n":9,"sources":[{"u":"https://www.dailymotion.com/video/x9jmd32","ru":0,"t":"Kidnap episode 9 eng sub"}]},{"n":10,"sources":[{"u":"https://www.dailymotion.com/video/x9joepq","ru":0,"t":"Kidnap episode 10 eng sub"}]}]},{"t":"Пока мы не встретимся вновь","o":"Until We Meet Again","y":2019,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/Rm3TE1g42dheCSjTQ/x360","M":8,"st":"completed","d":"Два влюблённых из прошлого обещают встретиться вновь — и тридцать лет спустя обещание срабатывает.","g":["Романтика","Драма","Реинкарнация"],"eps":[{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x7p71am","ru":0,"t":"Until We Meet Again The Series Episode 5 English sub, Thailand Drama; Family; Food; Romanc"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x7qk8p8","ru":0,"t":"Until We Meet Again The Series Episode 8 English sub"}]}]},{"t":"Лунный цыплёнок","o":"Moonlight Chicken","y":2023,"ty":"BL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/VXqEA1g41oGt0Diz6/x360","M":8,"st":"completed","d":"Ночная куриц-кафэ, сдвинутые чашки и два человека, которые не спят в одно и то же время.","g":["Романтика","Драма","Слайс"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x8qxeve","ru":0,"t":"Moonlight Chicken Episode 1 English Sub HD (BL Series) 2023"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x8qxw7g","ru":0,"t":"Moonlight Chicken  Episode 3 English Sub HD (BL Series) 2023"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x8qydol","ru":0,"t":"Moonlight Chicken Episode 4 English Sub HD (BL Series) 2023"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x8qz254","ru":0,"t":"Moonlight Chicken Episode 5 English Sub HD"}]},{"n":6,"sources":[{"u":"https://www.dailymotion.com/video/x8qz374","ru":0,"t":"Moonlight Chicken Episode 6 English Sub HD 2023 (BL Series)"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x8qz6in","ru":0,"t":"Moonlight Chicken Episode 7 English Sub HD (BL Series)"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x8r0b25","ru":0,"t":"Moonlight Chicken Episode 8 English Sub HD"}]}]},{"t":"Босс и малой","o":"A Boss and a Babe","y":2023,"ty":"BL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/VY6pV1g3lsow1v5Um/x360","M":5,"st":"completed","d":"Умный офисный босс и его неуёмный подчинённый: у него чутьё на людей, у босса — тайна.","g":["Романтика","Комедия","Офис"],"eps":[{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x8qz1lr","ru":0,"t":"A Boss and a Babe Episode 2 English sub 2023 (BL Series)"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x8qz1y2","ru":0,"t":"A Boss and a Babe Episode 3 English sub HD 2023 (BL Series)"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x8r391c","ru":0,"t":"A Boss and a Babe (2023) Episode 5 English Sub HD (BL Series)"}]}]},{"t":"Восьмое чувство","o":"The Eighth Sense","y":2023,"ty":"BL","cot":"Южная Корея","p":"https://pic.rtbcdn.ru/video/b6/db/b6db5204f7f61e76134dd24384a62891.jpg","M":2,"st":"completed","d":"Студент-стажёр в телестудии начинает видеть призрака — и через него встречает человека, с которым готов остаться.","g":["Сверхъестественное","Романтика","Драма"],"eps":[{"n":2,"sources":[{"u":"https://rutube.ru/video/ec69a63a69d1be742dfea58eebe431a2/","ru":1,"t":"Смотрящий, 3 сезон, 2 серия. Восьмое чувство, Тутанхамон и Калифорникейшн"}]}]},{"t":"Затмение","o":"The Eclipse","y":2022,"ty":"BL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/UN3-R1gqktLZvVCWe/x360","M":2,"st":"completed","d":"Закрытая школа-пансион и поверье: пока влюблённые не поцелуются под солнечным затмением, проклятие не уйдёт.","g":["Романтика","Мистика","Школа"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x8f9eaj","ru":0,"t":"The Eclipse Ep 1 First Impressions Full"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x8m32xj","ru":0,"t":"The Eclipse    Pokémon Evolutions Episode 2"},{"u":"https://www.dailymotion.com/video/x86ey8b","ru":0,"t":"-The Eclipse  _ Pokémon Evolutions Episode 2"},{"u":"https://www.dailymotion.com/video/x86eybn","ru":0,"t":"-The Eclipse  _ Pokémon Evolutions Episode 2"}]}]},{"t":"Семантическая ошибка","o":"Semantic Error","y":2022,"ty":"BL","cot":"Южная Корея","p":"https://s1.dmcdn.net/v/gLWQM1gt45uKQufzg/x360","M":1,"st":"completed","d":"Студент-отличник и программист-провалитель вынуждены вместе писать приложение — и не заметить друг друга у них не выходит.","g":["Романтика","Комедия","Университет"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/xbqvs7q","ru":0,"t":"Semantic Error Episode 1 I"},{"u":"https://www.dailymotion.com/video/xbe0y7a","ru":0,"t":"Semantic Error Episode 1 I"}]}]},{"t":"К моей звезде","o":"To My Star","y":2021,"ty":"BL","cot":"Южная Корея","p":"https://s1.dmcdn.net/v/Sm4u01dk0jnqLGIO6/x360","M":1,"st":"completed","d":"Знаменитый актёр и его личный шеф-повар учатся жить под одной крышей после скандальной фразы «я тебя поцеловал».","g":["Романтика","Драма"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x7z6r5s","ru":0,"t":"BL KOREA - TO MY STAR ( EPISODE 1)"}]}]},{"t":"Не я","o":"Not Me","y":2021,"ty":"BL","cot":"Таиланд","p":"https://pic.rtbcdn.ru/video/2025-06-05/fa/b3/fab3e77f5a3da18446bb0332f40f661f.jpg","M":1,"st":"completed","d":"Художник подменяет брата-близнеца в анархистской тусовке и влюбляется в его товарища по правому делу.","g":["Триллер","Драма","Романтика"],"eps":[{"n":1,"sources":[{"u":"https://rutube.ru/video/3f442283827be64ec3c4b1c2ea946aba/","ru":1,"t":"сериал \"не я \" 1 сезон 1 серия"}]}]},{"t":"ДЖЭП","o":"GAP the series","y":2022,"ty":"GL","cot":"Таиланд","p":"https://s2.dmcdn.net/v/YABzs1g42IgpwFwE1/x360","M":12,"st":"completed","d":"Наследница корпорации берёт к себе секретаршей ту самую девушку, которая годами писала ей письма.","g":["Романтика","Драма","GL"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x9h7fjq","ru":0,"t":"Gap the series episode 1 engsub"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x9hf3do","ru":0,"t":"Gap the series episode 2 engsub"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x9hvvbk","ru":0,"t":"Gap the series episode 3 engsub"}]},{"n":4,"sources":[{"u":"https://www.dailymotion.com/video/x9i48vi","ru":0,"t":"Gap the series episode 4 engsub"}]},{"n":5,"sources":[{"u":"https://www.dailymotion.com/video/x9iy9cu","ru":0,"t":"Gap the series episode 5 engsub"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x9lgh5g","ru":0,"t":"Gap the series episode 7 engsub"}]}]},{"t":"Наш секрет","o":"The Secret of Us","y":2024,"ty":"GL","cot":"Таиланд","p":"https://s1.dmcdn.net/v/Y3bFo1e0GSmRCnKy5/x360","M":8,"st":"completed","d":"Знаменитая актриса нанимает в ассистентки первую любовь — и старый секрет перестаёт быть секретом.","g":["Романтика","Драма","GL"],"eps":[{"n":1,"sources":[{"u":"https://www.dailymotion.com/video/x9g6bjm","ru":0,"t":"The secret of us epi1 engsub"},{"u":"https://www.dailymotion.com/video/xaku3m6","ru":0,"t":"[Vietsub] The Secret Of Us Ep 01"},{"u":"https://www.dailymotion.com/video/x9rzli6","ru":0,"t":"[Vietsub] The Secret Of Us Ep 01"},{"u":"https://www.dailymotion.com/video/xa1u1y8","ru":0,"t":"The Secret of Us Episode 1 (ENG SUB) Thai Girl Love Drama"},{"u":"https://www.dailymotion.com/video/xa0htos","ru":0,"t":"The Secret of Us Episode 1 (ENG SUB) Thai Girl Love Drama"}]},{"n":2,"sources":[{"u":"https://www.dailymotion.com/video/x9gkj18","ru":0,"t":"The secret of us epi2 engsub"},{"u":"https://www.dailymotion.com/video/xaku7ey","ru":0,"t":"[Vietsub] The Secret Of Us ep 02"},{"u":"https://www.dailymotion.com/video/x9s091s","ru":0,"t":"[Vietsub] The Secret Of Us ep 02"},{"u":"https://www.dailymotion.com/video/xa2ybok","ru":0,"t":"The Secret of Us Episode 2 (ENG SUB) Thai Girl Love Drama"}]},{"n":3,"sources":[{"u":"https://www.dailymotion.com/video/x9i44ta","ru":0,"t":"The secret of us epi3 engsub"},{"u":"https://www.dailymotion.com/video/x9s091u","ru":0,"t":"[Vietsub] The Secret Of Us ep 03"}]},{"n":4,"sources":[{"u":"https://rutube.ru/video/5d6799d614be843d20476de58a733f55/","ru":1,"t":"Сериал \"Наш секрет\" 4 серия 1 сезон"},{"u":"https://www.dailymotion.com/video/x9io6de","ru":0,"t":"The secret of us episode 4 engsub_GL"},{"u":"https://www.dailymotion.com/video/xakue9m","ru":0,"t":"[Vietsub] The Secret Of Us ep 04"},{"u":"https://www.dailymotion.com/video/x9s091q","ru":0,"t":"[Vietsub] The Secret Of Us ep 04"}]},{"n":5,"sources":[{"u":"https://rutube.ru/video/dc6dd3025e79011b137a0e8e74090305/","ru":1,"t":"Сериал \"Наш секрет\" 5 серия 1 сезон"},{"u":"https://www.dailymotion.com/video/x9kf2nc","ru":0,"t":"The Secret Of Us Episode 5 Engsub #GL"},{"u":"https://www.dailymotion.com/video/x9s091i","ru":0,"t":"[Vietsub] The Secret Of Us ep 05"}]},{"n":6,"sources":[{"u":"https://rutube.ru/video/3a449884ddc8b8c50f826adda1a862bf/","ru":1,"t":"Сериал \"Наш секрет\" 6 серия 1 сезон 1 часть"},{"u":"https://www.dailymotion.com/video/xa0sto0","ru":0,"t":"The Secret of Us Episode 6"},{"u":"https://www.dailymotion.com/video/x9ll5lu","ru":0,"t":"The Secret Of Us Episode 6 Engsub #GL"},{"u":"https://www.dailymotion.com/video/x9s091m","ru":0,"t":"[Vietsub] The Secret Of Us ep 06"},{"u":"https://www.dailymotion.com/video/xakuea2","ru":0,"t":"[Vietsub] The Secret Of Us ep 06"}]},{"n":7,"sources":[{"u":"https://www.dailymotion.com/video/x9ly51i","ru":0,"t":"The Secret Of Us (2024) Episode 7 Eng Sub"},{"u":"https://www.dailymotion.com/video/xakue9i","ru":0,"t":"[Vietsub] The Secret Of Us ep 07"},{"u":"https://www.dailymotion.com/video/x9s091o","ru":0,"t":"[Vietsub] The Secret Of Us ep 07"},{"u":"https://www.dailymotion.com/video/xa0ux7k","ru":0,"t":"The Secret of Us Episode 7 (ENG SUB) Thai Girl Love Drama"}]},{"n":8,"sources":[{"u":"https://www.dailymotion.com/video/x9mg70k","ru":0,"t":"The Secret Of Us (2024) Episode 8 End Engsub"},{"u":"https://www.dailymotion.com/video/xakue9q","ru":0,"t":"[Vietsub] The Secret Of Us ep 08"},{"u":"https://www.dailymotion.com/video/x9s091k","ru":0,"t":"[Vietsub] The Secret Of Us ep 08"},{"u":"https://www.dailymotion.com/video/xa0wyl6","ru":0,"t":"The Secret of Us Episode 8 Finale (ENG SUB) Thai Girl Love Drama"}]}]}] };</script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js" onerror="window.__noHls=1"></script>
 <script>
 /* ============================================================
-   МЕГА-ПЛЕЕР · СИНГУЛЯР — ядро: автопилот + транспорт + конвейер.
-   Конвейер: ЦЕЛЬ -> МАТЧ -> ИСТОЧНИК -> ЯЗЫК -> ЗАПУСК -> РЕЗУЛЬТАТ.
-   Принципы: платформа = транспорт (никаких кумиров); RU-озвучка от источника — ЗАЯВКА, не факт;
-   результат = «человек смотрит нужное», подтверждённый доказательством, а не «ссылка есть».
+   ЛАКОРНИЯ · МЕТА-МЕГА-ПЛЕЕР — ядро: транспорт, цепочки, монтирование.
+   Принципы: платформа = транспорт (никаких кумиров); ссылка без сверки содержимого не попадает в каталог.
    ============================================================ */
 "use strict";
 const $ = s => document.querySelector(s);
@@ -330,12 +365,6 @@ const store = {
   }
 };
 
-/* ---------- API-база: тот же origin, либо свой сервер (для хостинга без бэкенда) ----------
-   На статическом хостинге (github.io) сервера нет: задай в консоли страницы
-   localStorage.setItem('mega.backend','http://localhost:3000') — поиск и P2P уйдут на твой сервер. */
-const API_BASE = (() => { const b = (localStorage.getItem("mega.backend") || "").replace(/\/+$/, ""); return /^https?:\/\//.test(b) ? b : ""; })();
-const API = p => API_BASE + p;
-
 /* ---------- метки транспорта — ПО РОЛИ, не по бренду: прокладка это просто провод. ---------- */
 const PLAT_RU = { rt:"RU-прокладка", dm:"Внешняя прокладка", rutube:"RU-прокладка", dailymotion:"Внешняя прокладка", yt:"Внешняя прокладка", vk:"RU-прокладка", sibnet:"RU-прокладка", kodik:"RU-прокладка", ok:"RU-прокладка", direct:"Прямой файл", hls:"HLS-поток", dash:"DASH-поток", p2p:"P2P-поток", nnm:"P2P-поток", local:"Локальный файл", embed:"Внешний плеер", custom:"Твоя ссылка", "?":"Неизвестный тип" };
 
@@ -346,148 +375,138 @@ function detectSource(u){
   const low = String(u).trim();
   const L = low.toLowerCase();
   if(/^magnet:\?/i.test(L)) {
-    /* v2-магниты (btmh) не бросаем в никуда — честный путь: mountP2P скажет про v1 */
-    if(/xt=urn:btmh:/i.test(L)) return { type:"p2p", plat:"p2p", vid:"", u:low, embed:null, trs:[], dn: dnOf(low) };
-    const ih = ((low.match(/xt=urn:btih:([a-f0-9]{40}|[a-z2-7]{32})/i) || [])[1] || "").toLowerCase();
-    if(!ih) return null;
-    /* трекеры и имя раздачи из магнита — не выбрасывать: без tr стример анонсируется только в DHT
-       (баг «0 пиров на юзерском магните»), dn — честный тайтл до метаданных */
-    const trs = [...low.matchAll(/[&?]tr=([^&]+)/g)].map(mm => { try { return decodeURIComponent(mm[1]); } catch(_) { return mm[1]; } });
-    return { type:"p2p", plat:"p2p", vid:ih, u:low, embed:null, trs, dn: dnOf(low) };
+    const ih = (low.match(/xt=urn:btih:([a-f0-9]{40}|[a-z2-7]{32})/i) || [])[1];
+    return ih? { type:"p2p", plat:"p2p", vid:ih, u:low, embed:null } : null;
   }
-  if(!/^https?:\/\//i.test(L)) return null; /* ftp/data/file — честно не можем */
   if(/\.(mp4|webm|mkv|mov|m4v|ogv|mp3|wav|ogg|m4a|aac|flac)(\?|$)/i.test(L)) return { type:"native", plat:"direct", vid:"", u:low, embed:null };
   if(/\.(m3u8)(\?|$)/i.test(L)) return { type:"native", plat:"hls", vid:"", u:low, embed:null };
   if(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/i.test(L)){
-    m = low.match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/);
+    m = L.match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{6,})/);
     return { type:"iframe", plat:"yt", vid:m[1], u:low, embed:`https://www.youtube-nocookie.com/embed/${m[1]}?autoplay=0&rel=0&playsinline=1` };
   }
-  if(/rutube\.ru/i.test(L) && (m = low.match(/(?:video\/|play\/embed\/)([a-f0-9]{32})/)))
+  if(/rutube\.ru/i.test(L) && (m = L.match(/(?:video\/|play\/embed\/)([a-f0-9]{32})/)))
     return { type:"iframe", plat:"rutube", vid:m[1], u:low, embed:`https://rutube.ru/play/embed/${m[1]}?autoplay=0` };
-  if(/(?:dailymotion\.com\/(?:video\/|embed\/video\/)|dai\.ly\/)/i.test(L) && (m = low.match(/(?:video\/|dai\.ly\/)([a-z0-9]{5,})/)))
+  if(/(?:dailymotion\.com\/(?:video\/|embed\/video\/)|dai\.ly\/)/i.test(L) && (m = L.match(/(?:video\/|dai\.ly\/)([a-z0-9]{5,})/)))
     return { type:"iframe", plat:"dailymotion", vid:m[1], u:low, embed:`https://www.dailymotion.com/embed/video/${m[1]}?autoplay=0` };
   if(/vk(?:video)?\.(?:com|ru)/i.test(L)){
     if(/video_ext\.php/i.test(low)) return { type:"iframe", plat:"vk", vid:"", u:low, embed:low };
-    if((m = low.match(/video(-?\d+)_(\d+)/))) return { type:"iframe", plat:"vk", vid:m[1]+"_"+m[2], u:low, embed:`https://vk.com/video_ext.php?oid=${m[1]}&id=${m[2]}&hd=2&autoplay=0` };
+    if((m = L.match(/video(-?\d+)_(\d+)/))) return { type:"iframe", plat:"vk", vid:m[1]+"_"+m[2], u:low, embed:`https://vk.com/video_ext.php?oid=${m[1]}&id=${m[2]}&hd=2&autoplay=0` };
     return { type:"iframe", plat:"vk", vid:"", u:low, embed:low };
   }
   if(/video\.sibnet\.ru/i.test(L)){
-    if((m = low.match(/videoid=(\d+)/))) return { type:"iframe", plat:"sibnet", vid:m[1], u:low, embed:`https://video.sibnet.ru/shell.php?videoid=${m[1]}` };
-    if((m = low.match(/\/video(\d+)/))) return { type:"iframe", plat:"sibnet", vid:m[1], u:low, embed:`https://video.sibnet.ru/shell.php?videoid=${m[1]}` };
+    if((m = L.match(/videoid=(\d+)/))) return { type:"iframe", plat:"sibnet", vid:m[1], u:low, embed:`https://video.sibnet.ru/shell.php?videoid=${m[1]}` };
+    if((m = L.match(/\/video(\d+)/))) return { type:"iframe", plat:"sibnet", vid:m[1], u:low, embed:`https://video.sibnet.ru/shell.php?videoid=${m[1]}` };
     return { type:"iframe", plat:"sibnet", vid:"", u:low, embed:low };
   }
-  if(/ok\.ru/i.test(L) && (m = low.match(/video\/(\d+)/))) return { type:"iframe", plat:"ok", vid:m[1], u:low, embed:`https://ok.ru/videoembed/${m[1]}` };
-  return { type:"unknown", plat:"embed", vid:"", u:low, embed:low }; /* любая http-страница — внешняя прокладка на свой страх */
+  if(/ok\.ru/i.test(L) && (m = L.match(/video\/(\d+)/))) return { type:"iframe", plat:"ok", vid:m[1], u:low, embed:`https://ok.ru/videoembed/${m[1]}` };
+  if(/^https?:\/\//i.test(L)) return { type:"unknown", plat:"embed", vid:"", u:low, embed:low };
+  return null;
 }
-function dnOf(u){ const m = String(u).match(/[&?]dn=([^&]+)/); if(!m) return ""; try { return decodeURIComponent(m[1]); } catch(_) { return m[1]; } }
+
+/* ---------- МЕГАМЕТАПЛЕЕР: открытая сцена (такт M1) ----------
+   Мета-уровень: любая ссылка / файл / магнет — без каталога.
+   Очередь играет друг за другом; история помнит последние. */
+const MEGA = {
+  queue: JSON.parse(localStorage.getItem("lk_queue") || "[]"),
+  hist:  JSON.parse(localStorage.getItem("lk_hist")  || "[]"),
+  pos: -1,
+  save(){ localStorage.setItem("lk_queue", JSON.stringify(this.queue.slice(0,300))); localStorage.setItem("lk_hist", JSON.stringify(this.hist.slice(0,50))); }
+};
+function shortUrl(u){ return String(u||"").replace(/^https?:\/\//,"").replace(/^magnet:\?xt=urn:btih:/,"magnet:").slice(0,72); }
+function megaHistAdd(u){
+  MEGA.hist = MEGA.hist.filter(x => x.u !== u);
+  MEGA.hist.unshift({ u, at: Date.now() });
+  MEGA.save();
+  if(window.renderMegaUI) renderMegaUI();
+}
+function megaOpen(u, opts = {}){
+  const d = detectSource(u);
+  if(!d){ toast("Не похоже на ссылку с видео — вот честно"); return false; }
+  P.open = true; P.sid = null; P.ep = 1; P.idx = 0; P.reasons = []; P.confirmed = false;
+  P.chain = [{ ...d, ru: !!(opts.ru || /озвучк|дубляж|русск/i.test(u)), verified:false, custom:false, t: opts.t || "Открытая ссылка" }];
+  $("#plOv").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+  $("#plTitle").innerHTML = `◈ СЦЕНА <small>· ${esc(shortUrl(u))}</small>`;
+  $("#epStrip").innerHTML = "";
+  if(!opts.silent) megaHistAdd(u);
+  trySource(0);
+  return true;
+}
+function megaPlayAt(i){
+  if(i < 0 || i >= MEGA.queue.length){ setStatus("Очередь кончилась — добавь ещё", "none"); return; }
+  MEGA.pos = i; MEGA.save();
+  if(window.renderMegaUI) renderMegaUI();
+  megaOpen(MEGA.queue[i].u, { t: MEGA.queue[i].t, ru: MEGA.queue[i].ru, silent:true });
+}
+function megaNext(){ megaPlayAt(MEGA.pos + 1); }
+function megaPrev(){ megaPlayAt(Math.max(0, MEGA.pos - 1)); }
 
 /* ---------- состояние плеера ---------- */
-const P = { sid:null, ep:1, idx:0, chain:[], cur:null, hls:null, nnmTimer:null, reasons:[], confirmed:false, seen:[], epN:1 };
-
-/* ---------- конвейер автопилота: видимый, с доказательствами ---------- */
-const PIPE = {
-  stages: ["ЦЕЛЬ", "МАТЧ", "ИСТОЧНИК", "ЯЗЫК", "ЗАПУСК", "РЕЗУЛЬТАТ"],
-  st: {},
-  reset(){ this.stages.forEach(k => this.st[k] = { s:"idle", e:"" }); this.render(); },
-  set(k, s, e){ if(!this.st[k]) return; this.st[k] = { s, e: e || "" }; this.render(); },
-  render(){
-    const el = $("#plPipe"); if(!el) return;
-    const ic = { ok:"✓", busy:"◐", warn:"?", fail:"✗", idle:"·" };
-    el.innerHTML = this.stages.map((k, i) => {
-      const v = this.st[k] || { s:"idle", e:"" };
-      return `<span class="p-chip ${v.s}" title="${esc(k + (v.e? ": " + v.e : ""))}">${ic[v.s]} ${k}${v.e? `<small>${esc(v.e)}</small>` : ""}</span>`;
-    }).join(`<span class="p-arr">→</span>`);
-  }
-};
-
-/* ---------- намерение (дубль серверного splitIntent — чтобы показать человеку, как поняли) ---------- */
-function parseIntent(q){
-  let s = String(q || "").replace(/[«»"]/g, " ").trim();
-  let season = null, ep = null, m;
-  m = s.match(/\bs(\d{1,2})\s*[.\-_]?\s*e(\d{1,3})\b/i);
-  if(m){ season = +m[1]; ep = +m[2]; s = s.replace(m[0], " "); }
-  if(ep == null){
-    m = s.match(/(\d{1,2})\s*(?:сезон|season)/i);
-    if(m){ season = +m[1]; s = s.replace(m[0], " "); }
-    m = s.match(/(?:сери[а-яё]*|сер\.?|эпизод|ep)\s*(\d{1,3})/i) || s.match(/(\d{1,3})\s*(?:сери[а-яё]*|сер\.?)/i);
-    if(m){ ep = +m[1]; s = s.replace(m[0], " "); }
-  }
-  return { title: s.replace(/\s+/g, " ").trim() || String(q || "").trim(), season, ep };
-}
-
-/* ---------- автопилот: строка -> проверенный просмотр ---------- */
-async function autopilot(qRaw){
-  const q = String(qRaw || "").trim(); if(!q) return toast("Напиши, что смотреть");
-  closeTitle();
-  $("#plOv").classList.remove("hidden"); document.body.style.overflow = "hidden";
-  $("#epStrip").innerHTML = ""; $("#srcsBar").classList.add("hidden");
-  $("#plTitle").innerHTML = `Автопилот <small>· ${esc(q)}</small>`;
-  unmountAll(); setStatus("", "spin"); $("#plSpinLbl").textContent = "конвейер запущен";
-  PIPE.reset();
-  P.stSet = true;
-  const it = parseIntent(q);
-  PIPE.set("ЦЕЛЬ", "ok", `${it.title}${it.season? " · сезон " + it.season : ""}${it.ep? " · серия " + it.ep : ""}`);
-  PIPE.set("МАТЧ", "busy", "ищу источники и сверяю названия…");
-  try{
-    const r = await fetch(API("/api/find?q=" + encodeURIComponent(q)), { cache:"no-store" });
-    const j = await r.json();
-    if(!j.ok) throw new Error(j.err || "поиск не состоялся");
-    if(!j.sources.length){
-      PIPE.set("МАТЧ", "fail", "источников с совпавшим названием — ноль");
-      setStatus(`По «${esc(q)}» источников с совпавшим названием не нашлось. Честно: пустышку включать не буду — дай свою ссылку, она станет primary.`);
-      failCard(true);
-      return;
-    }
-    PIPE.set("МАТЧ", "ok", `${j.n} кандидатов · названия сверены · ${j.took}мс`);
-    const vt = virtualFromFind(q, it, j.sources);
-    byId[vt.id] = vt;
-    openPlayer(vt.id, it.ep && vt.eps.find(e => e.n === it.ep) ? it.ep : vt.eps[0].n);
-  }catch(e){
-    PIPE.set("МАТЧ", "fail", e.message);
-    const hint = (!API_BASE && /github\.io|pages\.dev|netlify|vercel\.app/.test(location.hostname))
-      ? " · на этом хостинге нет сервера: запусти локально server.js и в консоли страницы задай localStorage.setItem('mega.backend','http://localhost:3000')"
-      : "";
-    setStatus("Автопилот не доехал: " + esc(e.message) + hint + " — или дай свою ссылку");
-    failCard(true);
-  }
-}
-function virtualFromFind(q, it, sources){
-  const eps = {};
-  sources.forEach(s => {
-    let d;
-    if(s.tr === "p2p") d = { type:"p2p", plat:"p2p", vid:s.ih, u:"magnet:?xt=urn:btih:" + s.ih, embed:null };
-    else d = detectSource(s.embed || s.url);
-    if(!d) return;
-    d.ru = !!s.ruClaimed; d.ruSubs = !!s.ruSubs;
-    d.t = s.title; d.verified = false; d.evidence = s.evidence; d.score = s.score;
-    if(d.type === "p2p") d.trs = s.trs || [];
-    let n = it.ep || 1;
-    if(s.ep){ n = (it.ep != null && it.ep >= s.ep.a && it.ep <= s.ep.b) ? it.ep : s.ep.a; }
-    (eps[n] = eps[n] || []).push(d);
-  });
-  const epsArr = Object.keys(eps).map(n => ({ n:+n, sources: eps[n] })).sort((a,b) => a.n - b.n);
-  if(!epsArr.length) epsArr.push({ n:1, sources:[] });
-  return { id:-1, t:q, o:"", y:"", ty:"", cot:"", g:[], M: Math.max(1, it.ep || 1, ...epsArr.map(e => e.n)), eps: epsArr, virtual:true };
-}
-/* вставили ссылку/magnet в строку — играем сразу, без поиска */
-function quickRoute(q){
-  const d = detectSource(q);
-  if(d){
-    byId[-2] = { id:-2, t:(d.dn || String(q).replace(/^magnet:\?xt=urn:btih:/i, "магнит ")).slice(0, 70), o:"", y:"", ty:"", cot:"", g:[], M:1, virtual:true, eps:[{ n:1, sources:[Object.assign(d, { ru:false, custom:true, t:"Твоя ссылка" })] }] };
-    closeTitle(); openPlayer(-2, 1);
-    return true;
-  }
-  if(/^https?:\/\/[^\s]+/i.test(q.trim())){ toast("Не распознал ссылку — но попробую как внешнюю прокладку"); return false; }
-  return false;
-}
+const P = { sid:null, ep:1, idx:0, chain:[], cur:null, hls:null, nnmTimer:null, reasons:[], confirmed:false, seen:[], epN:1, open:false, wt:null };
 
 /* NNM-бэкенд (для magnet-ссылок): жив ли стример */
 const NNM_STATE = { ok:false, titles:0 };
 function probeNNM(){
-  fetch(API("/api/nnm/ping"), { cache:"no-store" }).then(r=>r.json()).then(j=>{
+  fetch("/api/nnm/ping", { cache:"no-store" }).then(r=>r.json()).then(j=>{
     NNM_STATE.ok = !!j.ok; NNM_STATE.titles = j.titles || 0;
     if(NNM_STATE.ok) console.info("P2P-стример на связи: раздач в индексе", NNM_STATE.titles);
   }).catch(()=>{});
+}
+
+/* WebTorrent прямо в браузере (МЕГАМЕТАПЛЕЕР, M1): статика GitHub Pages, без бэкенда.
+   Честность: браузеру доступны только wss-трекеры и webseed — полный P2P даёт локальный стример. */
+function loadScriptOnce(src){
+  return new Promise((res, rej) => {
+    if(window.WebTorrent) return res();
+    const s = document.createElement("script");
+    s.src = src; s.onload = () => res(); s.onerror = () => rej(new Error("CDN не доехал"));
+    document.head.appendChild(s);
+  });
+}
+const WSS_TRACKERS = ["wss://tracker.openwebtorrent.com", "wss://tracker.webtorrent.dev", "wss://tracker.files.fm:7073/announce"];
+function mountP2PBrowser(src){
+  unmountAll();
+  setStatus("P2P в браузере: поднимаю WebTorrent-клиент…", "spin");
+  const ih = src.vid || (src.u||"").match(/btih:([a-f0-9]{40}|[a-z2-7]{32})/i)?.[1];
+  if(!ih){ P.reasons.push("P2P: в magnet нет info-hash"); return advance(); }
+  loadScriptOnce("https://cdn.jsdelivr.net/npm/webtorrent@2.2.4/dist/webtorrent.min.js").then(() => {
+    if(!window.WebTorrent) throw new Error("клиент не поднялся");
+    const stage = $("#plStage");
+    const v = document.createElement("video");
+    v.id = "plVideo"; v.playsInline = true; v.preload = "auto"; v.controls = false;
+    stage.appendChild(v);
+    wireVideo(v);
+    P.cur = src;
+    const client = new WebTorrent();
+    P.wt = client;
+    client.on("error", e => { P.reasons.push("WebTorrent: " + (e && e.message ? e.message.slice(0,80) : "ошибка")); if(P.cur === src) advance(); });
+    let seedTimer = setTimeout(() => {
+      if(!P.confirmed){
+        const t = client.get(ih);
+        const peers = t ? t.numPeers : 0;
+        P.reasons.push(`WebTorrent: за 25 с никто не подключился (пиров ${peers}). В браузере доступны только wss-трекеры и webseed-раздачи; полный P2P — через локальный стример.`);
+        advance();
+      }
+    }, 25000);
+    client.add({ infoHash: ih, announce: WSS_TRACKERS }, t => {
+      const up = () => {
+        if(P.confirmed || P.cur !== src) return;
+        setStatus(`P2P: пиры ${t.numPeers} · ${(t.downloaded/1048576).toFixed(1)} МБ · ${esc((t.name||"").slice(0,44))}`, "spin");
+      };
+      const iv = setInterval(up, 2000);
+      const done = f => {
+        clearInterval(iv); clearTimeout(seedTimer);
+        if(P.cur !== src) return;
+        t.files.some(x => /\.(mp4|webm|m4v|mkv|mov|mp3|m4a)$/i.test(x.name) ? (f = x, true) : false);
+        if(!f){ P.reasons.push("WebTorrent: в раздаче нет играемого файла"); return advance(); }
+        f.streamTo(v);
+        setStatus(`◆ P2P в браузере · ${esc(f.name).slice(0,60)}`, "none");
+        renderSrcsBar();
+      };
+      if(t.files.length) done(null);
+      else t.on("ready", () => done(null));
+    });
+  }).catch(e => { P.reasons.push("P2P в браузере: " + e.message); advance(); });
 }
 
 /* ---------- цепочка транспорта для серии ---------- */
@@ -522,11 +541,11 @@ function video(){ return $("#plVideo"); }
 function unmountAll(){
   if(window.LKTR) LKTR.teardown();
   if(P.hls){ try{ P.hls.destroy(); }catch(e){} P.hls = null; }
+  if(P.wt){ try{ P.wt.destroy(); }catch(e){} P.wt = null; }
   if(P.nnmTimer){ clearInterval(P.nnmTimer); P.nnmTimer = null; }
   const v = video(); if(v){ try{ v.pause(); v.removeAttribute("src"); v.load(); }catch(e){} }
   const st = $("#plStage");
   st.querySelectorAll("iframe,video").forEach(n => n.remove());
-  const fb = $("#filesBar"); if(fb){ fb.classList.add("hidden"); fb.innerHTML = ""; } P.packFiles = null;
 }
 function setStatus(html, kind){
   const st = $("#plStatus"); if(!st) return;
@@ -546,9 +565,7 @@ function mountIframe(src){
   P.cur = src;
   if(window.LKTR) LKTR.onMount();
   renderSrcsBar();
-  setStatus(`◆ Встроен · ${src.ru? '<span style="color:var(--acc)">RU-озвучка (заявлена источником)</span> · ':''}транспорт: ${PLAT_RU[src.plat]||src.plat} · если пусто — жми «⇄ другой транспорт» или «⚠»`);
-  PIPE.set("ЗАПУСК", "ok", `прокладка поднята (${PLAT_RU[src.plat]||src.plat})`);
-  PIPE.set("РЕЗУЛЬТАТ", "warn", "изнутри прокладки браузеру не отчитаться — проверь глазами; не то — ⇄ другой транспорт");
+  setStatus(`◆ Встроен · ${src.ru? '<span style="color:var(--acc)">RU-озвучка</span> · ':''}транспорт: ${PLAT_RU[src.plat]||src.plat} · если пусто — жми «⇄ другой транспорт» или «⚠»`);
 }
 function mountNative(src){
   unmountAll();
@@ -575,7 +592,6 @@ function mountNative(src){
 function mountP2P(src){
   unmountAll();
   setStatus("P2P: достаю раздачу и сижу…", "spin");
-  PIPE.set("ЗАПУСК", "busy", "P2P: тяну метаданные раздачи…");
   const stage = $("#plStage");
   const v = document.createElement("video");
   v.id = "plVideo"; v.playsInline = true; v.preload = "auto"; v.controls = false;
@@ -584,37 +600,16 @@ function mountP2P(src){
   P.cur = src;
   const ih = src.vid || (src.u||"").match(/btih:([a-f0-9]{40})/i)?.[1];
   if(!ih){ setStatus("В magnet нет info-hash — плеер не может достать раздачу"); return; }
-  const trq = (src.trs || []).slice(0, 8).map(t => "&tr=" + encodeURIComponent(t)).join("") + "&ep=" + P.ep;
-  /* «fetching metadata» — это НЕ провал транспорта, а «ещё не готово»: холодная сессия стримера
-     тянет bencode-метаданные у пиров. Ретраим с честным статусом; кап 14×3.5с ≈ 50с. */
-  const RETRIES = 14, RETRY_MS = 3500;
-  const tryStream = (attempt) => {
-    if(!v.isConnected) return; /* плеер закрыли — ретраи отменены */
-    fetch(API("/api/torrent/stream?ih=" + encodeURIComponent(ih) + trq), { cache:"no-store" })
+  fetch("/api/torrent/stream?ih=" + encodeURIComponent(ih), { cache:"no-store" })
     .then(r => r.json())
     .then(j => {
-      if(!j.ok){
-        if(/fetching metadata|повтори/i.test(j.err || "") && attempt < RETRIES){
-          setStatus(`P2P: тяну метаданные раздачи (${attempt + 1}/${RETRIES})…`, "spin");
-          setTimeout(() => tryStream(attempt + 1), RETRY_MS);
-          return;
-        }
-        throw new Error(j.err || "стример не смог");
-      }
-      const su = (API_BASE && String(j.stream).startsWith("/")) ? API_BASE + j.stream : j.stream;
-      v.dataset.src = su;
-      v.src = su;
-      if(j.name){
-        /* честное имя релиза — из самого торрента, а не из сырого магнита */
-        if(byId[P.sid] && byId[P.sid].virtual) byId[P.sid].t = j.name;
-        const tt = $("#plTitle"); if(tt) tt.textContent = (j.name + (j.file? " · " + j.file : "")).slice(0, 110);
-        setStatus(`P2P: ${esc(j.name).slice(0,70)}`, "spin");
-        PIPE.set("ИСТОЧНИК", "ok", "имя из раздачи: " + String(j.name).slice(0, 50));
-      }
-      if(j.files && j.files.length) renderFilesBar(ih, j);
+      if(!j.ok) throw new Error(j.err || "стример не смог");
+      v.dataset.src = j.stream;
+      v.src = j.stream;
+      if(j.name) setStatus(`P2P: ${esc(j.name).slice(0,70)}`, "spin");
       if(window.LKTR) LKTR.onMount();
       P.nnmTimer = setInterval(() => {
-        fetch(API("/api/torrent/stat?ih=" + encodeURIComponent(ih)), { cache:"no-store" }).then(r=>r.json()).then(st=>{
+        fetch("/api/torrent/stat?ih=" + encodeURIComponent(ih), { cache:"no-store" }).then(r=>r.json()).then(st=>{
           if(!st.ok) return;
           if(!P.confirmed) setStatus(`P2P: пиры ${st.peers} · скачано ${(st.downloaded/1048576).toFixed(1)} МБ · ${esc(String(st.name||"")).slice(0,40)}`, "spin");
         }).catch(()=>{});
@@ -622,92 +617,10 @@ function mountP2P(src){
       renderSrcsBar();
     })
     .catch(e => {
-      if(!v.isConnected) return;
       P.reasons.push("P2P: " + e.message);
       setStatus("P2P-транспорт не доехал: " + esc(e.message), "none");
       advance();
     });
-  };
-  tryStream(0);
-}
-/* ---------- файлы раздачи: УНИВЕРСАЛЬНОСТЬ ПАКА — видео/сабы/аудио любым файлом ---------- */
-function fmtMB(b){ return b >= 1073741824 ? (b/1073741824).toFixed(2)+" ГБ" : (b/1048576).toFixed(1)+" МБ"; }
-function renderFilesBar(ih, j){
-  const bar = $("#filesBar"); if(!bar) return;
-  P.packFiles = j.files;
-  bar.classList.remove("hidden");
-  const vid = j.files.filter(f => f.kind === "video");
-  const rest = j.files.filter(f => f.kind !== "video");
-  const pill = (f, icon, act, fn) => {
-    const nm = f.n.length > 46 ? f.n.slice(0, 46) + "…" : f.n;
-    return `<button class="src-pill ${act? "on":""}" onclick="${fn}('${ih}',${f.i},this)" title="${esc(f.n)}">${act? "▶" : "○"} ${icon} ${esc(nm)} <span style="color:var(--mut2)">${fmtMB(f.len)}</span></button>`;
-  };
-  bar.innerHTML = `<span class="lbl">📦 Раздача «${esc(String(j.name||"").slice(0,40))}»:</span>`
-    + vid.map(f => pill(f, "🎬", f.n === j.file, "switchPackFile")).join("")
-    + rest.map(f => pill(f, f.kind === "sub" ? "≡саб" : "♪", false, f.kind === "sub" ? "packSub" : "switchPackFile")).join("");
-}
-function switchPackFile(ih, idx, el){
-  const v = video(); if(!v) return;
-  P.confirmed = false; P.fileSwitch = true;
-  v.addEventListener("loadedmetadata", () => { P.fileSwitch = false; }, { once:true });
-  setStatus("P2P: переключаю файл раздачи…", "spin");
-  fetch(API("/api/torrent/stream?ih=" + encodeURIComponent(ih) + "&file=" + idx), { cache:"no-store" })
-    .then(r => r.json()).then(j => {
-      if(!j.ok) throw new Error(j.err || "стример не смог");
-      const su = (API_BASE && String(j.stream).startsWith("/")) ? API_BASE + j.stream : j.stream;
-      v.dataset.src = su; v.src = su; v.play().catch(()=>{});
-      const tt = $("#plTitle"); if(tt) tt.textContent = (j.name + (j.file? " · " + j.file : "")).slice(0, 110);
-      if(j.files && j.files.length) renderFilesBar(ih, j);
-      setStatus("");
-    })
-    .catch(e => { P.fileSwitch = false; setStatus("Переключение не доехало: " + esc(e.message), "none"); });
-}
-function packSub(ih, idx, el){
-  const v = video(); if(!v) return;
-  const f = (P.packFiles || []).find(x => x.i === idx);
-  const nm = f ? f.n : ("сабы #" + idx);
-  setStatus("P2P: конвертирую сабы из раздачи…", "spin");
-  fetch(API("/api/torrent/file/" + ih + "/" + idx), { cache:"no-store" })
-    .then(r => r.text()).then(txt => {
-      const vtt = subToVtt(txt);
-      if(!vtt || vtt.length < 12) throw new Error("в файле не нашлось реплик");
-      let tr = v.querySelector("track[data-pack='1']");
-      if(!tr){ tr = document.createElement("track"); tr.setAttribute("data-pack","1"); tr.kind = "subtitles"; tr.srclang = "ru"; v.appendChild(tr); }
-      tr.label = nm.replace(/\.[a-z]{2,4}$/i, "").slice(0, 40);
-      tr.src = URL.createObjectURL(new Blob([vtt], { type:"text/vtt" }));
-      setTimeout(() => { try { v.textTracks[v.textTracks.length-1].mode = "showing"; } catch(_){} }, 300);
-      setStatus("Сабы из раздачи включены: " + esc(nm.slice(0,44)));
-    })
-    .catch(e => setStatus("Сабы не доехали: " + esc(e.message), "none"));
-}
-function subToVtt(txt){
-  txt = String(txt || "").replace(/^\uFEFF/, "");
-  if(/^WEBVTT/m.test(txt)) return txt;
-  if(/\[Script Info\]/i.test(txt)){ /* ass/ssa → VTT: Dialogue-строки, теги {} сносим */
-    const out = ["WEBVTT", ""];
-    txt.split(/\r?\n/).forEach(l => {
-      const p = l.split(",");
-      if(p.length >= 10 && /^Dialogue:/i.test(p[0])){
-        const clean = p.slice(9).join(",").replace(/\{[^}]*\}/g, "").replace(/\\N/gi, "\n").trim();
-        if(clean) out.push(assTime(p[1]) + " --> " + assTime(p[2]), clean, "");
-      }
-    });
-    return out.join("\n");
-  }
-  return "WEBVTT\n\n" + txt.replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2"); /* srt → vtt */
-}
-function assTime(t){ /* 0:00:01.50 (ass) → 00:00:01.500 (vtt) */
-  const p = String(t).trim().split(":").map(x => parseFloat(x) || 0);
-  while(p.length < 3) p.unshift(0);
-  return p.map((x, i) => i < 2 ? String(Math.floor(x)).padStart(2,"0") : x.toFixed(3).padStart(6,"0")).join(":");
-}
-/* ---------- язык: честная заявка, не факт ---------- */
-function pipeLanguage(){
-  const c = P.chain && P.chain[P.idx];
-  if(!c){ PIPE.set("ЯЗЫК", "idle", ""); return; }
-  if(c.ru) PIPE.set("ЯЗЫК", "warn", "RU-озвучка заявлена источником — фактом станет после прослушивания");
-  else if(c.ruSubs) PIPE.set("ЯЗЫК", "warn", "источник заявляет RU-субтитры; звук оригинальный — включаю живой перевод");
-  else PIPE.set("ЯЗЫК", "busy", "оригинал — плеер сам сделает русские субтитры/голос на лету");
 }
 function fillQualityMenu(hls){
   const q = $("#plQ"); if(!q || !hls.levels?.length) return;
@@ -720,37 +633,27 @@ function wireVideo(v){
   const up = () => {
     const t = $("#plTime");
     if(t) t.textContent = fmtT(v.currentTime) + " / " + fmtT(v.duration||0);
-    if(v.duration && v.currentTime > 5){
+    if(P.sid && v.duration && v.currentTime > 5){
       const rec = store.prog[P.sid] = store.prog[P.sid] || {};
       rec[P.ep] = { w: v.currentTime / v.duration > .9, t: v.currentTime };
       store.save();
     }
   };
   v.addEventListener("timeupdate", up);
-  v.addEventListener("ended", () => { if(P.ep < byId[P.sid].M) openPlayer(P.sid, P.ep + 1); });
+  v.addEventListener("ended", () => {
+    if(P.open){ megaNext(); return; }
+    if(P.ep < byId[P.sid].M) openPlayer(P.sid, P.ep + 1);
+  });
   v.addEventListener("error", () => {
     if(!P.cur) return;
-    if(P.fileSwitch){ P.fileSwitch = false; setStatus("Этот файл браузер не декодирует (кодек недоступен) — выбери другой в «📦 Раздача»", "none"); return; }
     P.reasons.push(`${PLAT_RU[P.cur.plat]||P.cur.plat}: браузер не смог воспроизвести поток`);
     advance();
   });
-  v.addEventListener("playing", () => {
-    P.confirmed = true; if(P.nnmTimer){ clearInterval(P.nnmTimer); P.nnmTimer = null; } setStatus("");
-    PIPE.set("ЗАПУСК", "ok", "поток подал признаки жизни");
-    setTimeout(() => {
-      const vv = video();
-      if(!vv || vv.paused || vv.currentTime <= 0.3) return;
-      PIPE.set("РЕЗУЛЬТАТ", "ok", `идёт: ${vv.videoWidth}×${vv.videoHeight} · t=${fmtT(vv.currentTime)}`);
-    }, 2200);
-    if(window.LKTR) LKTR.onPlay();
-  });
+  v.addEventListener("playing", () => { P.confirmed = true; if(P.nnmTimer){ clearInterval(P.nnmTimer); P.nnmTimer = null; } setStatus(""); if(window.LKTR) LKTR.onPlay(); });
 }
 function advance(){
   const next = P.idx + 1;
-  if(next < P.chain.length){
-    PIPE.set("ИСТОЧНИК", "warn", `транспорт №${P.idx + 1} не доехал — беру №${next + 1} из ${P.chain.length}`);
-    P.idx = next; trySource(next);
-  }
+  if(next < P.chain.length){ P.idx = next; trySource(next); }
   else failCard();
 }
 function trySource(i){
@@ -758,22 +661,16 @@ function trySource(i){
   const c = P.chain[i];
   if(!c) return failCard();
   P.confirmed = false;
-  PIPE.set("ЗАПУСК", "busy", `транспорт ${i + 1}/${P.chain.length}: ${PLAT_RU[c.plat] || c.plat}${c.ru? " · RU-заявка" : ""}`);
-  pipeLanguage();
   if(isDead(c)){ P.reasons.push((PLAT_RU[c.plat]||c.plat) + ": помечен мёртвым"); return advance(); }
   if(c.type === "iframe") return mountIframe(c);
-  if(c.type === "p2p") return NNM_STATE.ok? mountP2P(c) : (P.reasons.push("P2P-стример не на связи — запусти бэкенд"), advance());
+  if(c.type === "p2p") return NNM_STATE.ok? mountP2P(c) : mountP2PBrowser(c);
   if(c.type === "native") return mountNative(c);
   P.reasons.push((PLAT_RU[c.plat]||c.plat) + ": неизвестный тип транспорта");
   advance();
 }
-function failCard(silent){
+function failCard(){
   const st = $("#plStage");
-  if(!silent){
-    PIPE.set("РЕЗУЛЬТАТ", "fail", "транспорты кончились — контент не доставлен");
-    setStatus("Транспорт не доставил контент", "none");  /* при silent статус уже выставил вызвавший (не перетираем честную причину) */
-  }
-  const ep = P.chain.ep;
+  setStatus("Транспорт не доставил контент", "none");
   st.querySelectorAll(".failcard").forEach(f=>f.remove());
   const div = document.createElement("div");
   div.className = "failcard";
@@ -782,8 +679,10 @@ function failCard(silent){
     <p style="color:var(--mut);font-size:13px">Плеер перебрал, что смог. Честно: контент меняется в сети каждый день — автопоиск не обещает найти всё.</p>
     ${P.reasons.length? `<div class="reasons">${esc(P.reasons.join("\n"))}</div>` : ``}
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
-      <button class="btn btn-play" onclick="openLinkEditor()">✎ Дать свою ссылку — она станет primary</button>
+      ${P.open? `<button class="btn btn-play" onclick="closePlayer(); switchTab('mega')">◈ На сцену — дай другую ссылку</button>`
+              : `<button class="btn btn-play" onclick="openLinkEditor()">✎ Дать свою ссылку — она станет primary</button>`}
       ${P.chain.length > 1? `<button class="btn btn-ghost" onclick="P.reasons=[]; trySource(0)">↻ Ещё раз с начала</button>` : ``}
+      ${P.open && MEGA.pos + 1 < MEGA.queue.length? `<button class="btn btn-ghost" onclick="P.reasons=[]; megaNext()">⇥ Следующий из очереди</button>` : ``}
       <button class="btn btn-ghost" onclick="closePlayer()">✕ Закрыть</button>
     </div>
     <p class="le-note" style="margin-top:12px">mp4 / m3u8 играют напрямую; ссылки с видео-хостингов едут через встроенные прокладки — они просто транспорт, контент важнее.</p>`;
@@ -792,12 +691,14 @@ function failCard(silent){
 function renderSrcsBar(){
   const bar = $("#srcsBar"); if(!bar) return;
   bar.classList.remove("hidden");
-  bar.innerHTML = `<span class="lbl">Транспорт серии ${P.ep}:</span>` + P.chain.map((c, i) => `
+  bar.innerHTML = `<span class="lbl">Транспорт${P.open? "" : " серии " + P.ep}:</span>` + P.chain.map((c, i) => `
     <button class="src-pill ${i===P.idx?"on":""}" onclick="P.reasons=[]; trySource(${i})" title="${esc(c.t||"")}">
       ${i===P.idx? "▶" : "○"} ${c.ru? `<span class="ru">RU-озвучка</span>` : `<span style="color:var(--mut2)">ориг</span>`} <span class="tp">${esc(PLAT_RU[c.plat]||c.plat)}</span>
       ${c.custom? `<span style="color:var(--gold)">★ твоя</span>` : (c.verified? `· ✓` : `· ?`)}
       ${isDead(c)? `<span class="dead">☠</span>` : ``}
-    </button>`).join("") + `<button class="src-pill" onclick="openLinkEditor()">✎ Своя ссылка</button>`;
+    </button>`).join("") + (P.open
+      ? `<button class="src-pill" onclick="openMegaEditor()">⇆ Другая ссылка</button>`
+      : `<button class="src-pill" onclick="openLinkEditor()">✎ Своя ссылка</button>`);
   const chip = $("#plSrcChip");
   if(chip && P.cur){
     const c = P.cur;
@@ -1147,9 +1048,8 @@ window.LKTR = LKTR;   // const не вешается на window — а ядро
 </script>
 <script>
 /* ============================================================
-   МЕГА-ПЛЕЕР · СИНГУЛЯР — UI: один ввод, любой контент, проверенный результат.
-   Каталог-стенд (26 тайтлов) — не витрина, а регресс-стенд движка внизу страницы.
-   Без 18+ кастов, без брендов прокладок (они просто транспорт).
+   ЛАКОРНИЯ · МЕТА-МЕГА-ПЛЕЕР — каталог и UI (шаблон BLDUB).
+   Без 18+ кастов (проверять нечем — нечего и рисовать), без брендов прокладок (они просто транспорт).
    ============================================================ */
 
 function epStats(s){
@@ -1190,22 +1090,55 @@ function topCardHTML(s, n){
   return `<div class="top-item"><div class="num">${n}</div>${cardHTML(s)}</div>`;
 }
 
-/* ---------- универсальный ввод (герой) ---------- */
-function bindAutopilot(){
-  const go = () => { const q = $("#qAuto").value.trim(); if(!q) return toast("Напиши, что смотреть"); if(!quickRoute(q)) autopilot(q); };
-  $("#goAuto").onclick = go;
-  $("#qAuto").addEventListener("keydown", e => { if(e.key === "Enter") go(); });
-  $$("[data-ap]").forEach(b => b.onclick = () => { $("#qAuto").value = b.dataset.ap; go(); });
-  const hq = $("#q");
-  hq.addEventListener("keydown", e => {
-    if(e.key !== "Enter") return;
-    const q = hq.value.trim(); if(!q) return;
-    if(!quickRoute(q)) autopilot(q);
-  });
+/* ---------- герой ---------- */
+function renderHero(){
+  const pool = DATA.s.filter(s => s.ru);
+  const s = pool[Math.floor(Math.random()*pool.length)] || DATA.s[0];
+  const st = epStats(s);
+  $("#hero").innerHTML = `
+    <div class="hero-bg" style="background-image:url('${esc(s.p)}')"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-in">
+      <div class="hero-tag"><span class="dot"></span>МЕГАМЕТАПЛЕЕР · КАТАЛОГ · ◈ СЦЕНА · СТУДИИ</div>
+      <h1>${esc(s.t)}</h1>
+      <p>${esc((s.d||"").slice(0, 200))}</p>
+      <div class="hero-meta">
+        <span>${s.y}</span><span>${s.ty}</span>
+        <span>${(s.g||[]).slice(0,3).join(" · ")}</span>
+        <span class="${st.linked? "":"no"}" style="${st.linked? "":"color:#f87171"}">${st.linked}/${st.total} серий в базе</span>
+        ${st.ru? `<span style="color:#e879f9">RU-озвучка найдена</span>`:``}
+      </div>
+      <div class="hero-act">
+        <button class="btn btn-play" data-hero-play="${s.id}">▶ Смотреть</button>
+        <button class="btn btn-ghost" data-hero-open="${s.id}">ℹ Подробнее</button>
+      </div>
+    </div>`;
+  $(`[data-hero-play]`).onclick = () => {
+    const rec = store.prog[s.id] || {};
+    const nextEp = [...s.eps].reverse().find(e => rec[e.n] && !rec[e.n].w && rec[e.n].t)?.n || s.eps.find(e => e.sources.length)?.n || 1;
+    openPlayer(s.id, nextEp);
+  };
+  $(`[data-hero-open]`).onclick = () => openTitle(s.id);
 }
 
-/* ряды витрины удалены: каталог — стенд, один грид. Функция пуста ради старых вызовов. */
-function renderRows(){}
+/* ---------- ряды и каталог ---------- */
+const ROW_SIZE = 14;
+function rowFill(el, list, topMode){
+  if(topMode){
+    el.innerHTML = list.map((s,i) => topCardHTML(s, i+1)).join("");
+  } else {
+    el.innerHTML = list.map(s => cardHTML(s)).join("");
+  }
+  el.querySelectorAll("[data-open]").forEach(c => c.onclick = () => openTitle(+c.dataset.open));
+}
+function renderRows(){
+  const withLinks = DATA.s.filter(s => epStats(s).linked > 0);
+  const ruFirst = [...withLinks].sort((a,b) => (b.ru?1:0)-(a.ru?1:0));
+  rowFill($("#rowNew"), ruFirst.slice(0, ROW_SIZE));
+  rowFill($("#rowGL"), DATA.s.filter(s => s.ty === "GL").slice(0, ROW_SIZE));
+  rowFill($("#rowBL"), DATA.s.filter(s => s.ty === "BL").slice(0, ROW_SIZE));
+  rowFill($("#rowTop"), [...withLinks].sort((a,b) => epStats(b).linked - epStats(a).linked).slice(0, 10), true);
+}
 const F = { ty:"", ru:false, q:"", page:1, per:28, mode:"home" };
 function renderGrid(){
   const g = $("#grid");
@@ -1301,18 +1234,11 @@ function closeTitle(){ $("#titleOv").classList.add("hidden"); }
 function openPlayer(sid, epN){
   const s = byId[sid];
   const { chain, ep } = buildChain(sid, epN);
-  P.sid = sid; P.ep = epN; P.chain = chain; P.chainEp = ep; P.reasons = []; P.confirmed = false;
+  P.open = false; P.sid = sid; P.ep = epN; P.chain = chain; P.chainEp = ep; P.reasons = []; P.confirmed = false;
   $("#plOv").classList.remove("hidden");
   document.body.style.overflow = "hidden";
-  $("#plTitle").innerHTML = `${esc(s.t)} <small>${s.M > 1? "· серия " + epN + " из " + s.M : "· фильм"}</small>`;
+  $("#plTitle").innerHTML = `${esc(s.t)} <small>· серия ${epN} из ${s.M}</small>`;
   renderEpStripPlayer(s);
-  if(!P.stSet){
-    PIPE.reset();
-    PIPE.set("ЦЕЛЬ", "ok", `${s.t}${s.M > 1? " · серия " + epN : ""}`);
-    PIPE.set("МАТЧ", "ok", s.virtual? "поиск: названия сверены" : "каталог-стенд: ссылки сверены при сборке");
-  }
-  P.stSet = false;
-  PIPE.set("ИСТОЧНИК", chain.length? "ok" : "fail", chain.length? `${chain.length} транспорт(ов) · первый: ${PLAT_RU[chain[0].plat] || chain[0].plat}${chain[0].ru? " · RU-заявка" : ""}` : "транспортов нет");
   if(!chain.length){ P.idx = 0; failCard(); return; }
   P.reasons = []; trySource(0);
 }
@@ -1333,8 +1259,8 @@ $("#plBack").onclick = closePlayer;
 $("#plPlay").onclick = () => { const v = video(); if(v) v.paused? v.play() : v.pause(); };
 $("#plMute").onclick = () => { const v = video(); if(v){ v.muted = !v.muted; $("#plMute").textContent = v.muted? "🔇":"🔊"; } };
 $("#plFs").onclick = () => { const st = $("#plStage"); document.fullscreenElement? document.exitFullscreen() : st.requestFullscreen?.(); };
-$("#plPrev").onclick = () => { if(P.ep > 1) openPlayer(P.sid, P.ep - 1); };
-$("#plNext").onclick = () => { if(P.ep < byId[P.sid].M) openPlayer(P.sid, P.ep + 1); };
+$("#plPrev").onclick = () => { if(P.open) return megaPrev(); if(P.ep > 1) openPlayer(P.sid, P.ep - 1); };
+$("#plNext").onclick = () => { if(P.open) return megaNext(); if(P.ep < byId[P.sid].M) openPlayer(P.sid, P.ep + 1); };
 
 /* ---------- линк-редактор ---------- */
 function openLinkEditor(){
@@ -1441,17 +1367,165 @@ function renderMassEditor(sid){
   };
 }
 
+/* ---------- МЕГАМЕТАПЛЕЕР · СЦЕНА (такт M1) ---------- */
+function openMegaEditor(){
+  const ov = $("#ov2");
+  ov.classList.remove("hidden");
+  ov.innerHTML = `
+  <div class="sheet le-sheet" onclick="event.stopPropagation()">
+    <button class="x-close" onclick="closeLe()">✕</button>
+    <div class="le-body">
+      <h3 style="font:900 18px/1.2 serif">⇆ Другая ссылка на сцену</h3>
+      <div class="le-row" style="margin-top:14px">
+        <input type="url" id="megaEdUrl" placeholder="mp4 / .m3u8 / magnet: / страница видео…" autocomplete="off" spellcheck="false">
+        <button class="btn btn-play" id="megaEdGo" style="padding:12px 18px">▶ Играть</button>
+      </div>
+      <div class="le-note">Сцена не привязана к каталогу: играется то, что дал, — транспорт подберётся сам.</div>
+    </div>
+  </div>`;
+  ov.onclick = e => { if(e.target === ov) closeLe(); };
+  $("#megaEdGo").onclick = () => {
+    const u = $("#megaEdUrl").value.trim(); if(!u) return toast("Сначала вставь ссылку");
+    closeLe();
+    if(!megaOpen(u)) toast("Не похоже на ссылку с видео");
+  };
+}
+function renderMegaUI(){
+  const ql = $("#mqList"); if(!ql) return;
+  ql.innerHTML = MEGA.queue.map((it, i) => `
+    <div class="mq-item ${i===MEGA.pos?"cur":""}">
+      <span class="nn">${i+1}</span>
+      <span class="uu" title="${esc(it.u)}">${esc(it.t || shortUrl(it.u))}</span>
+      <span style="color:var(--mut2);font-size:10.5px;flex:none">${esc((detectSource(it.u)||{}).plat ? PLAT_RU[(detectSource(it.u)||{}).plat] || "" : "?")}</span>
+      <button class="play" title="Играть сейчас" onclick="megaPlayAt(${i})">▶</button>
+      <button title="Убрать из очереди" onclick="mqDel(${i})">✕</button>
+    </div>`).join("");
+  $("#mqEmpty").classList.toggle("hidden", MEGA.queue.length > 0);
+  const hl = $("#mhList");
+  hl.innerHTML = MEGA.hist.slice(0, 14).map(h => `<button class="hist-chip" title="${esc(h.u)}" onclick="megaOpen('${esc(h.u).replace(/'/g,"&#39;")}')">🕘 ${esc(shortUrl(h.u))}</button>`).join("");
+  $("#mhEmpty").classList.toggle("hidden", MEGA.hist.length > 0);
+}
+function mqDel(i){
+  MEGA.queue.splice(i, 1);
+  if(MEGA.pos >= i) MEGA.pos--;
+  MEGA.save(); renderMegaUI();
+}
+function megaAddToQueue(u){
+  const d = detectSource(u);
+  if(!d) return toast("Не похоже на ссылку с видео");
+  if(MEGA.queue.some(x => x.u === u)) return toast("Уже в очереди");
+  MEGA.queue.push({ u, at: Date.now() });
+  MEGA.save(); renderMegaUI();
+  toast("В очереди: " + MEGA.queue.length);
+}
+function megaHandleDrop(e){
+  e.preventDefault(); $("#megaDrop").classList.remove("over");
+  const txt = e.dataTransfer.getData("text/uri-list") || e.dataTransfer.getData("text/plain");
+  if(txt && txt.trim()){ closePlayer(); return megaOpen(txt.trim()); }
+  const f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if(f){ closePlayer(); megaFilePlay(f); }
+}
+function megaFilePlay(f){
+  const u = URL.createObjectURL(f);
+  P.open = true; P.sid = null; P.ep = 1; P.idx = 0; P.reasons = []; P.confirmed = false;
+  P.chain = [{ type:"native", plat:"local", vid:"", u, embed:null, ru:false, verified:false, custom:false, t:"📁 " + f.name }];
+  $("#plOv").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+  $("#plTitle").innerHTML = `◈ СЦЕНА <small>· 📁 ${esc(f.name).slice(0,60)}</small>`;
+  $("#epStrip").innerHTML = "";
+  trySource(0);
+}
+
+/* ---------- МЕГАМЕТАПЛЕЕР · СТУДИИ (реестр платформ) ---------- */
+const STU = {
+  rows: null, at: 0, q: "", reg: "", st: "active", page: 1, per: 60, loading: false,
+  URL: "https://raw.githubusercontent.com/rtynbirf/global-video-platforms-registry/main/download/mega_index.json",
+  TTL: 7 * 24 * 3600 * 1000
+};
+async function stuLoad(force){
+  if(STU.loading) return;
+  if(!force){
+    try{
+      const c = JSON.parse(localStorage.getItem("lk_stu") || "null");
+      if(c && c.rows && Date.now() - c.at < STU.TTL){ STU.rows = c.rows; STU.at = c.at; stuRender(); return; }
+      if(c && c.rows){ STU.rows = c.rows; STU.at = c.at; stuRender(); }
+    }catch(e){}
+  }
+  STU.loading = true;
+  stuNote("Индекс студий загружаю из реестра…");
+  try{
+    const r = await fetch(STU.URL, { cache: "no-store" });
+    if(!r.ok) throw new Error("HTTP " + r.status);
+    const j = await r.json();
+    STU.rows = j.rows; STU.at = j.generated ? Date.parse(j.generated) : Date.now();
+    localStorage.setItem("lk_stu", JSON.stringify({ at: STU.at, rows: STU.rows }));
+    stuNote("");
+  }catch(e){
+    stuNote(STU.rows
+      ? `Свежий индекс не доехал (${esc(e.message)}) — показываю кэш от ${new Date(STU.at).toLocaleDateString("ru")}.`
+      : `Индекс студий не доехал (${esc(e.message)}). Полный реестр живёт в репозитории global-video-platforms-registry — открой его на GitHub.`, true);
+  }
+  STU.loading = false;
+  stuRender();
+}
+function stuNote(html, err){
+  const n = $("#stuNote"); if(!n) return;
+  n.classList.toggle("hidden", !html);
+  n.innerHTML = html || "";
+  if(err) n.style.color = "var(--red)"; else n.style.color = "";
+}
+function stuBadge(s){
+  if(s === "active") return `<span class="badge b-active">активна</span>`;
+  if(s === "redirected") return `<span class="badge b-move">ребрендинг</span>`;
+  if(s === "closed" || s === "dead") return `<span class="badge b-dead">закрыта</span>`;
+  return `<span class="badge b-unver">${esc(s || "не проверена")}</span>`;
+}
+function stuRender(){
+  if(!STU.rows) return;
+  const regs = [...new Set(STU.rows.map(x => x.r))].sort((a,b) => a.localeCompare(b, "ru"));
+  const sel = $("#stuReg");
+  if(sel.options.length <= 1) sel.innerHTML = `<option value="">Все регионы</option>` + regs.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join("");
+  sel.value = STU.reg;
+  let list = STU.rows;
+  if(STU.st === "active") list = list.filter(x => x.s === "active" || x.s === "redirected");
+  if(STU.reg) list = list.filter(x => x.r === STU.reg);
+  if(STU.q){
+    const q = STU.q.toLowerCase();
+    list = list.filter(x => (x.n + " " + x.u).toLowerCase().includes(q));
+  }
+  $("#stuCount").textContent = STU.rows.length + " видео-платформ";
+  const show = list.slice(0, STU.page * STU.per);
+  $("#stuGrid").innerHTML = show.map(x => `
+    <div class="stu-card">
+      <div class="nm"><span>${esc(x.n)}</span>${stuBadge(x.s)}</div>
+      <div class="mt">${esc(x.c || "")} · ${esc(x.r || "")}</div>
+      <div class="mt" style="display:flex;gap:8px;align-items:center">
+        <a href="${esc(x.u)}" target="_blank" rel="noopener" style="font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(shortUrl(x.u))}</a>
+        ${x.m? `<span style="color:var(--acc2);font-size:10.5px">→ ${esc(shortUrl(x.m))}</span>` : ""}
+      </div>
+    </div>`).join("") || `<div class="le-note">Никого не нашлось — смягчи фильтры.</div>`;
+  $("#stuMore").classList.toggle("hidden", show.length >= list.length);
+}
+
 /* ---------- табы ---------- */
-$("#tabHome").onclick = () => {
-  F.mode = "home"; $("#tabHome").classList.add("on"); $("#tabFav").classList.remove("on");
-  $("#home").classList.remove("hidden"); $("#favPage").classList.add("hidden");
-};
-$("#tabFav").onclick = () => {
-  F.mode = "fav"; $("#tabFav").classList.add("on"); $("#tabHome").classList.remove("on");
-  $("#home").classList.add("hidden"); $("#favPage").classList.remove("hidden");
-  F.page = 1; renderGrid();
-};
-$("#q").oninput = e => { F.q = e.target.value.trim(); F.page = 1; if(F.mode === "fav"){ $("#tabHome").onclick(); } renderGrid(); };
+function switchTab(key){
+  ["home","mega","stu","fav"].forEach(k => {
+    const b = $("#tab" + k[0].toUpperCase() + k.slice(1));
+    if(b) b.classList.toggle("on", k === key);
+  });
+  $("#home").classList.toggle("hidden", key !== "home");
+  $("#favPage").classList.toggle("hidden", key !== "fav");
+  $("#megaPage").classList.toggle("hidden", key !== "mega");
+  $("#stuPage").classList.toggle("hidden", key !== "stu");
+  $("#hero").classList.toggle("hidden", key === "mega" || key === "stu");
+  if(key === "mega") renderMegaUI();
+  if(key === "stu") stuLoad();
+}
+$("#tabHome").onclick = () => switchTab("home");
+$("#tabMega").onclick = () => switchTab("mega");
+$("#tabStu").onclick  = () => switchTab("stu");
+$("#tabFav").onclick  = () => { F.page = 1; renderGrid(); switchTab("fav"); };
+$("#q").oninput = e => { F.q = e.target.value.trim(); F.page = 1; if(F.mode === "fav"){ $("#tabHome").onclick(); } renderGrid(); window.scrollTo({ top: $("#catalogSec").offsetTop - 70, behavior:"smooth" }); };
 $("#moreGrid").onclick = () => { F.page++; renderGrid(); };
 $$("[data-more]").forEach(b => b.onclick = () => {
   const k = b.dataset.more;
@@ -1462,9 +1536,39 @@ $$("[data-more]").forEach(b => b.onclick = () => {
   $("#catalogSec").scrollIntoView({ behavior:"smooth" });
 });
 
+/* ---------- сцена: ввод, дроп, очередь, история ---------- */
+$("#megaGo").onclick = () => { const u = $("#megaUrl").value.trim(); if(!u) return toast("Вставь ссылку"); $("#megaUrl").value = ""; if(megaOpen(u)) $("#megaUrl").blur(); };
+$("#megaUrl").addEventListener("keydown", e => { if(e.key === "Enter") $("#megaGo").onclick(); });
+$("#megaQueue").onclick = () => { const u = $("#megaUrl").value.trim(); if(!u) return toast("Вставь ссылку"); $("#megaUrl").value = ""; megaAddToQueue(u); };
+$("#megaFile").onchange = e => { const f = e.target.files[0]; if(f) megaFilePlay(f); e.target.value = ""; };
+const md = $("#megaDrop");
+["dragenter","dragover"].forEach(ev => md.addEventListener(ev, e => { e.preventDefault(); md.classList.add("over"); }));
+["dragleave","drop"].forEach(ev => md.addEventListener(ev, e => { if(ev === "dragleave") md.classList.remove("over"); }));
+md.addEventListener("drop", megaHandleDrop);
+document.addEventListener("dragover", e => { if($("#plOv").classList.contains("hidden")) e.preventDefault(); });
+document.addEventListener("drop", e => { if($("#plOv").classList.contains("hidden") && (e.dataTransfer.files?.length || e.dataTransfer.getData("text/plain"))){ e.preventDefault(); } });
+$("#mqPlay").onclick = () => { if(!MEGA.queue.length) return toast("Очередь пуста"); megaPlayAt(MEGA.pos >= 0 ? MEGA.pos : 0); };
+$("#mqShuf").onclick = () => {
+  if(!MEGA.queue.length) return toast("Очередь пуста");
+  for(let i = MEGA.queue.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [MEGA.queue[i], MEGA.queue[j]] = [MEGA.queue[j], MEGA.queue[i]]; }
+  MEGA.pos = -1; MEGA.save(); renderMegaUI(); toast("Перемешано: " + MEGA.queue.length);
+};
+$("#mqClear").onclick = () => { MEGA.queue = []; MEGA.pos = -1; MEGA.save(); renderMegaUI(); };
+$("#mhClear").onclick = () => { MEGA.hist = []; MEGA.save(); renderMegaUI(); };
+$("#stuQ").oninput = e => { STU.q = e.target.value.trim(); STU.page = 1; stuRender(); };
+$("#stuReg").onchange = e => { STU.reg = e.target.value; STU.page = 1; stuRender(); };
+$$("#stuPage .f-chip").forEach(b => b.onclick = () => {
+  STU.st = b.dataset.st; STU.page = 1;
+  $$("#stuPage .f-chip").forEach(x => x.classList.toggle("on", x === b));
+  stuRender();
+});
+$("#stuMore").onclick = () => { STU.page++; stuRender(); };
+
 /* ---------- старт ---------- */
 function boot(){
-  initData(); renderFilters(); renderGrid(); bindAutopilot(); probeNNM();
+  initData(); renderHero(); renderRows(); renderFilters(); renderGrid(); renderMegaUI(); probeNNM();
+  const u = new URLSearchParams(location.search).get("play");
+  if(u && detectSource(u)) megaOpen(u);
 }
 boot();
 
