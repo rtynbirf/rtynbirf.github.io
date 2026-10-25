@@ -754,8 +754,8 @@ function mountP2PBrowser(src){
     let seedTimer = setTimeout(() => {
       if(!P.confirmed){
         const t = client.get(ih);
-        const peers = t ? t.numPeers : 0;
-        P.reasons.push(`WebTorrent: за 25 с никто не подключился (пиров ${peers}). В браузере доступны только wss-трекеры и webseed-раздачи; полный P2P — через локальный стример.`);
+        const peers = (t && typeof t.numPeers === "number") ? t.numPeers : 0;
+        P.reasons.push(`WebTorrent: за 25 с никто не подключился (пиров ${peers}). Браузеру доступны только wss-трекеры и webseed-раздачи; полный P2P — через локальный стример.`);
         advance();
       }
     }, 25000);
