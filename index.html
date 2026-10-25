@@ -220,6 +220,9 @@ footer b{color:var(--acc)}
 .stu-bar input{flex:1;min-width:220px;background:var(--card);border:1px solid var(--line);color:var(--txt);padding:11px 15px;border-radius:11px;font-size:13px;outline:0}
 .stu-bar input:focus{border-color:var(--acc)}
 .stu-bar select{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:11px 12px;border-radius:11px;font-size:13px;outline:0}
+.stu-regs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.stu-regs .cnt{color:var(--mut2);font-size:10.5px;margin-left:5px}
+#plRate{min-width:46px;text-align:center;font-variant-numeric:tabular-nums}
 .stu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:11px;margin-top:14px}
 .stu-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:5px;transition:.15s}
 .stu-card:hover{border-color:rgba(232,121,249,.45)}
@@ -270,7 +273,17 @@ footer b{color:var(--acc)}
     <div style="text-align:center;padding:18px"><button class="btn btn-ghost" id="moreGrid">Показать ещё</button></div>
   </div>
 </main>
-<main id="favPage" class="hidden"><div class="row-wrap"><div class="row-head"><h3>♥ Избранное</h3></div><div class="grid" id="favGrid"></div><div class="empty-blk hidden" id="favEmpty">Пока пусто — жми ♡ В избранное в карточке тайтла.</div></div></main>
+<main id="favPage" class="hidden"><div class="row-wrap"><div class="row-head"><h3>♥ Избранное</h3></div><div class="grid" id="favGrid"></div><div class="empty-blk hidden" id="favEmpty">Пока пусто — жми ♡ В избранное в карточке тайтла.</div></div>
+  <div class="row-wrap">
+    <div class="row-head"><h3>⇄ Мои данные — перенос на другое устройство</h3><div class="ln"></div></div>
+    <div class="empty-blk">Прогресс серий, избранное, метки мёртвых транспортов и очередь сцены живут в этом браузере — сервера у нас нет, и это честно. Забери их с собой: скачай файлом или скопируй код, на другом устройстве — «Влить данные». Новые записи не потеряются: при вливании побеждает более свежая отметка.</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+      <button class="btn btn-play" id="deFile">⬇ Скачать файлом</button>
+      <button class="btn btn-ghost" id="deCode">⧉ Скопировать кодом</button>
+      <button class="btn btn-ghost" id="dePaste">⬆ Влить данные</button>
+    </div>
+  </div>
+</main>
 
 <main id="megaPage" class="hidden">
   <div class="mega-wrap">
@@ -311,6 +324,7 @@ footer b{color:var(--acc)}
       <button class="f-chip on" data-st="active">Активные</button>
       <button class="f-chip" data-st="all">Все статусы</button>
     </div>
+    <div class="stu-regs" id="stuRegs"></div>
     <div class="le-note hidden" id="stuNote"></div>
     <div class="stu-grid" id="stuGrid"></div>
     <div style="text-align:center;padding:18px"><button class="btn btn-ghost hidden" id="stuMore">Показать ещё</button></div>
@@ -339,6 +353,7 @@ footer b{color:var(--acc)}
     <button class="pctl" id="plPrev" aria-label="Предыдущая серия">⇤ серия</button>
     <button class="pctl" id="plNext" aria-label="Следующая серия">серия ⇥</button>
     <span class="pl-time" id="plTime">0:00 / 0:00</span>
+    <button class="pctl" id="plRate" aria-label="Скорость воспроизведения" title="Скорость: 1× → 1.25× → 1.5× → 2× → 0.75× — помнится">1×</button>
     <div style="flex:1"></div>
     <select id="plQ" class="hidden" aria-label="Качество потока"></select>
     <select id="plAudio" class="hidden" aria-label="Аудиодорожка"></select>
@@ -357,8 +372,11 @@ footer b{color:var(--acc)}
   Нет русской озвучки? Плеер сам сделает русские субтитры и голос прямо в браузере — живой перевод на лету.<br>
   «Продолжить просмотр» помнит, где ты остановился: вернулся — плеер сам продолжит с той же секунды.<br>
   Клавиши плеера: пробел — пауза, ←/→ — ±10 с, ↑/↓ — громкость, N/P — серия назад/вперёд, F — весь экран, M — звук (работают и в русской раскладке: Т/З/А/Ь).<br>
+  Скорость кнопкой 1× — до 2× и назад, громкость и скорость плеер запоминает. Серия видна в медиа-клавишах системы: играть/пауза/следующая — прямо из наушников и трея.<br>
+  В ♥ Избранном — «⇄ Мои данные»: прогресс, избранное и очередь переезжают с тобой на любое устройство файлом или кодом.<br>
+  СТУДИИ: регионы — кликабельные чипы со счётчиками: один клик — и остались только платформы нужной страны.<br>
   Сайт живёт офлайн после первого визита: сервис-воркер держит сборку у тебя — «Соединение сброшено» больше не отшибает дверь.<br>
-  <span style="color:var(--mut2)">МЕГАМЕТАПЛЕЕР · такт M3 «ИДЕАЛ» · сборка 2026-10-25 · дверь дома: ·56</span>
+  <span style="color:var(--mut2)">МЕГАМЕТАПЛЕЕР · такт M4 «СВОЁ ПРИ СОБОЙ» · сборка 2026-10-25 · дверь дома: ·56</span>
 </footer>
 <div id="toast" aria-live="polite"></div>
 <script>
@@ -427,6 +445,50 @@ const store = {
   }
 };
 
+/* ---------- М4: громкость и скорость помнятся — как у больших ---------- */
+let AV = { v: 1, m: false, r: 1 };
+try{ Object.assign(AV, JSON.parse(localStorage.getItem("lk_av") || "{}")); }catch(e){}
+AV.v = Math.min(1, Math.max(0, +AV.v || 1)); AV.m = !!AV.m;
+if(![0.5, 0.75, 1, 1.25, 1.5, 2].includes(+AV.r)) AV.r = 1; AV.r = +AV.r;
+function avSave(){ try{ localStorage.setItem("lk_av", JSON.stringify(AV)); }catch(e){} }
+function applyAV(v){
+  if(!v) return;
+  try{ v.defaultPlaybackRate = AV.r; v.playbackRate = AV.r; v.volume = AV.v; v.muted = AV.m; }catch(e){}
+}
+function syncMuteBtn(){ const v = video(), b = $("#plMute"); if(v && b) b.textContent = v.muted ? "🔇" : "🔊"; }
+
+/* ---------- М4: Media Session — серия видна в медиа-клавишах ОС ---------- */
+function msMeta(title, artist){
+  if(!("mediaSession" in navigator)) return;
+  try{
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: String(title || "ЛАКОРНИЯ").slice(0, 90),
+      artist: String(artist || "МЕГАМЕТАПЛЕЕР").slice(0, 60),
+      album: "ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР",
+      artwork: [192, 512].map(s => ({ src: "icon-" + s + ".png", sizes: s + "x" + s, type: "image/png" }))
+    });
+  }catch(e){}
+}
+function msPosition(v){
+  if(!("mediaSession" in navigator) || !v || !v.duration || !isFinite(v.duration)) return;
+  try{ navigator.mediaSession.setPositionState({ duration: v.duration, position: Math.min(v.currentTime, v.duration), playbackRate: v.playbackRate || 1 }); }catch(e){}
+}
+function msClear(){
+  if(!("mediaSession" in navigator)) return;
+  try{ navigator.mediaSession.metadata = null; navigator.mediaSession.setPositionState && navigator.mediaSession.setPositionState(); }catch(e){}
+}
+function wireMediaSession(){
+  if(!("mediaSession" in navigator)) return;
+  const act = (name, fn) => { try{ navigator.mediaSession.setActionHandler(name, fn); }catch(e){ try{ navigator.mediaSession.setActionHandler(name, null); }catch(_){} } };
+  act("play", () => { const v = video(); if(v) v.play().catch(()=>{}); });
+  act("pause", () => { const v = video(); if(v) v.pause(); });
+  act("previoustrack", () => { P.open ? megaPrev() : stepEp(-1); });
+  act("nexttrack", () => { P.open ? megaNext() : stepEp(1); });
+  act("seekbackward", d => { const v = video(); if(v) v.currentTime -= (d && d.seekOffset) || 10; });
+  act("seekforward", d => { const v = video(); if(v) v.currentTime += (d && d.seekOffset) || 10; });
+  act("seekto", d => { const v = video(); if(v && d && d.seekTime != null) v.currentTime = d.seekTime; });
+}
+
 /* ---------- метки транспорта — ПО РОЛИ, не по бренду: прокладка это просто провод. ---------- */
 const PLAT_RU = { rt:"RU-прокладка", dm:"Внешняя прокладка", rutube:"RU-прокладка", dailymotion:"Внешняя прокладка", yt:"Внешняя прокладка", vk:"RU-прокладка", sibnet:"RU-прокладка", kodik:"RU-прокладка", ok:"RU-прокладка", direct:"Прямой файл", hls:"HLS-поток", dash:"DASH-поток", p2p:"P2P-поток", nnm:"P2P-поток", local:"Локальный файл", embed:"Внешний плеер", custom:"Твоя ссылка", "?":"Неизвестный тип" };
 
@@ -486,6 +548,7 @@ function megaOpen(u, opts = {}){
   if(!d){ toast("Не похоже на ссылку с видео — вот честно"); return false; }
   P.open = true; P.sid = null; P.ep = 1; P.idx = 0; P.reasons = []; P.confirmed = false;
   P.chain = [{ ...d, ru: !!(opts.ru || /озвучк|дубляж|русск/i.test(u)), verified:false, custom:false, t: opts.t || "Открытая ссылка" }];
+  msMeta(shortUrl(u), "◈ СЦЕНА · любая ссылка");
   $("#plOv").classList.remove("hidden");
   document.body.style.overflow = "hidden";
   $("#plTitle").innerHTML = `◈ СЦЕНА <small>· ${esc(shortUrl(u))}</small>`;
@@ -579,6 +642,7 @@ function mountP2PBrowser(src){
     v.id = "plVideo"; v.playsInline = true; v.preload = "auto"; v.controls = false;
     stage.appendChild(v);
     wireVideo(v);
+    applyAV(v);
     ctlNative(true);
     P.cur = src;
     const client = new WebTorrent();
@@ -690,6 +754,7 @@ function mountNative(src){
   v.id = "plVideo"; v.playsInline = true; v.preload = "auto"; v.controls = false;
   stage.appendChild(v);
   wireVideo(v);
+  applyAV(v);
   P.cur = src;
   if(window.LKTR) LKTR.onMount();
   if(src.plat === "hls" && window.Hls && Hls.isSupported()){
@@ -718,6 +783,7 @@ function mountP2P(src){
   v.id = "plVideo"; v.playsInline = true; v.preload = "auto"; v.controls = false;
   stage.appendChild(v);
   wireVideo(v);
+  applyAV(v);
   P.cur = src;
   const ih = src.vid || (src.u||"").match(/btih:([a-f0-9]{40})/i)?.[1];
   if(!ih){ setStatus("В magnet нет info-hash — плеер не может достать раздачу"); return; }
@@ -754,6 +820,7 @@ function wireVideo(v){
   const up = () => {
     const t = $("#plTime");
     if(t) t.textContent = fmtT(v.currentTime) + " / " + fmtT(v.duration||0);
+    msPosition(v);
     if(P.sid && v.duration && v.currentTime > 5){
       const rec = store.prog[P.sid] = store.prog[P.sid] || {};
       rec[P.ep] = { w: v.currentTime / v.duration > .9, t: v.currentTime, d: v.duration, at: Date.now() };
@@ -763,7 +830,9 @@ function wireVideo(v){
     if(sk && !seekDrag && v.duration){ sk.max = v.duration; sk.value = v.currentTime; updSeekFill(v); }
   };
   v.addEventListener("timeupdate", up);
-  v.addEventListener("loadedmetadata", () => tryResume(v));
+  v.addEventListener("loadedmetadata", () => { applyAV(v); tryResume(v); });
+  v.addEventListener("volumechange", () => { AV.v = v.volume; AV.m = v.muted; avSave(); syncMuteBtn(); });
+  v.addEventListener("ratechange", () => { if(v.src && !seekDrag && video() === v){ AV.r = v.playbackRate || 1; avSave(); const b = $("#plRate"); if(b) b.textContent = (AV.r === 1 ? "1×" : AV.r + "×"); } });
   v.addEventListener("ended", () => {
     if(P.open){ megaNext(); return; }
     const s = byId[P.sid]; if(!s) return;
@@ -1516,6 +1585,7 @@ function openPlayer(sid, epN){
   const s = byId[sid];
   const { chain, ep } = buildChain(sid, epN);
   P.open = false; P.sid = sid; P.ep = epN; P.chain = chain; P.chainEp = ep; P.reasons = []; P.confirmed = false;
+  msMeta(s.t + " · серия " + epN, s.o + " · " + s.y);
   $("#plOv").classList.remove("hidden");
   document.body.style.overflow = "hidden";
   $("#plTitle").innerHTML = `${esc(s.t)} <small>· серия ${epN} из ${s.M}</small>`;
@@ -1534,6 +1604,7 @@ function closePlayer(){ routeBack(); }
 function closePlayerNow(){
   unmountAll();
   P.open = false; P.cur = null; P.confirmed = false;
+  msClear();
   $("#plOv").classList.add("hidden");
   document.body.style.overflow = "";
   renderRows(); renderGrid(); renderFav(); renderCont();
@@ -1558,6 +1629,106 @@ function stepEp(dir){
 }
 $("#plPrev").onclick = () => { if(P.open) return megaPrev(); stepEp(-1); };
 $("#plNext").onclick = () => { if(P.open) return megaNext(); stepEp(1); };
+
+/* ---------- М4: скорость воспроизведения — 1× → 1.25× → 1.5× → 2× → 0.75× ---------- */
+const RATES = [1, 1.25, 1.5, 2, 0.75];
+function cycleRate(){
+  const i = RATES.indexOf(+AV.r);
+  AV.r = RATES[(i + 1) % RATES.length]; avSave();
+  applyAV(video());
+  const b = $("#plRate"); if(b) b.textContent = (AV.r === 1 ? "1×" : AV.r + "×");
+  toast("Скорость: " + (AV.r === 1 ? "обычная" : AV.r + "×") + " — запомню");
+}
+$("#plRate").onclick = cycleRate;
+
+/* ---------- М4: «Мои данные» — прогресс/избранное/очередь переезжают с тобой ---------- */
+function dataCollect(){
+  return { v: 4, at: Date.now(), site: "lakornia-megamp",
+    prog: store.prog, fav: store.fav, dead: store.dead, rutag: store.ruTag, custom: store.custom,
+    queue: MEGA.queue.slice(0, 300), hist: MEGA.hist.slice(0, 50) };
+}
+function dataExportFile(){
+  const blob = new Blob([JSON.stringify(dataCollect())], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "lakornia-data-" + new Date().toISOString().slice(0, 10) + ".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast("Файл с твоими данными скачан — перенеси на другое устройство");
+}
+async function dataExportCode(){
+  const j = JSON.stringify(dataCollect());
+  try{ await navigator.clipboard.writeText(j); toast("Код данных в буфере — вставь его в «Влить данные» на другом устройстве"); }
+  catch(e){ toast("Браузер не дал буфер — качай файлом, он то же самое"); }
+}
+function dataImportRaw(text){
+  let j = null;
+  try{ j = JSON.parse(String(text || "").trim()); }catch(e){}
+  if(!j || typeof j !== "object" || (!j.prog && !j.fav && !j.custom)) return toast("Не похоже на код ЛАКОРНИИ — нужен экспорт с этого сайта");
+  Object.keys(j.prog || {}).forEach(sid => {   // прогресс: побеждает более свежая отметка
+    const dst = store.prog[sid] = store.prog[sid] || {};
+    Object.keys(j.prog[sid] || {}).forEach(n => {
+      const a = j.prog[sid][n], b = dst[n];
+      if(a && (!b || (a.at || 0) >= (b.at || 0))) dst[n] = a;
+    });
+  });
+  Object.keys(j.fav || {}).forEach(k => { store.fav[k] = 1; });
+  Object.keys(j.dead || {}).forEach(k => { const a = j.dead[k]; if(!store.dead[k] || (a && (a.at || 0) >= (store.dead[k].at || 0))) store.dead[k] = a; });
+  Object.keys(j.rutag || {}).forEach(k => { store.ruTag[k] = j.rutag[k]; });
+  Object.keys(j.custom || {}).forEach(sid => {
+    const dst = store.custom[sid] = store.custom[sid] || {};
+    Object.keys(j.custom[sid] || {}).forEach(n => {
+      const a = j.custom[sid][n], b = dst[n];
+      if(a && (!b || (a.at || 0) >= (b.at || 0))) dst[n] = a;
+    });
+  });
+  (j.queue || []).forEach(it => { if(it && it.u && !MEGA.queue.some(x => x.u === it.u)) MEGA.queue.push(it); });
+  (j.hist || []).forEach(h => {
+    if(!h || !h.u) return;
+    const old = MEGA.hist.find(x => x.u === h.u);
+    if(!old || (h.at || 0) > (old.at || 0)){ MEGA.hist = MEGA.hist.filter(x => x.u !== h.u); MEGA.hist.push(h); }
+  });
+  MEGA.hist.sort((a, b) => (b.at || 0) - (a.at || 0));
+  store.save(); MEGA.save();
+  renderRows(); renderGrid(); renderFav(); renderCont(); renderMegaUI();
+  toast("Данные влиты: избранное, прогресс и очередь переехали");
+  return true;
+}
+function dataImportDialog(){
+  const ov = $("#ov2");
+  ov.classList.remove("hidden");
+  ov.innerHTML = `
+  <div class="sheet le-sheet" onclick="event.stopPropagation()">
+    <button class="x-close" onclick="closeLe()">✕</button>
+    <div class="le-body">
+      <h3 style="font:900 18px/1.2 serif">⬆ Влить мои данные</h3>
+      <div class="le-note">Вставь код данных (скопированный на другом устройстве) — или выбери файл lakornia-data-*.json. Ничего не затрётся насильно: у каждой записи побеждает более свежая отметка времени.</div>
+      <textarea class="le-mass" id="diTa" style="min-height:110px;margin-top:12px" placeholder='{"v":4,"site":"lakornia-megamp",…}'></textarea>
+      <div class="le-row" style="margin-top:11px">
+        <button class="btn btn-play" id="diGo" style="padding:10px 18px">⬆ Влить</button>
+        <label class="btn btn-ghost" style="padding:10px 18px;cursor:pointer">📁 Файлом<input type="file" id="diFile" accept=".json,application/json" style="display:none"></label>
+        <button class="btn btn-ghost" id="diCancel" style="padding:10px 18px">Отмена</button>
+      </div>
+      <div id="diRes" class="le-note"></div>
+    </div>
+  </div>`;
+  ov.onclick = e => { if(e.target === ov) closeLe(); };
+  $("#diCancel").onclick = closeLe;
+  $("#diGo").onclick = () => {
+    const txt = $("#diTa").value;
+    if(!txt.trim()) return toast("Сначала вставь код или выбери файл");
+    if(dataImportRaw(txt)) closeLe();
+  };
+  $("#diFile").onchange = e => {
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = () => { if(dataImportRaw(r.result)) closeLe(); };
+    r.readAsText(f);
+  };
+}
+$("#deFile").onclick = dataExportFile;
+$("#deCode").onclick = dataExportCode;
+$("#dePaste").onclick = dataImportDialog;
 
 /* ---------- линк-редактор ---------- */
 function openLinkEditor(){
@@ -1796,6 +1967,7 @@ function stuRender(){
     const q = STU.q.toLowerCase();
     list = list.filter(x => (x.n + " " + x.u).toLowerCase().includes(q));
   }
+  renderStuRegs(list.length, STU.rows.length);
   $("#stuCount").textContent = STU.rows.length + " видео-платформ";
   const show = list.slice(0, STU.page * STU.per);
   $("#stuGrid").innerHTML = show.map(x => `
@@ -1808,6 +1980,23 @@ function stuRender(){
       </div>
     </div>`).join("") || `<div class="le-note">Никого не нашлось — смягчи фильтры.</div>`;
   $("#stuMore").classList.toggle("hidden", show.length >= list.length);
+}
+
+/* М4: СТУДИИ-глубина — регионы кликабельны, счётчики честные.
+   shown = сколько осталось после фильтров статуса/поиска (без региона),
+   total = вся база: счётчики регионов не зависят от активного региона. */
+function renderStuRegs(shown, total){
+  const wrap = $("#stuRegs"); if(!wrap || !STU.rows) return;
+  const counts = {};
+  STU.rows.forEach(x => { if(STU.st === "active" && !(x.s === "active" || x.s === "redirected")) return; counts[x.r] = (counts[x.r] || 0) + 1; });
+  const regs = Object.keys(counts).sort((a,b) => counts[b] - counts[a] || a.localeCompare(b, "ru"));
+  wrap.innerHTML = `<button class="f-chip ${STU.reg ? "" : "on"}" data-reg="">Все <span class="cnt">${shown}</span></button>` +
+    regs.map(r => `<button class="f-chip ${STU.reg === r ? "on" : ""}" data-reg="${esc(r)}">${esc(r)} <span class="cnt">${counts[r]}</span></button>`).join("");
+  wrap.querySelectorAll("[data-reg]").forEach(b => b.onclick = () => {
+    STU.reg = b.dataset.reg; STU.page = 1; stuSave();
+    const sel = $("#stuReg"); if(sel) sel.value = STU.reg;
+    stuRender();
+  });
 }
 
 /* ---------- табы ---------- */
@@ -1919,6 +2108,8 @@ function boot(){
   $("#sortBy").onchange = e => { F.sort = e.target.value; F.page = 1; renderGrid(); };
   $("#stuQ").value = STU.q;
   $$("#stuPage .f-chip").forEach(x => x.classList.toggle("on", x.dataset.st === STU.st));
+  const rb = $("#plRate"); if(rb) rb.textContent = (AV.r === 1 ? "1×" : AV.r + "×");
+  wireMediaSession();
   wirePWA(); wireSW(); wireNet();
   routeApply();
 }
