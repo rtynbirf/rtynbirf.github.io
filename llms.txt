@@ -1,0 +1,13 @@
+# rtynbirf.github.io
+
+> MEGA-PLAYER SINGULYAR: universal autopilot video player
+
+## Core Resources
+
+- [GitHub Repository](https://github.com/rtynbirf/rtynbirf.github.io): Source code, documentation, and issue tracker.
+- [Website](https://rtynbirf.github.io): Official website and documentation.
+
+## AI Agent & LLM Indexing
+
+- Structured following the standard /llms.txt specification for AI search engines and coding assistants.
+- Validated via [AccessGuard AI-Readiness Suite](https://ronanchnlps-bit.github.io/).
