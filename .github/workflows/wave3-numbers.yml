@@ -1,0 +1,30 @@
+name: wave3-numbers
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  numbers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Живые числа из GitHub API (numbers.json на сборке сайта)
+        run: python3 scripts/gen_numbers.py --out numbers.json
+
+      - name: Закрепить numbers.json в репо
+        run: |
+          if [ -n "$(git status --porcelain numbers.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add numbers.json
+            git commit -m "wave3: живые числа сайта из API на день сборки"
+            git push
+          else
+            echo "числа не изменились"
+          fi
+
+      - name: Гейт устаревших чисел (grep '25 реп' пуст)
+        run: python3 scripts/gen_numbers.py --check-index index.html

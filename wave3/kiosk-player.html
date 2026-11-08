@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Киоск-плеер · Волна ×3</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #0b0e14; color: #e8ecf2; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  video { width: 100%; border-radius: 8px; background: #000; }
+  /* Видимый фокус — обязательное a11y-требование киоска (критерий 2). */
+  :focus-visible { outline: 3px solid #ffd166; outline-offset: 2px; }
+  .kiosk-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .kiosk-bar button {
+    font: inherit; padding: 10px 14px; border-radius: 8px; cursor: pointer;
+    background: #1c2431; color: #e8ecf2; border: 1px solid #33405a; min-width: 44px; min-height: 44px;
+  }
+  .kiosk-bar button:hover { background: #26334a; }
+  .hud { margin-top: 10px; font-size: 0.95rem; color: #aab6c9; }
+  .hud b { color: #7ee787; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Киоск-плеер · MEGA-PLAYER SINGULYAR</h1>
+  <p>Слой 1 — Media Session (аппаратные клавиши и локскрин), слой 2 — клавиатурная карта,
+     слой 3 — гистерезис автопаузы. Файл аддитивный: index.html и другие страницы сайта не тронуты.</p>
+
+  <video id="player" playsinline preload="metadata"></video>
+
+  <!-- Роль toolbar и подписи каждой кнопки — контур скринридера и Tab-порядок = DOM-порядок. -->
+  <div class="kiosk-bar" role="toolbar" aria-label="Управление плеером">
+    <button type="button" id="b-toggle"   aria-label="Воспроизвести или пауза (пробел/K)">▶/⏸</button>
+    <button type="button" data-seek="-10" aria-label="Назад на 10 секунд (J)">⏪10</button>
+    <button type="button" data-seek="10"  aria-label="Вперёд на 10 секунд (L)">⏩10</button>
+    <button type="button" data-seek="-5"  aria-label="Назад на 5 секунд (стрелка влево)">⏪5</button>
+    <button type="button" data-seek="5"   aria-label="Вперёд на 5 секунд (стрелка вправо)">⏩5</button>
+    <button type="button" id="b-mute"     aria-label="Выключить или включить звук (M)">🔊</button>
+    <button type="button" id="b-full"     aria-label="Полный экран (F)">⛶</button>
+  </div>
+
+  <!-- aria-live: статус автопилота объявляется скринридером без перехвата фокуса. -->
+  <p class="hud">Автопилот: <output id="hud-state" aria-live="polite">играет</output>
+     · сигнал: <output id="hud-level">—</output>
+     <button type="button" id="b-demo" aria-label="Демо-симуляция сигнала у порога автопаузы">Сигнал у порога (демо)</button></p>
+</main>
+
+<script src="wave3/keyboard-map.js"></script>
+<script>
+(function () {
+  'use strict';
+  var player = document.getElementById('player');
+  var K = window.KioskKeyboard;
+  var hud = document.getElementById('hud-state');
+
+  // Слой 2: регистрация обработчиков карты клавиш — ровно один на действие.
+  K.on('toggle', function (p) { if (p.paused) p.play(); else p.pause(); });
+  K.on('seekBy', function (p, s) { p.currentTime = Math.max(0, Math.min(p.duration || 0, p.currentTime + s)); });
+  K.on('seekPercent', function (p, pc) { if (p.duration) p.currentTime = p.duration * pc / 100; });
+  K.on('volumeBy', function (p, d) { p.volume = Math.max(0, Math.min(1, p.volume + d)); });
+  K.on('mute', function (p) { p.muted = !p.muted; });
+  K.on('fullscreen', function (p) {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else (p.requestFullscreen ? p.requestFullscreen() : null);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (K.dispatchKey(e, player)) e.preventDefault();
+  });
+
+  // Кнопки панели дублируют карту клавиш (мышь/тач), порядок Tab = DOM-порядок.
+  document.getElementById('b-toggle').addEventListener('click', function () { K.dispatchKey({ code: 'Space', target: document.body, ctrlKey: 0, altKey: 0, metaKey: 0 }, player); });
+  document.getElementById('b-mute').addEventListener('click', function () { K.dispatchKey({ code: 'KeyM', target: document.body, ctrlKey: 0, altKey: 0, metaKey: 0 }, player); });
+  document.getElementById('b-full').addEventListener('click', function () { K.dispatchKey({ code: 'KeyF', target: document.body, ctrlKey: 0, altKey: 0, metaKey: 0 }, player); });
+  document.querySelectorAll('button[data-seek]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var s = Number(b.dataset.seek);
+      player.currentTime = Math.max(0, Math.min(player.duration || 0, player.currentTime + s));
+    });
+  });
+
+  // Слой 1: Media Session — метаданные и 7 хендлеров аппаратных клавиш.
+  K.attachMediaSession(player, {
+    title: 'MEGA-PLAYER SINGULYAR · автопилот',
+    artist: 'rtynbirf.github.io',
+    album: 'Киоск-контур · волна ×3',
+    artwork: [{ src: 'icon-512.png', sizes: '512x512', type: 'image/png' }]
+  });
+
+  // Слой 3: гистерезис автопаузы на сигнале у порога (демо-генератор, 5 Гц вокруг quietEnter).
+  var state = { playing: true, candidateSince: null }, t0 = null, demo = null;
+  document.getElementById('b-demo').addEventListener('click', function () {
+    t0 = performance.now(); demo = !demo;
+  });
+  setInterval(function () {
+    var level;
+    if (demo && t0 !== null) level = K.HYST.quietEnter - 0.03 * Math.sin(2 * Math.PI * (performance.now() - t0) / 200);
+    else level = player.paused ? 0.02 : 0.5;
+    var act = K.autopause(state, level, performance.now());
+    document.getElementById('hud-level').textContent = level.toFixed(2);
+    if (act !== 'none') {
+      hud.textContent = state.playing ? 'играет' : 'пауза (автопилот)';
+      if (act === 'play' && player.paused) player.play();
+      if (act === 'pause' && !player.paused) player.pause();
+    }
+  }, 50);
+})();
+</script>
+</body>
+</html>

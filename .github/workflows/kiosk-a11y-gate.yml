@@ -1,0 +1,127 @@
+name: kiosk-a11y-gate
+# Волна ×3 · W3-E (добивание) · A11y-гейт киоск-плеера (предложение rtynbirf.github.io#4).
+# Слой 3 «Киоск-контура»: (1) статический a11y-линт страницы и карты клавиш,
+# (2) исполняемый юнит-тест на Node: 7 хендлеров Media Session, «каждая клавиша —
+# ровно один обработчик», гистерезис автопаузы на 1000 точках (критерии 1 и 3).
+# Lighthouse/axe требуют браузерного рантайма и сторонних экшенов — правилами волны
+# запрещены, поэтому здесь детерминированный stdlib-гейт; Lighthouse CI — честный остаток.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Синтаксис переносимого куска
+        run: node --check wave3/keyboard-map.js
+
+      - name: Статический a11y-линт киоск-плеера и карты клавиш
+        run: |
+          python3 - <<'PY'
+          import re, sys, pathlib
+          html = pathlib.Path('wave3/kiosk-player.html').read_text(encoding='utf-8')
+          js = pathlib.Path('wave3/keyboard-map.js').read_text(encoding='utf-8')
+          errs = []
+          def need(cond, msg):
+              if not cond: errs.append(msg)
+          need('<html lang="ru"' in html, 'нет lang="ru" на <html>')
+          need('charset' in html, 'нет <meta charset>')
+          need(':focus-visible' in html, 'нет видимого стиля :focus-visible')
+          need('aria-live' in html, 'нет aria-live для статуса автопилота')
+          need('role="toolbar"' in html, 'нет role="toolbar" у панели управления')
+          buttons = re.findall(r'<button[^>]*>', html)
+          need(len(buttons) >= 7, 'в контрол-баре меньше 7 кнопок')
+          for b in buttons:
+              need('aria-label' in b, 'кнопка без aria-label: ' + b[:70])
+          need('tabindex="' not in html, 'ручной tabindex ломает естественный порядок фокуса')
+          # Карта клавиш: клавиши уникальны, каждая ведёт ровно к одному действию.
+          pairs = re.findall(r"'([A-Za-z0-9]+)':\s*\{\s*action:\s*'([A-Za-z]+)'", js)
+          keys = [k for k, _ in pairs]
+          dupes = sorted(set(k for k in keys if keys.count(k) > 1))
+          need(not dupes, 'дубликаты клавиш в KEY_MAP: ' + ', '.join(dupes))
+          for act in ('toggle', 'seekBy', 'volumeBy', 'mute', 'fullscreen'):
+              need(any(a == act for _, a in pairs), 'в таблице нет действия ' + act)
+          # Цифры 0-9 генерируются циклом — проверяем и форму записи, и действие.
+          need("KEY_MAP['Digit' + i]" in js and 'seekPercent' in js,
+               'нет переходов по проценту длительности (0-9, seekPercent)')
+          for m in ('play', 'pause', 'stop', 'previoustrack', 'nexttrack', 'seekforward', 'seekbackward'):
+              need(m in js, 'mediaSession: не зарегистрирован хендлер ' + m)
+          if errs:
+              print('A11Y-ГЕЙТ: нарушения:')
+              for e in errs: print(' -', e)
+              sys.exit(1)
+          print('A11Y-ГЕЙТ: OK — кнопок: %d, клавиш карты: %d, mediaSession-действий: 7' % (len(buttons), len(pairs)))
+          PY
+
+      - name: Юнит-гейт киоск-контура (Media Session, карта клавиш, гистерезис)
+        run: |
+          cat > /tmp/kiosk-player.test.mjs <<'JS'
+          import test from 'node:test';
+          import assert from 'node:assert/strict';
+          import { pathToFileURL } from 'node:url';
+          await import(pathToFileURL(process.cwd() + '/wave3/keyboard-map.js'));
+          const KK = globalThis.KioskKeyboard;
+          const EVENT = (code) => ({ code, ctrlKey: false, altKey: false, metaKey: false, target: { tagName: 'BODY' } });
+          const PLAYER = () => ({ calls: [], currentTime: 0, duration: 100, volume: 0.5, muted: false,
+            play() { this.calls.push('play'); }, pause() { this.calls.push('pause'); } });
+
+          test('каждая клавиша карты вызывает ровно один обработчик', () => {
+            const keys = Object.keys(KK.KEY_MAP);
+            assert.ok(keys.length >= 20, 'ожидаются Space/K/J/L/стрелки/M/F и цифры 0-9');
+            for (let i = 0; i <= 9; i++) assert.equal(KK.KEY_MAP['Digit' + i].action, 'seekPercent');
+            const actions = [...new Set(Object.values(KK.KEY_MAP).map((b) => b.action))];
+            const calls = {};
+            for (const a of actions) KK.on(a, () => { calls[a] = (calls[a] || 0) + 1; });
+            for (const key of keys) {
+              for (const a of actions) delete calls[a];
+              assert.equal(KK.dispatchKey(EVENT(key), PLAYER()), true, key + ' не обработана');
+              const total = Object.values(calls).reduce((s, n) => s + n, 0);
+              assert.equal(total, 1, key + ' вызвала обработчиков: ' + total);
+              assert.equal(calls[KK.KEY_MAP[key].action], 1, 'у ' + key + ' вызван чужой обработчик');
+            }
+            assert.equal(KK.dispatchKey({ ...EVENT('Space'), ctrlKey: true }, PLAYER()), false);
+            assert.equal(KK.dispatchKey({ ...EVENT('Space'), target: { tagName: 'INPUT' } }, PLAYER()), false);
+          });
+
+          test('setActionHandler зарегистрирован для 7 обязательных действий', () => {
+            const registered = {};
+            Object.defineProperty(globalThis, 'window', { value: globalThis, configurable: true });
+            globalThis.MediaMetadata = class { constructor(init) { this.init = init; } };
+            Object.defineProperty(globalThis, 'navigator', { configurable: true, value: {
+              mediaSession: { setActionHandler: (name, fn) => { registered[name] = fn; } } } });
+            try {
+              const player = PLAYER();
+              assert.equal(KK.attachMediaSession(player, { title: 'T', artist: 'A', album: 'Al', artwork: [] }), true);
+              for (const a of KK.MEDIA_ACTIONS) assert.equal(typeof registered[a], 'function', a);
+              registered.play(); assert.deepEqual(player.calls, ['play']);
+              registered.pause(); assert.deepEqual(player.calls, ['play', 'pause']);
+              player.currentTime = 90; registered.seekbackward({ seekOffset: 10 });
+              assert.equal(player.currentTime, 80);
+              registered.stop(); assert.equal(player.currentTime, 0);
+            } finally {
+              delete globalThis.MediaMetadata; delete globalThis.navigator; delete globalThis.window;
+            }
+            assert.equal(KK.attachMediaSession(PLAYER(), {}), false, 'без navigator ожидается честный false');
+          });
+
+          test('гистерезис: 1000 точек у порога — 0 переключений за 2 с; скачок — пауза ≤400 мс', () => {
+            const state = { playing: true, candidateSince: null };
+            let switches = 0;
+            for (let i = 0; i < 1000; i++) {
+              const level = KK.HYST.quietEnter + 0.02 * Math.sin((2 * Math.PI * i * 2) / 200);
+              if (KK.autopause(state, level, i * 2) !== 'none') switches += 1;
+            }
+            assert.equal(switches, 0, 'дребезг у порога: ' + switches);
+            assert.equal(KK.autopause({ playing: true, candidateSince: null }, 0.0, 0), 'pause');
+            const s2 = { playing: true, candidateSince: null };
+            assert.equal(KK.autopause(s2, KK.HYST.quietEnter - 0.005, 0), 'none');
+            assert.equal(KK.autopause(s2, KK.HYST.quietEnter - 0.005, 799), 'none');
+            assert.equal(KK.autopause(s2, KK.HYST.quietEnter - 0.005, 800), 'pause');
+          });
+          JS
+          node --test /tmp/kiosk-player.test.mjs
