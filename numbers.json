@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-11-08T19:13:19Z",
+  "source": {
+    "api": "https://api.github.com/users/rtynbirf",
+    "catalog": null
+  },
+  "public": {
+    "login": "rtynbirf",
+    "repos": 27
+  },
+  "clusters": {},
+  "notes": "(заполняется скриптом scripts/gen_numbers.py при каждом прогоне; clusters — при вложении catalog.json роя в сборку)"
+}
