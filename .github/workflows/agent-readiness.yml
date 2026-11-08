@@ -1,0 +1,44 @@
+# Волна ×5 · Э-2.6 (#1) · агент-читаемость rtynbirf.github.io
+# Свой статический аудит agent-readiness: llms.txt/lang/viewport/aria/alt/CLS/h1.
+# Не дублирует kiosk-a11y-gate (тот — про человеческую a11y киоска).
+# Дом concurrency — свой: wave5-agent-readiness.
+
+name: agent-readiness
+
+on:
+  schedule:
+    # воскресенье 07:00 UTC — еженедельный аудит агент-читаемости
+    - cron: '0 7 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wave5-agent-readiness
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    name: Аудит агент-читаемости (гейт 60)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Самопроверка на синтетике (без сети)
+        run: python3 tools/agent_readiness.py --selftest
+
+      - name: Живой аудит четырёх страниц роя
+        shell: bash
+        run: |
+          set +e
+          python3 tools/agent_readiness.py --root . \
+            --pages index.html,elevator-26.html,lacornia.html,wave3/kiosk-player.html \
+            > /tmp/agent-readiness-report.md 2>&1
+          code=$?
+          cat /tmp/agent-readiness-report.md >> "$GITHUB_STEP_SUMMARY"
+          cat /tmp/agent-readiness-report.md
+          echo "exit код аудита: $code"
+          exit $code
