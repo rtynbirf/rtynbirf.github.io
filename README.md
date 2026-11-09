@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="banner.png" alt="rtynbirf.github.io — MEGA-PLAYER SINGULYAR — универсальный видеоплеер на автопилоте" width="100%">
+</div>
+
 # ЛАКОРНИЯ · MEGA-PLAYER SINGULYAR
 
 <p align="center"><img src=".github/social-preview.png" alt="rtynbirf.github.io" width="100%"></p>
