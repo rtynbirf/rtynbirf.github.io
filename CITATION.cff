@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "Если используете этот проект, процитируйте его так."
+title: "rtynbirf.github.io"
+abstract: "MEGA-PLAYER SINGULYAR: universal autopilot video player"
+authors:
+  - name: "Полимат-Универсум (rtynbirf)"
+repository-code: "https://github.com/rtynbirf/rtynbirf.github.io"
+license: "MIT"
