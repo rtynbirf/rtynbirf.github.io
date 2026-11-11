@@ -2,6 +2,15 @@
   <img src="banner.png" alt="rtynbirf.github.io — MEGA-PLAYER SINGULYAR — универсальный видеоплеер на автопилоте" width="100%">
 </div>
 
+<!--ФОРЖ:МУЗА:НАЧАЛО-->
+<div align="center">
+  <img src="repo-muse.svg" width="100%" alt="Муза rtynbirf.github.io: картина кузни ПОЛИМАТ, раунд 8" />
+  <br/>
+  <img src="forge-divider.svg" width="62%" alt="разделитель кузни ПОЛИМАТ" />
+</div>
+<!--ФОРЖ:МУЗА:КОНЕЦ-->
+
+
 # ЛАКОРНИЯ · MEGA-PLAYER SINGULYAR
 
 <p align="center"><img src=".github/social-preview.png" alt="rtynbirf.github.io" width="100%"></p>
@@ -37,3 +46,10 @@
   версия-строка внутри кода — `2.5.1` (вероятная версия библиотеки, не подтверждена).
   При обновлении брать официальный бандл со страницы релизов
   <https://github.com/webtorrent/webtorrent/releases> и обновлять хеш в этом разделе.
+
+<!--ФОРЖ:ПОДВАЛ-->
+---
+
+<div align="center">
+  <sub>◆ картина и штандарт — ручная ковка <a href="https://github.com/rtynbirf">КУЗНИ ПОЛИМАТ</a> · ЧЕЛОВЕК=АККАУНТ=PID1 ◆</sub>
+</div>
