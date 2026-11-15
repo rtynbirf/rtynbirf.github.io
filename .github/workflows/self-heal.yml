@@ -33,6 +33,8 @@ on:
       - "pages-build-deployment"
       - "wave3-numbers"
       - "ПУЛЬС v2 — еженедельный самоаудит"
+      - "РЕВО ОБХОД"
+      - "Workflow security lint (zizmor)"
     types: [completed]
 permissions:
   actions: write
