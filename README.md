@@ -48,6 +48,17 @@
   При обновлении брать официальный бандл со страницы релизов
   <https://github.com/webtorrent/webtorrent/releases> и обновлять хеш в этом разделе.
 
+## Карта файлов
+
+- `lacornia.html` — ЛАКОРНИЯ · МЕГАМЕТАПЛЕЕР: каталог лакорнов BL/GL, открытая сцена для любой ссылки и индекс студий мира; всё в одном окне, офлайн после первого визита.
+- `elevator-26.html` — ЭЛЕВАТОР-26: спуск на Social-превью за одну минуту (страница-помощник).
+- `assets/hero.jpg`, `assets/covers/*.jpg` — обложки витрин (cell-swarm, neutral-browser, polymath-gen, singulyar, tools-atlas, voice-atlas).
+- `manifest.webmanifest`, `icon-192.png`, `icon-512.png` — оболочка PWA: офлайн-режим и установка на домашний экран.
+
+## Дом
+
+- Ядро дома — [polymath-core](https://github.com/rtynbirf/polymath-core); живой реестр аккаунта — [index](https://github.com/rtynbirf/index).
+
 <!--ФОРЖ:ПОДВАЛ-->
 ---
 
