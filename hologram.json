@@ -2,7 +2,7 @@
  "hologram": 1,
  "root": "c223bd4a2f6a56783c1fbdb1b1f671fa61c3150ecf320c82796ea5763043a696",
  "n": 73,
- "storage": 68,
+ "storage": 36,
  "r": 3,
  "self": {
   "name": "rtynbirf.github.io",
@@ -306,6 +306,12 @@
  ],
  "flesh": [
   {
+   "name": "cell65-host",
+   "desc": "cell65-host — Антицензор (Chrome MV3): PAC/DNR/WebRTC-защита, hosts-блокировка, обход блокировок",
+   "lang": "JavaScript",
+   "cluster": "OS"
+  },
+  {
    "name": "combain-v2",
    "desc": "COMBAIN v2 — self-hosted messenger",
    "lang": "JavaScript",
@@ -315,6 +321,24 @@
    "name": "ekonomika",
    "desc": "КНИГА ЭКОНОМИКИ",
    "lang": "Python",
+   "cluster": ""
+  },
+  {
+   "name": "lex-naturae",
+   "desc": "Lex Naturae — claim/evidence ledger. Separates observations from hypotheses, philosophical principles and institutional rules. Machine-verifiable: CSV cell extraction, excerpt verification, SHA-256 ar",
+   "lang": "Python",
+   "cluster": ""
+  },
+  {
+   "name": "neutral-browser",
+   "desc": "Neutral Browser — НЕЙТРАЛЬНЫЙ БРАУЗЕР ПОЛЬЗОВАТЕЛЯ",
+   "lang": "Rust",
+   "cluster": "OS"
+  },
+  {
+   "name": "uace",
+   "desc": "КНИГА UACE",
+   "lang": "JavaScript",
    "cluster": ""
   }
  ]
