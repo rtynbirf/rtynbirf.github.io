@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="banner.png" alt="rtynbirf.github.io — MEGA-PLAYER SINGULYAR — универсальный видеоплеер на автопилоте" width="100%">
+  <img src="https://cdn.jsdelivr.net/gh/rtynbirf/rtynbirf.github.io@main/banner.png" alt="rtynbirf.github.io — MEGA-PLAYER SINGULYAR — универсальный видеоплеер на автопилоте" width="100%">
 </div>
 
 <!--ФОРЖ:МУЗА:НАЧАЛО-->
 <div align="center">
-  <img src="repo-muse.svg" width="100%" alt="Муза rtynbirf.github.io: мастерская ХОКУСАЙ · ВОЛНА, кузня ПОЛИМАТ, раунд 12 · REVE=РЕВО" />
+  <img src="https://cdn.jsdelivr.net/gh/rtynbirf/rtynbirf.github.io@main/repo-muse.svg" width="100%" alt="Муза rtynbirf.github.io: мастерская ХОКУСАЙ · ВОЛНА, кузня ПОЛИМАТ, раунд 12 · REVE=РЕВО" />
   <br/>
-  <img src="forge-divider.svg" width="62%" alt="делитель мастерской ХОКУСАЙ · ВОЛНА" />
+  <img src="https://cdn.jsdelivr.net/gh/rtynbirf/rtynbirf.github.io@main/forge-divider.svg" width="62%" alt="делитель мастерской ХОКУСАЙ · ВОЛНА" />
 </div>
 <!--ФОРЖ:МУЗА:КОНЕЦ-->
 
@@ -24,7 +24,7 @@
 
 # ЛАКОРНИЯ · MEGA-PLAYER SINGULYAR
 
-<p align="center"><img src=".github/social-preview.png" alt="rtynbirf.github.io" width="100%"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/rtynbirf/rtynbirf.github.io@main/.github/social-preview.png" alt="rtynbirf.github.io" width="100%"></p>
 
 
 
