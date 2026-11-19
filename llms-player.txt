@@ -1,0 +1,37 @@
+# rtynbirf.github.io
+> MEGA-PLAYER SINGULYAR: universal autopilot video player
+
+Автоген 2026-11-08 · источник: живой GitHub API (номера и файлы не руками) · владелец rtynbirf · ветка `main`
+
+## Мембрана
+- README.md — для человека (ЛАКОРНИЯ · MEGA-PLAYER SINGULYAR)
+- AGENTS.md — есть
+- LICENSE — MIT
+- topics: github-pages, javascript, media-player, offline-first, pwa, ruvson, streaming, video-player, webtorrent
+
+## Карта корня
+- .github/
+- .gitignore
+- AGENTS.md
+- CODEOWNERS
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+- LICENSE
+- PULSE.md
+- README.md
+- SECURITY.md
+- assets/
+- icon-192.png
+- icon-512.png
+- index.html
+- lacornia.html
+- … ещё 3
+
+## CI
+- workflow: pages
+- workflow: self-audit
+
+## Ссылки
+- [GitHub](https://github.com/rtynbirf/rtynbirf.github.io)
+- [README](https://github.com/rtynbirf/rtynbirf.github.io/blob/main/README.md)
+- [raw llms.txt](https://raw.githubusercontent.com/rtynbirf/rtynbirf.github.io/main/llms.txt)
